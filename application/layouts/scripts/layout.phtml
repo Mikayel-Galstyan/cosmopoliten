@@ -1,0 +1,52 @@
+<!DOCTYPE>
+<html>
+<head>
+    <?php 
+        $jsHelper = $this->getHelper('js');
+        $jsHelper->urlChecker();
+        echo $this->headMeta();        
+    ?>
+    <title><?php echo $this->translate('project.name')?></title>
+    <base href="<?php echo $this->baseUrl(); ?>" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />  
+	<link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />	
+    <script>
+		if(location.href == '<?php echo $this->baseUrl(); ?>auth/login'){
+			location.href = '<?php echo $this->baseUrl(); ?>objects'
+		}
+	</script>   
+    <?php 
+    echo $this->headScript()
+    ->appendFile('js/jquery-1.8.2.min.js', 'text/javascript')
+    ->appendFile('js/jquery-ui-1.10.3.custom.min.js', 'text/javascript')    
+    ->appendFile('js/plugins/jquery.tablesorter.js', 'text/javascript')
+    ->appendFile('js/plugins/jquery.form.js', 'text/javascript')
+    ->appendFile('js/plugins/jquery.pnotify.min.js', 'text/javascript')
+    ->appendFile('js/plugins/history.js', 'text/javascript')
+    ->appendFile('js/plugins/jquery.mousewheel.js', 'text/javascript')
+    ->appendFile('js/plugins/custom.form.elements.js', 'text/javascript')
+    ->appendFile('js/plugins/jquery.jqtransform.js', 'text/javascript');        
+    ?>
+    <?php echo $this->action("index", "Jsmin"); ?>
+    </head>
+<body>
+    <div class="page_wrapper">
+	</div>
+	<div class="content_wrapper">
+		<div class="content_container">
+			<div class="leftHead">
+				<div class="ml5">
+					 <?php echo $this->action("login", "auth"); ?>
+				</div>
+				<div class="">
+					<?php echo $this->action("menu", "objects"); ?>
+				</div>
+			</div>
+			<div class="panel fl ml20">
+					 <?php echo $this->layout()->content; ?>
+			</div>
+		</div>
+		<div class="cl"></div>
+	</div>	
+</body>
+</html>

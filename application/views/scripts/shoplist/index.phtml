@@ -1,0 +1,41 @@
+<?php 
+    $this->setPageTitle('Shop List'); 
+    $formatting = $this->getHelper('DataFormatting');
+?>
+
+<div class="page_title">
+    <div><?php echo $this->translate('shopList');?></div>
+</div>
+
+<div class="table_wrapper ml20 mt20">
+    <?php if($this->isPublisher){ ?>
+        <a href="shoplist/add">add</a>
+    <?php } ?>    
+	<form action="shoplist/list" name="ajaxForm" id="ajaxForm">
+		<div class="mr5 fl">
+			<select name="publisherId" id="publisherId">
+				<option value="">--Select--</option>
+				<?php
+					foreach($this->items as $item){
+				?>
+					<option value="<?php echo $item->getId() ?>"><?php echo $this->translate($item->getName()); ?></option>
+				<?php
+					}
+				?>
+			</select>
+		</div>
+		<div>
+			<input type="button" onclick="Filter.submit('ajaxForm');return false;" value="filter">
+		</div>
+	</form>
+    <table class="mt20">
+    	<tbody>
+    		<tr class='panel'>
+    			<td><?php echo $this->action('list', 'shoplist');?></td>
+    		</tr>
+    	</tbody>
+    </table>
+    
+</div>
+
+

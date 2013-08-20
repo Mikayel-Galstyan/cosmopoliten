@@ -1,0 +1,32 @@
+<?php 
+    $this->setPageTitle('objectype'); 
+    $formatting = $this->getHelper('DataFormatting');
+?>
+<script>
+$(function(){
+    Grid.init('club/list');
+});
+
+</script>
+<div id="deleteFormDiv">
+
+</div>
+<?php if($this->isPublisher){ ?>
+    <a class="link" href="objecttype/add" >add</a>
+<?php } ?>
+<div class="page_title">
+    <div><?php echo $this->translate('objecttype');?></div>
+</div>
+
+<div class="table_wrapper ml20 mt20">
+    <table class="mt20">
+    	<tbody>
+    		<tr class='panel'>
+    			<td><?php echo $this->action('list', 'objecttype');?></td>
+    		</tr>
+    	</tbody>
+    </table>
+    
+</div>
+
+

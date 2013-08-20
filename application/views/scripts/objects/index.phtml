@@ -1,0 +1,68 @@
+<script>
+	$(function(){
+		$('.objectsTypesLink>a').click(function(){
+			$('#objectTypeId').attr('value',$(this).attr('data-id'));
+			Filter.submit('ajaxForm');
+		});
+	});
+</script>
+<div>
+    <form action="objects/list" name="ajaxForm" id="ajaxForm">
+        <div class="fl mr5">
+            <input type="hidden" name="objectTypeId" id="objectTypeId" value="">
+        </div>
+		<div class="fl mr5">
+            <select name="publisherId" id="publisherId">
+                <option value="">--Select--</option>
+                <?php
+                    foreach($this->publishers as $item){
+                ?>
+                    <option value="<?php echo $item->getId() ?>"><?php echo $this->translate($item->getName()); ?></option>
+                <?php
+                    }
+                ?>
+            </select>
+        </div>
+		<div class="fl mr5">
+            <select name="shopListId" id="shopListId">
+                <option value="">--Select--</option>
+                <?php
+                    foreach($this->shopList as $item){
+                ?>
+                    <option value="<?php echo $item->getId() ?>"><?php echo $this->translate($item->getName()); ?></option>
+                <?php
+                    }
+                ?>
+            </select>
+        </div>
+		<div class="fl mr5">
+			cost from
+		</div>
+		<div class="fl mr5">
+			<input class="w50" placeholder="min" name="costMin"/>
+		</div>
+		<div class="fl mr5">
+			to
+		</div>
+		<div class="fl mr5">
+			<input class="w50" placeholder="max" name="costMax"/>
+		</div>
+        <div class="fl mr5">
+            <input type="button" value="filter" onclick="Filter.submit('ajaxForm');return false;">
+        </div>
+    </form>
+    <?php if($this->isPublisher){ ?>
+        <a href="objects/add">add</a>
+    <?php } ?>
+    <table class="mt20">
+    	<tbody>
+    		<tr class="head">
+                <td>
+                </td>
+            </tr>
+    		<tr class='panel'>
+    			<td><?php echo $this->action('list', 'objects');?></td>
+    		</tr>
+    	</tbody>
+    </table>
+</div>

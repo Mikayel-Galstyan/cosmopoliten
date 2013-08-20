@@ -1,0 +1,132 @@
+/* Importing CSS styles
+---------------------------------------------------------------------------------------------------*/
+@import url("reset.css");
+@import url("const.css");
+@import url("icon.css");
+@import url("notifications.css");
+@import url("popup.css");
+@import url("addForm.css");
+@import url("jqtransform.css");
+/* Header
+---------------------------------------------------------------------------------------------------*/
+.page_wrapper{
+	position:relative;
+	height:50px;
+	width:100%;
+	background:gray;
+}
+
+/* Panel
+---------------------------------------------------------------------------------------------------*/
+.registr{
+	font-size:10px;
+}
+.panel{
+    position: relative;
+	margin-top: 10px;
+	border-radius:5;
+}
+tr[name=FillRateZoneClick] td
+{
+    cursor:pointer; 
+}
+body{
+	background : rgb(243, 243, 243);
+}
+.lefthead{
+	margin-top: 10px;
+	background:rgba(185, 185, 185, 0.48);
+	width:150px;
+	height:auto;
+	float:left;
+	border-radius:5;
+	padding-bottom:15px;
+}
+.forFInd{
+	display:none;
+}
+.nav>div{
+	width:135px;
+	border-bottom:1px solid rgb(190, 190, 190);
+	font-size:12px;
+}
+.nav>div:hover{
+	-webkit-box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow:    0px 1px 0px rgba(0, 0, 0, 0.75);
+	box-shadow:         0px 1px 0px rgba(0, 0, 0, 0.75);
+	width:135px;
+	border-bottom:1px solid rgb(129, 129, 129);
+	font-size:12px;
+	background: silver;
+}
+.nav>div>a{
+	padding:5px;
+	display:block;
+	width:130px;
+	height:21px;
+	border:0px;
+}
+.nav .selected{
+	background: silver;
+}
+/* Float
+---------------------------------------------------------------------------------------------------*/
+.fl{
+    float:left !important;
+}
+.fr{
+    float:right !important;
+}
+.cl{
+    clear:both !important;
+}
+/* Custom classes 
+---------------------------------------------------------------------------------------------------*/
+.center {
+    text-align: center;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block ;
+}
+.border{
+    border: 1px solid #888;
+}
+/* Errors classes 
+---------------------------------------------------------------------------------------------------*/
+.error-message{
+    color: red;
+    font-size:12px;
+    margin-top: 4px;
+    min-width: 200px;
+}
+.error{
+    border:1px solid red;    
+}
+
+.scroll .error-message {
+    width: 198px;
+}
+.edit_name{
+    font-size: 16px;
+    color: #999999;
+    line-height:40px;
+    display: inline-block;
+}
+
+/*links
+-----------------------------------*/
+.link{
+    color: gray;
+    text-decoration:none;
+    cursor:pointer;
+}
+.link:hover{
+    color: #386B00;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+

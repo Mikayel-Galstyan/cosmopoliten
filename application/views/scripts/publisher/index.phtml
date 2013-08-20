@@ -1,0 +1,29 @@
+<?php 
+    $this->setPageTitle('publishers'); 
+    $formatting = $this->getHelper('DataFormatting');
+?>
+<script>
+$(function(){
+    Grid.init('club/list');
+});
+
+</script>
+<div id="deleteFormDiv">
+
+</div>
+<div class="page_title">
+    <div><?php echo $this->translate('publishers');?></div>
+</div>
+
+<div class="table_wrapper ml20 mt20">
+    <table class="mt20">
+    	<tbody>
+    		<tr class='panel'>
+    			<td><?php echo $this->action('list', 'publisher');?></td>
+    		</tr>
+    	</tbody>
+    </table>
+    
+</div>
+
+
