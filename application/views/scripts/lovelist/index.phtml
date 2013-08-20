@@ -1,16 +1,21 @@
-<div id="ImageDiv" class="fl">
-	<span><img src="man/manikenGirl.jpg" style="z-index: 1;width:300px" id="templateMan"/></span>
-</div>
-<div class="fl">
-    <table class="mt20">
-    	<tbody>
-    		<tr class="head">
-                <td>
-                </td>
-            </tr>
-    		<tr class='panel'>
-    			<td><?php echo $this->action('list', 'lovelist');?></td>
-    		</tr>
-    	</tbody>
-    </table>
-</div>
+<?php if($this->items || $this->isAuth){ ?>
+    <div id="ImageDiv" class="fl">
+        <span><img src="<?php echo $this->img ?>" style="z-index: 1;width:300px" id="templateMan"/></span>
+    </div>
+    <div><a href="user/<?php echo $this->id ?>/edit" class="link">edit</a></div>
+    <div class="fl">
+        <table class="mt20">
+            <tbody>
+                <tr class="head">
+                    <td>
+                    </td>
+                </tr>
+                <tr class='panel'>
+                    <td><?php echo $this->action('list', 'lovelist');?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<?php }else{ ?>
+    please Login or registrate 
+<?php } ?>

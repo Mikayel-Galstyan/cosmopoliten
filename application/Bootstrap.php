@@ -162,6 +162,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		$router->addRoute('overview', new Zend_Controller_Router_Route(':controller/:id/overview',
             array('controller' => ':controller', 'action' => 'overview', 'id' => ':id'))
         );
+        $router->addRoute('index', new Zend_Controller_Router_Route(':controller/:objectTypeId/:type/index',
+            array('controller' => 'objects', 'action' => 'index', 'objectTypeId' => ':objectTypeId', 'type' => ':type'))
+        );
         $router->addRoute('delete', new Zend_Controller_Router_Route(':controller/:id/delete',
             array('controller' => ':controller','action' => 'delete','id' => ':id'))
         );

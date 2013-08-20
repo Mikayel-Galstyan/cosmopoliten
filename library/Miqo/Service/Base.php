@@ -265,7 +265,7 @@ abstract class Miqo_Service_Base {
             $userSession = new Miqo_Session_Base();
             $className = get_class($domain);
         } else {
-            $userSession = new TF_Session_Base();
+            $userSession = new Miqo_Session_Base();
             $message = 'User with id='.$userSession->get('authUser')->getId().' tries to get an item that does not exist in the database';
             throw new Miqo_Service_ItemNotExists($message);
         }

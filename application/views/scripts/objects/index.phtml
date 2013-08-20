@@ -9,7 +9,16 @@
 <div>
     <form action="objects/list" name="ajaxForm" id="ajaxForm">
         <div class="fl mr5">
-            <input type="hidden" name="objectTypeId" id="objectTypeId" value="">
+            <select name="objectTypeId" id="objectTypeId">
+                <option value="">--Select--</option>
+                <?php
+                    foreach($this->types as $item){
+                ?>
+                    <option value="<?php echo $item->getId() ?>" <?php echo ($this->objectTypeId==$item->getId())?'selected="selected"':''; ?>><?php echo $this->translate($item->getName()); ?></option>
+                <?php
+                    }
+                ?>
+            </select>
         </div>
 		<div class="fl mr5">
             <select name="publisherId" id="publisherId">
@@ -17,7 +26,7 @@
                 <?php
                     foreach($this->publishers as $item){
                 ?>
-                    <option value="<?php echo $item->getId() ?>"><?php echo $this->translate($item->getName()); ?></option>
+                    <option value="<?php echo $item->getId() ?>" <?php echo ($this->publisherId==$item->getId())?'selected="selected"':''; ?>><?php echo $this->translate($item->getName()); ?></option>
                 <?php
                     }
                 ?>
@@ -29,7 +38,7 @@
                 <?php
                     foreach($this->shopList as $item){
                 ?>
-                    <option value="<?php echo $item->getId() ?>"><?php echo $this->translate($item->getName()); ?></option>
+                    <option value="<?php echo $item->getId() ?>" <?php echo ($this->shopListId==$item->getId())?'selected="selected"':''; ?>><?php echo $this->translate($item->getName()); ?></option>
                 <?php
                     }
                 ?>
@@ -61,7 +70,87 @@
                 </td>
             </tr>
     		<tr class='panel'>
-    			<td><?php echo $this->action('list', 'objects');?></td>
+    			<td>
+                    <script>
+                        LoveListObject = {
+                            objectsCount : 0,
+                            addLovleList : function(id){
+                                $('#'+id).attr('class','selectedLoveList');
+                                //$('#'+id).attr('onclick','LoveListObject.deleteFromSaveList("'+id+'")');
+                                id = id.replace('add_','');
+                                str = '<input type="hidden" id="template_'+id+'" name="objectsIds[]" value="'+id+'"/>';
+                                $('#addForm').append(str);console.log(str);
+                                LoveListObject.objectsCount++;
+                                if(LoveListObject.objectsCount == 1){
+                                    $('#addToLoveList').show();
+                                }
+                            },
+                            
+                            deleteFromSaveList: function(id){
+                                $('#'+id).attr('class','unSelectedLoveList');
+                                id = id.replace('add_','');
+                                $('#template_'+id).remove();
+                                LoveListObject.objectsCount--;
+                                
+                            },
+                            
+                            detectOption : function(id){
+                                if($('#'+id).attr('class')=='selectedLoveList'){
+                                    LoveListObject.deleteFromSaveList(id);
+                                }else{
+                                    LoveListObject.addLovleList(id);
+                                }
+                            }
+                        }
+                    </script>
+                    <style>
+                        .selectedLoveList{
+                            background:red;
+                        }
+                        .unSelectedLoveList{
+                            background:white;
+                        }
+                    </style>
+                    <div>
+                        <form id="addForm" name="addForm" action="<?php echo ($this->isUser)?'lovelist/save':'objects/delete' ?>">
+                        </form>
+                        <input type="button" onclick="Form.submit('addForm')" value="submit" id="addToLoveList" style="display:none;">
+                    </div>
+                    <div id="objectList" style="width:100%;">
+                        <?php
+                            foreach($this->objects as $item){
+                        ?>	
+                            <div class="fl w100 mr5">
+                                <div style="text-align:center; width:100"><?php echo ($item->getName())?$item->getName():'no description';?></div>
+                                <div class="r100">
+                                    <div>
+                                        <a href="objects/<?php echo $item->getId();?>/overview"><img src="<?php echo $item->getPath();?>" class="r100" alt="<?php echo ($item->getDescription())?$item->getDescription():'no description';?>"></a>
+                                    </div>
+                                </div>
+                                <div class="fl">
+                                    <?php echo ($item->getCost())?$item->getCost():'0';?>$
+                                </div>
+                                <?php if($this->isUser){
+                                ?>
+                                <div class="fr">
+                                        <a  name="add" id="add_<?php echo $item->getId();?>" class="unSelectedLoveList link" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')">addToList</a>
+                                </div>
+                                <?php } ?>
+                                <?php if($this->isPublisher){
+                                ?>
+                                <div class="fr">
+                                        <a  name="add" id="add_<?php echo $item->getId();?>" class="unSelectedLoveList link" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')">delete</a>
+                                </div>
+                                <div class="fr">
+                                        <a  name="edit" class="link" href="objects/<?php echo $item->getId(); ?>/edit">edit</a>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        <?php
+                            }
+                        ?>
+                    </div>
+                </td>
     		</tr>
     	</tbody>
     </table>

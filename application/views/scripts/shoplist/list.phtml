@@ -1,3 +1,4 @@
+
 <div>
 	<?php 
 		foreach($this->items as $item){
@@ -11,6 +12,15 @@
 					<img src="<?php echo $item->getName(); ?>" class="w100"/>
 				</div>
 			</a>
+            <a class="link" href="objects/<?php echo $item->getId() ?>/shopList/index">go to shop products</a>
+            <br>
+            <?php
+                if($this->isPublisher){
+            ?>
+                <a class="link" href="shoplist/<?php echo $item->getId() ?>/edit">edit shop</a>
+            <?php 
+                }
+            ?>
 		</div>
 	<?php
 		}

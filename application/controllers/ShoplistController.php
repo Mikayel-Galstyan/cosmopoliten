@@ -23,11 +23,20 @@ class ShoplistController extends SecureController {
     }
     
     public function listAction() {
-        $servie=new Service_ShopList();
-		$filter = new Filter_ShopList();
-		$filter->setPublisherId($this->publisherId);
-		$items = $servie->getByParams($filter);
-		$this->view->items = $items; 
+        $this->getStatus();
+        if(!$this->getAuthUser() || !$this->getAuthUser()->getStatus()== Service_User::PUBLISHER_ROLE){
+            $servie=new Service_ShopList();
+            $filter = new Filter_ShopList();
+            $filter->setPublisherId($this->publisherId);
+            $items = $servie->getByParams($filter);
+            $this->view->items = $items;
+        }else{
+            $servie=new Service_ShopList();
+            $filter = new Filter_ShopList();
+            $filter->setPublisherId($this->getPublisherId());
+            $items = $servie->getByParams($filter);
+            $this->view->items = $items;
+        }
     }
     
     public function editAction(){

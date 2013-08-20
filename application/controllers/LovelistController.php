@@ -8,17 +8,18 @@ class LovelistController extends SecureController {
     
 
     public function indexAction() {
-        
+        $this->view->isAuth = false;
+        if($this->getAuthUser()){
+            $this->view->isAuth = true;
+            $this->view->id = $this->getAuthUser()->getId();
+            $this->view->img = $this->getAuthUser()->getPath();
+        }
     }
     
     public function listAction() {
-        $this->view->isAuth = false;
-        if($this->getAuthUser()){
-            $service = new Service_LoveList();
-            $items = $service->getByUserId($this->getAuthUser()->getId());
-            $this->view->items = $items;
-            $this->view->isAuth = true;
-        }
+        $service = new Service_LoveList();
+        $items = $service->getByUserId($this->getAuthUser()->getId());
+        $this->view->items = $items;      
     }
 	
     public function deleteAction() {

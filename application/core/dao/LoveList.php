@@ -7,6 +7,7 @@ class Dao_LoveList extends Miqo_Dao_Base {
             'user_id' => 'userId',
 			'object_id' => 'objectId',
 			'publisher_id' => 'publisherId',
+            'object_type_name' => 'objectTypeName',
 			'path'=>'path');
     
     protected $entityClass = 'Domain_LoveList';
@@ -19,7 +20,8 @@ class Dao_LoveList extends Miqo_Dao_Base {
 	
     public function getByUserId($id){
 		$select = $this->dbAdapter->select()->from(array('c'=>Dao_DbTable_List::LOVELIST),array('id', 'user_id', 'object_id','publisher_id'))
-		->joinLeft(Dao_DbTable_List::OBJECTS, 'objects.id=c.object_id',array( 'objects.path as path'));
+		->joinLeft(Dao_DbTable_List::OBJECTS, 'objects.id=c.object_id',array( 'objects.path as path'))
+        ->joinLeft(Dao_DbTable_List::OBJECTTYPE, 'objecttype.id=objects.objectType_id',array( 'objecttype.name as object_type_name'));
 		$result = $this->dbAdapter->fetchAll($select);
         $result = $this->getEntities($result);
         return $result;

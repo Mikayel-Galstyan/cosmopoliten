@@ -10,7 +10,7 @@
 <div class="table_wrapper ml20 mt20">
     <?php if($this->isPublisher){ ?>
         <a href="shoplist/add">add</a>
-    <?php } ?>    
+    <?php } else{ ?>    
 	<form action="shoplist/list" name="ajaxForm" id="ajaxForm">
 		<div class="mr5 fl">
 			<select name="publisherId" id="publisherId">
@@ -28,6 +28,7 @@
 			<input type="button" onclick="Filter.submit('ajaxForm');return false;" value="filter">
 		</div>
 	</form>
+    <?php } ?>
     <table class="mt20">
     	<tbody>
     		<tr class='panel'>
@@ -35,7 +36,6 @@
     		</tr>
     	</tbody>
     </table>
-    
 </div>
 
 

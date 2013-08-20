@@ -37,27 +37,37 @@ class AuthController extends SecureController {
                 if ($user != null) {                    
                     $this->loginSuccess($user, $userSession);
                 }
-            }            
-            $this->view->loginfailed = true;
-            $this->LOG->info('Failed login with Username  "' . $email . '"');
+            }else{
+                $this->view->loginfailed = true;
+                $this->LOG->info('Failed login with Username  "' . $email . '"');
+            }
         }
     }
 
     private function loginSuccess($user, $userSession = null) {
+        $url = 'index';
         if (!$userSession) {
             $userSession = new Miqo_Session_Base();
         }
         $userSession->set('authUser', $user);
-        if($user->getCountryId()){
-            $userSession->set( 'countryId', $user->getCountryId());
+        if($user->getStatus()==1){
+            $publisherService = new Service_Publisher();
+            $filter = new Filter_Publisher();
+            $filter->setUserId($user->getId());    
+            $publisher = $publisherService->getByUserId($filter);
+            if($publisher){
+                $userSession->set('publisherId', $publisher->getId());
+            }else{
+                $url = 'publisher/add';
+            }
         }
-        $this->LOG->info('Success login with Username -> "' . $user->getEmail() . '"');
-        return $this->_redirect('auth/login');
+        $this->LOG->info('Success login with Username -> "' . $user->getEmail() . '"'); 
+        $this->javascript()->redirect($url);
     }
 
     public function logoutAction() {
         @Zend_Session::destroy(true);
-        return $this->_redirect('auth/login');
+        $this->javascript()->redirect('index');
     }
 
     public function &setEmail($val) {

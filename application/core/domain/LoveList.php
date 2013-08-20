@@ -21,6 +21,11 @@ class Domain_LoveList extends Miqo_Domain_AbstractEntity {
 	 * @var string
 	 */
     protected $path = null;
+    /**
+     *
+     * @var int
+     */
+    protected $objectTypeName = null;
     
     
     
@@ -29,6 +34,14 @@ class Domain_LoveList extends Miqo_Domain_AbstractEntity {
     }
     public function &setUserId($val) {
         $this->userId = $val;
+        return $this;
+    }
+    
+    public function getObjectTypeName() {
+        return $this->objectTypeName;
+    }
+    public function &setObjectTypeName($val) {
+        $this->objectTypeName = $val;
         return $this;
     }
 	

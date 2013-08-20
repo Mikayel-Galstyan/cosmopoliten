@@ -8,6 +8,9 @@
 			str = '<input type="hidden" id="template_'+id+'" name="objectsIds[]" value="'+id+'"/>';
 			$('#addForm').append(str);console.log(str);
 			LoveListObject.objectsCount++;
+            if(LoveListObject.objectsCount == 1){
+                $('#addToLoveList').show();
+            }
 		},
 		
 		deleteFromSaveList: function(id){
@@ -15,6 +18,7 @@
 			id = id.replace('add_','');
 			$('#template_'+id).remove();
 			LoveListObject.objectsCount--;
+            
 		},
 		
 		detectOption : function(id){
@@ -25,11 +29,6 @@
 			}
 		}
 	}
-	$(function(){
-		function addLovleList(id){
-			
-		}
-	});
 </script>
 <style>
 	.selectedLoveList{
@@ -40,10 +39,9 @@
 	}
 </style>
 <div>
-	<form id="addForm" name="addForm" action="lovelist/save">
-		
+	<form id="addForm" name="addForm" action="<?php echo ($this->isUser)?'lovelist/save':'objects/delete' ?>">
 	</form>
-	<input type="button" onclick="Form.submit('addForm')" value="submit">
+	<input type="button" onclick="Form.submit('addForm')" value="submit" id="addToLoveList" style="display:none;">
 </div>
 <div id="objectList" style="width:100%;">
 	<?php
@@ -59,9 +57,21 @@
 			<div class="fl">
 				<?php echo ($item->getCost())?$item->getCost():'0';?>$
 			</div>
+            <?php if($this->isUser){
+            ?>
 			<div class="fr">
-				<a  name="add" id="add_<?php echo $item->getId();?>" class="unSelectedLoveList" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')">addToList</a>
+                    <a  name="add" id="add_<?php echo $item->getId();?>" class="unSelectedLoveList link" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')">addToList</a>
 			</div>
+            <?php } ?>
+            <?php if($this->isPublisher){
+            ?>
+			<div class="fr">
+                    <a  name="add" id="add_<?php echo $item->getId();?>" class="unSelectedLoveList link" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')">delete</a>
+			</div>
+            <div class="fr">
+                    <a  name="edit" class="link" href="objects/<?php echo $item->getId(); ?>/edit">edit</a>
+			</div>
+            <?php } ?>
 		</div>
 	<?php
 		}

@@ -13,39 +13,66 @@ class ObjectsController extends SecureController {
     private $cost = null;
     private $costMin = null;
     private $costMax = null;
+    private $objectsIds = null;
 	private $for = null;
+    private $type = null;
     
     public function indexAction() {
+        $this->getStatus();
 		$servicePublisher = new Service_Publisher();
         $this->view->publishers = $servicePublisher->getAll();
 		$serviceShops = new Service_ShopList();
         $this->view->shopList = $serviceShops->getAll();
 		$service = new Service_ObjectType();
         $this->view->items = $service->getAll();
-        if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::PUBLISHER_ROLE){
-            $this->view->isPublisher = true;
-        }else{
-            $this->view->isPublisher = false;
+        $service = new Service_ObjectType();
+        $this->view->types = $service->getAll();
+        $filter = new Filter_Objects();
+        $type = $this->type;
+        if($this->objectTypeId && $type == 'objectType'){
+            $filter->setObjectTypeId($this->objectTypeId);
+            $this->view->objectTypeId = $this->objectTypeId;
         }
+        if($this->objectTypeId && $type == 'shopList'){
+            $filter->setShopListId($this->objectTypeId);
+            $this->view->shopListId = $this->objectTypeId;
+        }
+        if($this->objectTypeId && $type == 'publisher'){
+            $filter->setPublisherId($this->objectTypeId);
+            $this->view->publisherId = $this->objectTypeId;
+        }
+		if($this->getAuthUser() && !$this->for){
+			$this->for = $this->getAuthUser()->getGender();
+		}
+		$filter->setGender($this->for);
+        if($this->getPublisherId()){
+            $filter->setPublisherId($this->getPublisherId());
+        }
+        $service = new Service_Objects();
+        $objects = $service->getByParams($filter);
+        $this->view->objects = $objects;
     }
     
 	public function menuAction(){
-		$serviceType = new Service_ObjectType();
-        $this->view->types = $serviceType->getAll();
-		$servicePublisher = new Service_Publisher();
-        $this->view->publishers = $servicePublisher->getAll();
-		$serviceShops = new Service_ShopList();
-        $this->view->shopList = $serviceShops->getAll();
+        $this->getStatus();
+        $this->view->publisherId = $this->getPublisherId();
 	}
 	
     public function listAction() {
         $filter = new Filter_Objects();
-       // $filter->setId($this->id);
-        $filter->setObjectTypeId($this->objectTypeId);
+        //$filter->setId($this->id);
+        if($this->id){
+            $filter->setObjectTypeId($this->id);
+        }else{
+            $filter->setObjectTypeId($this->objectTypeId);
+        }
         $filter->setPublisherId($this->publisherId);
         $filter->setShopListId($this->shopListId);
         $filter->setCostMin($this->costMin);
         $filter->setCostMax($this->costMax);
+        if($this->getPublisherId()){
+            $filter->setPublisherId($this->getPublisherId());
+        }
 		if($this->getAuthUser() && !$this->for){
 			$this->for = $this->getAuthUser()->getGender();
 		}
@@ -53,6 +80,7 @@ class ObjectsController extends SecureController {
         $service = new Service_Objects();
         $items = $service->getByParams($filter);
         $this->view->items = $items;
+        $this->getStatus();
     }
     
     public function editAction(){
@@ -83,6 +111,22 @@ class ObjectsController extends SecureController {
             $this->view->isPublisher = false;
         }
        
+    }
+    
+    
+    public function deleteAction() {
+        $this->setNoRender();
+        if(!is_null($this->objectsIds)){
+            $service = new Service_Objects();
+            try{
+                $service->__t_deleteList($this->objectsIds);
+                $msg = (count($this->objectsIds)>1)?$this->translate('success.delete.items'):$this->translate('success.delete');
+                $this->printJsonSuccessRedirect($msg,'objects');
+            } catch ( Miqo_Util_Exception_Service $ex ) {
+                $msg = (!is_null($this->objectsIds) && count($this->objectsIds)>1)?$this->translate('cant.delete.records'):$this->translate('cant.delete.record');
+                $this->printJsonFailRedirect($msg,'objects');
+            }
+        }    
     }
 	
 	public function overviewAction(){
@@ -139,6 +183,13 @@ class ObjectsController extends SecureController {
         $this->id = $val;
         return $this;
     }
+    
+    public function &setObjectsIds($val) {
+        $this->objectsIds = $val;
+        return $this;
+    }
+    
+    
     public function &setObjectTypeId($val) {
         $this->objectTypeId = $val;
         return $this;
@@ -177,6 +228,10 @@ class ObjectsController extends SecureController {
     }
 	public function &setFor($val) {
         $this->for = $val;
+        return $this;
+    }
+    public function &setType($val) {
+        $this->type = $val;
         return $this;
     }
     

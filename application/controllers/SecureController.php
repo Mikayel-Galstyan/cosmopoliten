@@ -32,6 +32,11 @@ abstract class SecureController extends ControllerActionSupport {
         return $authUser;
     }
     
+    public function getPublisherId(){
+        $authUser = $this->userSession->get('publisherId');
+        return $authUser;
+    }
+    
     public function getUserDenyRoles(){
     	return self::$ACCESS_DEFINITIONS[$this->view->getUser()->getStatus()]['deny']['viewuser'];
     }
@@ -43,7 +48,21 @@ abstract class SecureController extends ControllerActionSupport {
     protected function getUniqueKey() {
         return Zend_Session::getId();
     }
-
+    
+    protected function getStatus(){
+        $auth = $this->getAuthUser();
+        if($auth && $auth->getStatus()== Service_User::PUBLISHER_ROLE){
+            $this->view->isPublisher = true;
+            $this->view->isUser = false;
+        }else if($auth){
+            $this->view->isPublisher = false;
+            $this->view->isUser = true;
+        }else{
+            $this->view->isPublisher = false;
+            $this->view->isUser = false;
+        }
+    }
+    
     protected function getUserName() {
         if(!$this->userName) {
             $userSession = new Miqo_Session_Base();
