@@ -9,7 +9,6 @@
  * @package application_views_helpers
  */
 class Zend_View_Helper_HtmlEscape extends Zend_View_Helper_Abstract {
-    
     /**
      * Escapes characters with special significances in HTML.
      * 
@@ -19,5 +18,6 @@ class Zend_View_Helper_HtmlEscape extends Zend_View_Helper_Abstract {
     public function htmlEscape($text) {
         return htmlspecialchars($text);
     }
+	
 }
 ?>

@@ -37,6 +37,9 @@ class PublisherController extends SecureController {
                 $this->view->item = $publisher;
             }else{
                 //$this->LOG->info($this->getUserName().' : '.self::CONTROLLER_NAME.' Controller : add Action');
+				$date = new DateTime(date("Y-m-d H:i:s"));
+				$date->modify('+1 month');
+				$this->view->dateTime = $date->format('Y-m-d H:i:s');
             }
         }else{
             $this->view->isPublisher = false;
@@ -46,8 +49,7 @@ class PublisherController extends SecureController {
     
     public function saveAction(){
         $this->_helper->viewRenderer->setNoRender(true);
-        $userId = $this->userId;
-        $id = $this->id;
+        $id = $this->getPublisherId();
         $service = new Service_Publisher();
         if ($id != null) {
             $item = $service->getById($id);

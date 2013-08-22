@@ -144,8 +144,6 @@ class UserController extends SecureController {
         }
         try {
             $item = $service->save($item);
-/*			$img->setUserId($item->getId());
-			$seviceImg->save($img);*/
             $userSession = $this->getAuthUser();
             if (!$userSession) {
                 $userSession = new Miqo_Session_Base();

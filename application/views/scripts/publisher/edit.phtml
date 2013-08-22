@@ -38,7 +38,25 @@ $(function(){
                     <tr>
                        <td class="middle left"><label for="order"><?php echo $this->translate('order')?> </label></td>
                        <td class="middle left">
-                           <?php echo 'ACTIVE';?>
+							<?php 
+								if($this->item && $this->item->getStatus() == 1){
+							?>
+								<span style="color:green;">
+									<?php echo $this->translate('active.until').'  '.$this->item->getEndOrderDate(); ?>
+								</span>
+							<?php
+									}else if(!$this->item){
+							?>
+								<span style="color:green;">
+									<?php echo $this->translate('active.until').'  '.$this->dateTime; ?>
+								</span>
+							<?php }else { ?>
+								<span style="color:red;">
+									<?php echo $this->translate('out.of.date'); ?>
+								</span>
+							<?php
+								}
+							?>
                        </td>
                     </tr> 
                     <tr>

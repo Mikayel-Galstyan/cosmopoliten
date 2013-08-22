@@ -45,7 +45,7 @@ class Domain_Publisher extends Miqo_Domain_AbstractEntity {
      *
      * @var int
      */
-    protected $startOrderDate = null;
+    protected $endOrderDate = null;
      /**
      *
      * @var int
@@ -123,11 +123,11 @@ class Domain_Publisher extends Miqo_Domain_AbstractEntity {
         return $this;
     }
     
-    public function getStartOrderDate() {
-        return $this->startOrderDate;
+    public function getEndOrderDate() {
+        return $this->endOrderDate;
     }
-    public function &setStartOrderDate($val) {
-        $this->startOrderDate = $val;
+    public function &setEndOrderDate($val) {
+        $this->endOrderDate = $val;
         return $this;
     }
 }

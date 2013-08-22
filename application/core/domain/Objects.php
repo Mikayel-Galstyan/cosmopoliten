@@ -10,6 +10,11 @@ class Domain_Objects extends Miqo_Domain_AbstractEntity {
      *
      * @var string
      */
+	 protected $valuta = null;
+    /**
+     *
+     * @var string
+     */
     protected $path = null;
     /**
      *
@@ -53,6 +58,13 @@ class Domain_Objects extends Miqo_Domain_AbstractEntity {
     }
     public function &setName($val) {
         $this->name = $val;
+        return $this;
+    }
+	public function getValuta() {
+        return $this->valuta;
+    }
+    public function &setValuta($val) {
+        $this->valuta = $val;
         return $this;
     }
     public function getPopulation() {

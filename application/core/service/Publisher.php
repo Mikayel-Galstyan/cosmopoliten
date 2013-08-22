@@ -15,7 +15,9 @@ class Service_Publisher extends Miqo_Service_Base {
         $errors = $this->validate($domain);       
         if (sizeof($errors) == 0) {
 			if(!$domain->getId()){
-				$domain->setStartOrderDate(date("Y-m-d H:i:s"));
+				$date = new DateTime(date("Y-m-d H:i:s"));
+				$date->modify('+1 month');
+				$domain->setEndOrderDate($date->format('Y-m-d H:i:s'));
 			}				
             $domain = $this->dao->save($domain);
             return $domain;

@@ -36,10 +36,10 @@ class AuthController extends SecureController {
                 $user = $userService->authenticate($email, $password);              
                 if ($user != null) {                    
                     $this->loginSuccess($user, $userSession);
-                }
-            }else{
-                $this->view->loginfailed = true;
-                $this->LOG->info('Failed login with Username  "' . $email . '"');
+                }else{
+					$this->view->loginfailed = true;
+					$this->LOG->info('Failed login with Username  "' . $email . '"');
+				}
             }
         }
     }

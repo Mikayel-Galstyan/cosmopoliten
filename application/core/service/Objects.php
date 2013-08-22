@@ -22,7 +22,7 @@ class Service_Objects extends Miqo_Service_Base {
     
     public function &__t_save(Domain_Objects $domain) {
         $errors = $this->validate($domain);       
-        if (sizeof($errors) == 0) {   
+        if (sizeof($errors) == 0) {
             $domain = $this->dao->save($domain);
             return $domain;
         } else {

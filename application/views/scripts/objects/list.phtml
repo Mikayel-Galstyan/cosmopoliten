@@ -55,7 +55,7 @@
 				</div>
 			</div>
 			<div class="fl">
-				<?php echo ($item->getCost())?$item->getCost():'0';?>$
+				<?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
 			</div>
             <?php if($this->isUser){
             ?>

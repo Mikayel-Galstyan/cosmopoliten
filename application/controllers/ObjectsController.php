@@ -2,7 +2,6 @@
 require_once ('SecureController.php');
 
 class ObjectsController extends SecureController {
-    
     private $id = null;
     private $name = null;
     private $description = null;
@@ -16,6 +15,7 @@ class ObjectsController extends SecureController {
     private $objectsIds = null;
 	private $for = null;
     private $type = null;
+	private $value = null;
     
     public function indexAction() {
         $this->getStatus();
@@ -55,7 +55,10 @@ class ObjectsController extends SecureController {
     
 	public function menuAction(){
         $this->getStatus();
-        $this->view->publisherId = $this->getPublisherId();
+		if($this->getAuthUser()){
+			$this->view->publisherId = $this->getPublisherId();
+			$this->view->userId = $this->getAuthUser()->getId();
+		}
 	}
 	
     public function listAction() {
@@ -151,7 +154,8 @@ class ObjectsController extends SecureController {
         }   
         $item->setName($this->name);
         $item->setPublisherId($this->publisherId);
-        $item->setCost($this->cost);
+        $item->setValuta($this->value);
+		$item->setCost($this->cost);
         $item->setObjectTypeId($this->objectTypeId);
 		$item->setDescription($this->description);
         $item->setShopListId($this->shopListId);
@@ -232,6 +236,10 @@ class ObjectsController extends SecureController {
     }
     public function &setType($val) {
         $this->type = $val;
+        return $this;
+    }
+	public function &setValue($val) {
+        $this->value = $val;
         return $this;
     }
     

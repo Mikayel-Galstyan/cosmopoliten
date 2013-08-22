@@ -12,6 +12,7 @@ class Dao_Objects extends Miqo_Dao_Base {
             'objectType_id' => 'objectTypeId',
             'shopList_id' => 'shopListId',
             'population' => 'population',
+			'valuta' => 'valuta',
 			'gender'        => 'gender');
     
     protected $entityClass = 'Domain_Objects';
@@ -31,7 +32,8 @@ class Dao_Objects extends Miqo_Dao_Base {
         'publisher_id AS publisherId',
         'objectType_id AS objectTypeId',
         'shopList_id AS shopListId',
-		'gender AS gender'
+		'gender AS gender',
+		'valuta AS valuta'
         ));
         if($filter->getShopListId()){
             $select->where('shopList_id = ?', $filter->getShopListId());

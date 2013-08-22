@@ -25,22 +25,28 @@ $(function(){
                 <tbody>                    
                     <tr>
                         <td class="middle left w180"><label for="name"><?php echo $this->translate('name')?> *</label></td>
-                        <td class="middle left"><input type="text" name="name" id="name" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getName()):'')?>"/></td>                    
+                        <td class="middle left"><input type="text" name="name" id="name" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getName()):$this->translate('default.name.object'))?>"/></td>                    
                     </tr>    
                     <tr>
                         <td class="middle left w150"><label for="description"><?php echo $this->translate('description')?></label></td>
-                        <td class="middle left"><input type="text" name="description" id="description" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getDescription()):'')?>"/></td>
+                        <td class="middle left"><input type="text" name="description" id="description" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getDescription()):$this->translate('default.description'))?>"/></td>
                     </tr>
                     <tr>
                         <td class="middle left"><label for="cost"><?php echo $this->translate('cost')?></label></td>
-                        <td class="middle left"><input type="text" name="cost" id="cost" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getCost()):'')?>"/></td>
+                        <td class="middle left">
+								<input type="text" name="cost" id="cost" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getCost()):'30')?>"/>
+								<select name="value" id="value">
+									<option value="1"><?php echo $this->translate('dram')?></option>
+									<option value="2"><?php echo $this->translate('dolar')?></option>
+									<option value="3"><?php echo $this->translate('euro')?></option>
+								</select>
+						</td>
                     </tr>
                     <tr>
                        <td class="middle left"><label for="objectTypeId"><?php echo $this->translate('select.types')?> </label></td>
                        <td class="middle left">
                            <div class="fl">
 								<select name="objectTypeId" id="objectTypeId">
-									<option value="">--Select--</option>
 									<?php
 										foreach($this->types as $item){
 									?>
@@ -61,7 +67,7 @@ $(function(){
 									<?php
 										foreach($this->shopList as $item){
 									?>
-										<option value="<?php echo $item->getId() ?>"><?php echo $this->translate($item->getName()); ?></option>
+										<option value="<?php echo $item->getId() ?>" selected = 'selected'><?php echo $this->translate($item->getName()); ?></option>
 									<?php
 										}
 									?>
