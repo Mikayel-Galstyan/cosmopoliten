@@ -45,7 +45,11 @@ $(function(){
     <form id="addForm" name="addForm" action="lovelist/delete">
         
     </form>
+    <form action="image/save" name="imgSaveForm" id="imgSaveForm">
+        <input type="button" onclick="Filter.submit('imgSaveForm')" value="saveImg" class="">
+    </form>
     <input type="button" onclick="Form.submit('addForm')" value="submit">
+   
 </div>
 <div id="objectList" style="width:100%;">
     <?php

@@ -9,7 +9,8 @@
     <title><?php echo $this->translate('project.name')?></title>
     <base href="<?php echo $this->baseUrl(); ?>" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />  
-	<link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />	
+	<link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" media="screen" />
     <script>
 		if(location.href == '<?php echo $this->baseUrl(); ?>auth/login'){
 			location.href = '<?php echo $this->baseUrl(); ?>objects'
@@ -34,11 +35,11 @@
 	</div>
 	<div class="content_wrapper">
 		<div class="content_container">
-			<div class="leftHead">
+			<div class="leftHead"  id="navigationMenu">
 				<div class="ml5">
 					 <?php echo $this->action("login", "auth"); ?>
 				</div>
-				<div class="">
+				<div>
 					<?php echo $this->action("menu", "objects"); ?>
 				</div>
 			</div>

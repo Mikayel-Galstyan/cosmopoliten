@@ -8,7 +8,7 @@ class AuthController extends SecureController {
 
     public function init() {
         parent::init();    
-        $this->_helper->layout()->setLayout('layout');
+        $this->_helper->layout()->setLayout('login');
         $this->LOG = Zend_Registry::get('log');
     }
     
@@ -40,6 +40,9 @@ class AuthController extends SecureController {
 					$this->view->loginfailed = true;
 					$this->LOG->info('Failed login with Username  "' . $email . '"');
 				}
+            }else{
+                $this->view->loginfailed = true;
+                $this->LOG->info('Failed login with Username  "' . $email . '"');
             }
         }
     }

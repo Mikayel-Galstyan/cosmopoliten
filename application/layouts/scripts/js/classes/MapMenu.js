@@ -6,13 +6,26 @@
 */
 Cosmo_object = {
     selected_element: null,
+    currentId:0,
     zoomPixel: 2,
     init: function(){
         $('#objectList img').click(function(){
-            //$('#templateDress').remove();
-            $(this).clone().attr('id', 'templateDress').appendTo($('#ImageDiv span'));
-            //$('#templateDress').css({'position':'absolute','top':'100px','left':'100px'});
-            $('#templateDress').mousedown(Cosmo_object.handle_mousedown);
+            $(this).clone().attr('id', 'templateDress_'+Cosmo_object.currentId).appendTo($('#ImageDiv span')); 
+            $('#templateDress_'+Cosmo_object.currentId).mousedown(Cosmo_object.handle_mousedown);
+            $('#templateDress_'+Cosmo_object.currentId).css('position','absolute');
+            var height =  $('#templateDress_'+Cosmo_object.currentId).height();
+            var width =  $('#templateDress_'+Cosmo_object.currentId).width();
+            var top =  $('#templateDress_'+Cosmo_object.currentId).css('top');
+            var src = $('#templateDress_'+Cosmo_object.currentId).attr('src');console.log(src);
+            var left =  $('#templateDress_'+Cosmo_object.currentId).css('left');
+            var html = '<input type="hidden" value="" name="tops[]" id="putinTop_'+Cosmo_object.currentId+'" value="'+parseInt(top)+'">'+
+            '<input type="hidden" name="lefts[]" id="putinLeft_'+Cosmo_object.currentId+'" value="'+parseInt(left)+'">'+
+            '<input type="hidden" name="widths[]" id="putinWidth_'+Cosmo_object.currentId+'" value="'+width+'">'+
+            '<input type="hidden" name="heights[]" id="putinHeight_'+Cosmo_object.currentId+'" value="'+height+'">'+
+            '<input type="hidden" name="srcs[]" id="putinHeight_'+Cosmo_object.currentId+'" value="'+src+'">';
+            $('#imgSaveForm').append(html);
+            Cosmo_object.currentId++;
+            
         });
         /*$('#heir img').click(function(){
             //$('#templateheir').remove();
@@ -41,6 +54,19 @@ Cosmo_object = {
             }  
         }
     },
+    
+    setInputValues: function(obj){
+        var height = $(obj).height();
+        var width = $(obj).width();
+        var top = parseInt($(obj).css('top'));
+        var left = parseInt($(obj).css('left'));
+        var id = $(obj).attr('id').replace('templateDress_','');
+        $('#putinTop_'+id).attr('value',top);
+        $('#putinLeft_'+id).attr('value',left);
+        $('#putinWidth_'+id).attr('value',width);
+        $('#putinHeight_'+id).attr('value',height);
+    },
+    
     rotateY: function(elem,rad){
        
     },
@@ -69,6 +95,8 @@ Cosmo_object = {
             if(left)
             $(my_dragging.elem)
             .offset({top: top, left: left});
+            Cosmo_object.setInputValues(my_dragging.elem);
+            
         }
         function handle_mouseup(e){
             $('body')

@@ -40,10 +40,10 @@
     <?php } ?>
     
     <?php 
-        if($this->isPublisher){
+        if($this->publisherId){
         ?>
         <div class="ml5 menu">
-            <a href="publisher/<?php echo ($this->publisherId)?$this->publisherId:'';?>/edit" class="link"><?php echo $this->translate('my.company')?></a>
+            <a href="publisher<?php echo ($this->publisherId)?'/'.$this->publisherId:'';?>/edit" class="link"><?php echo $this->translate('my.company')?></a>
         </div>
         <div class="ml5 menu">
             <a href="shoplist" class="link"><?php echo $this->translate('my.shops')?></a>

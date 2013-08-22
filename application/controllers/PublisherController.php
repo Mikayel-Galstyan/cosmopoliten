@@ -68,7 +68,8 @@ class PublisherController extends SecureController {
                 $userSession = new Miqo_Session_Base();
             }
             $userSession->set('publisherId', $item->getId());
-            $this->printJsonSuccessRedirect($this->translate('success.save'),'objects');
+            $this->javascript()->redirect('index');
+            //$this->printJsonSuccessRedirect($this->translate('success.save'),'objects');
         } catch ( Miqo_Util_Exception_Validation $vex ) {
             $errors = $this->translateValidationErrors($vex->getValidationErrors());
             $this->printJsonError($errors, $this->translate('validation.error'));
