@@ -19,8 +19,16 @@ class Dao_Publisher extends Miqo_Dao_Base {
 
     public function __construct() {
         $this->dbTable = new Dao_DbTable_Publisher();
+        $this->dbAdapter = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $this->dbAdapter->setFetchMode(Zend_Db::FETCH_OBJ);
     }
     
+    public function addClick($id){
+        $query = 'UPDATE publishers
+        SET publishers.clicks = publishers.clicks + 1
+        WHERE publishers.id ='.$id;
+        $this->dbAdapter->query($query);
+    }
     
     public function &getByParams(Filter_Publisher $filter) {
     	$select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::PUBLISHER));

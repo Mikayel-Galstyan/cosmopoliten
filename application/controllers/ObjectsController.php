@@ -36,10 +36,18 @@ class ObjectsController extends SecureController {
         if($this->objectTypeId && $type == 'shopList'){
             $filter->setShopListId($this->objectTypeId);
             $this->view->shopListId = $this->objectTypeId;
+            if(!$this->getPublisherId()){
+                $service = new Service_ShopList();
+                $service->addClick($this->objectTypeId);
+            }
         }
         if($this->objectTypeId && $type == 'publisher'){
             $filter->setPublisherId($this->objectTypeId);
             $this->view->publisherId = $this->objectTypeId;
+            if(!$this->getPublisherId()){
+               $service = new Service_Publisher();
+               $service->addClick($this->objectTypeId);
+            }
         }
 		if($this->getAuthUser() && !$this->for){
 			$this->for = $this->getAuthUser()->getGender();
@@ -136,6 +144,9 @@ class ObjectsController extends SecureController {
 		$id = $this->id;
 		if($id){
 			$service = new Service_Objects();
+            if(!$this->getPublisherId()){
+                $service->addClick($id);
+            }
 			$this->view->item = $service->getById($id);
 		}else{
 			
@@ -160,20 +171,22 @@ class ObjectsController extends SecureController {
 		$item->setDescription($this->description);
         $item->setShopListId($this->shopListId);
         $item->setGender($this->for);
-        $path = $_FILES['path'];
-        $email = $this->getAuthUser()->getEmail();
-        $type = $item->getObjectTypeId();
-        if(!is_dir ("users/".$email.'/'.$type)){
-            mkdir("users/".$email.'/'.$type);
+        if($_FILES['path']){
+            $path = $_FILES['path'];
+            $email = $this->getAuthUser()->getEmail();
+            $type = $item->getObjectTypeId();
+            if(!is_dir ("users/".$email.'/'.$type)){
+                mkdir("users/".$email.'/'.$type);
+            }
+            $userfile_extn = explode(".", strtolower($path['name']));
+            do{
+                $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[1];
+                $fullPath = "users/".$email.'/'.$type."/".$new_name;
+            }while(file_exists($fullPath));
+            @rename ($path['name'],$new_name);
+            move_uploaded_file ($path['tmp_name'],$fullPath);
+            $item->setPath($fullPath);
         }
-        $userfile_extn = explode(".", strtolower($path['name']));
-        do{
-            $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[1];
-            $fullPath = "users/".$email.'/'.$type."/".$new_name;
-        }while(file_exists($fullPath));
-        @rename ($path['name'],$new_name);
-        move_uploaded_file ($path['tmp_name'],$fullPath);
-        $item->setPath($fullPath);
         try {
             $service->save($item);
             $this->printJsonSuccessRedirect($this->translate('success.save'),'objects');

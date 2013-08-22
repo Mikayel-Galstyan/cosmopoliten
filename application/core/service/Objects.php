@@ -20,6 +20,10 @@ class Service_Objects extends Miqo_Service_Base {
         return $items;
     }
     
+    public function addClick($id){
+        $this->dao->addClick($id);
+    }
+    
     public function &__t_save(Domain_Objects $domain) {
         $errors = $this->validate($domain);       
         if (sizeof($errors) == 0) {

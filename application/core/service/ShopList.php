@@ -12,6 +12,10 @@ class Service_ShopList extends Miqo_Service_Base {
             $domain = $this->dao->save($domain);
             return $domain;
     }
+    
+    public function addClick($id){
+        $this->dao->addClick($id);
+    }
 	
     public function getByParams(Filter_ShopList $filter){
         $items = $this->dao->getByParams($filter);

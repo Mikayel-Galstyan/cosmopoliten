@@ -79,7 +79,10 @@ class PublisherController extends SecureController {
 		$id = $this->id;
 		if($id){
 			$service = new Service_Publisher();
-			$this->view->item = $service->getById($id);
+            if(!$this->getPublisherId()){
+                $service->addClick($id);
+            }
+            $this->view->item = $service->getById($id);
 		}else{
 			
 		}

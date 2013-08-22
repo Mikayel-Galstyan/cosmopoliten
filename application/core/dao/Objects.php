@@ -19,8 +19,19 @@ class Dao_Objects extends Miqo_Dao_Base {
 
     public function __construct() {
         $this->dbTable = new Dao_DbTable_Objects();
+        $this->dbAdapter = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $this->dbAdapter->setFetchMode(Zend_Db::FETCH_OBJ);
     }
 	
+    public function addClick($id){
+        $query = 'UPDATE objects, shopList,publishers
+        SET objects.population = objects.population+1
+        ,shopList.population = shopList.population + 1,
+        publishers.clicks = publishers.clicks + 1
+        WHERE objects.shopList_id = shopList.id AND shopList.publisher_id = publishers.id
+        AND objects.id ='.$id;
+        $this->dbAdapter->query($query);
+    }
     
     public function &getByParams(Filter_Objects $filter){
         $select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::OBJECTS),array(
@@ -53,6 +64,7 @@ class Dao_Objects extends Miqo_Dao_Base {
         if($filter->getCostMax()){
             $select->where('cost <= ?', $filter->getCostMax());
         }
+        $select->order('population DESC');
         $result = $this->dbTable->fetchAll($select);
     	$items = &$this->getEntities($result);
     	return $items;

@@ -15,8 +15,19 @@ class Dao_ShopList extends Miqo_Dao_Base {
 
     public function __construct() {
         $this->dbTable = new Dao_DbTable_ShopList();
+        $this->dbAdapter = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $this->dbAdapter->setFetchMode(Zend_Db::FETCH_OBJ);
     }
 	
+    public function addClick($id){
+        $query = 'UPDATE shopList,publishers
+        SET shopList.population = shopList.population + 1,
+        publishers.clicks = publishers.clicks + 1
+        WHERE shopList.publisher_id = publishers.id
+        AND shopList.id ='.$id;
+        $this->dbAdapter->query($query);  
+    }
+    
     public function &getByParams(Filter_ShopList $filter){
         $select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::SHOPLIST));
         if($filter->getPublisherId()){

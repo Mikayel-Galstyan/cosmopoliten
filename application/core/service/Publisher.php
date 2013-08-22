@@ -11,6 +11,10 @@ class Service_Publisher extends Miqo_Service_Base {
         $this->dao = new Dao_Publisher();
     }
     
+    public function addClick($id){
+        $this->dao->addClick($id);
+    }
+    
     public function &__t_save(Domain_Publisher $domain) { 
         $errors = $this->validate($domain);       
         if (sizeof($errors) == 0) {

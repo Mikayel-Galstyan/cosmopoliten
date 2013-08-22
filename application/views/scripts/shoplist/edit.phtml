@@ -37,8 +37,18 @@ $(function(){
                     </tr>
                     <tr>
                         <td class="middle left"><label for="description"><?php echo $this->translate('description')?></label></td>
-                        <td class="middle left"><input type="text" name="description" id="description" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getSite()):'')?>"/></td>
+                        <td class="middle left"><input type="text" name="description" id="description" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getDescription()):'')?>"/></td>
                     </tr>
+                    <?php
+                        if($this->item){
+                    ?>
+                        <tr>
+                            <td class="middle left"><label for="description"><?php echo $this->translate('population')?></label></td>
+                            <td class="middle left"><?php echo ($this->item ? $this->htmlEscape($this->item->getPopulation()):'')?></td>
+                        </tr>
+                    <?php
+                        }
+                    ?>
                     <tr>
                         <td class="middle left"></td>
                         <td class="middle left"><input type="button" onclick="Form.submit('ajaxForm')" value="save"/></td>

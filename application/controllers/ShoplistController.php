@@ -91,6 +91,9 @@ class ShoplistController extends SecureController {
 		$id = $this->id;
 		if($id){
 			$service = new Service_ShopList();
+            if(!$this->getPublisherId()){
+                $service->addClick($id);
+            }
 			$this->view->item = $service->getById($id);
 		}else{
 			

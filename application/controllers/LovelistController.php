@@ -64,7 +64,9 @@ class LovelistController extends SecureController {
 				if(!$this->objectsIds){
 					$item->setPublisherId($mainCollumn[$i]);
 				}else{
-					$item->setObjectId($mainCollumn[$i]);
+                    $item->setObjectId($mainCollumn[$i]);
+                    $serviceObj = new Service_Objects();
+                    $serviceObj->addClick($mainCollumn[$i]);
 				}
 				$item->setUserId($userId);
 				$service->save($item);
