@@ -14,11 +14,14 @@ class ImageController extends ImageutilController {
 		$dest = $this->resize_image($this->getAuthUser()->getPath(), 300,  225);
 		for($i = 0;$i<count($this->widths);$i++){
 			$img = $this->resize_image($this->srcs[$i], $this->widths[$i],  $this->heights[$i]);
-			imagecopymerge($dest, $img, $this->lefts[$i], $this->tops[$i], 0, 0, $this->widths[$i], $this->heights[$i],50);
+            imagesavealpha($dest, true);
+            imagealphablending($dest, true);
+			imagecopy($dest, $img, $this->lefts[$i], $this->tops[$i], 0, 0, $this->widths[$i], $this->heights[$i]);
 			imagedestroy($img);
 		}
 		
 		$url = 'users/'.$this->getAuthUser()->getEmail().'/templateImg.png';
+        imagesavealpha($dest, true);
 		imagepng($dest,$url);
 		imagedestroy($dest);
 		$this->replaceBlackToTransparent($url);

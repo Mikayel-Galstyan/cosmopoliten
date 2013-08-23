@@ -34,6 +34,9 @@ class ImageutilController extends SecureController {
 		$dst = imagecreatetruecolor($newwidth, $newheight);
 		imagealphablending($dst, false);
 		imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+        //$black = imagecolorallocate($dst, 0, 0, 0);
+        // ??????? ??? ??????????
+        //imagecolortransparent($dst, 'black');
 		imagesavealpha($dst, true);
 		imagepng($dst,'users/'.$this->getAuthUser()->getEmail().'/templateImg1.png');
 		return $dst;
