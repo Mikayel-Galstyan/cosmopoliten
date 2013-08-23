@@ -39,6 +39,8 @@
 						<script>
 						$(function(){
 							Cosmo_object.init();
+                            $('#manHeight').attr('value',parseInt($('#templateMan').height()));
+                            $('#manWidth').attr('value',parseInt($('#templateMan').width()));
 						});
 						</script>
 						<style>
@@ -55,8 +57,10 @@
 							<form id="addForm" name="addForm" action="lovelist/delete">
 								
 							</form>
-							<form action="image" name="imgSaveForm" id="imgSaveForm">
-								<input type="button" onclick="Filter.submit('imgSaveForm')" value="saveImg" class="">
+							<form action="image/list" name="imgGenerate" method="POST" id="imgGenerate">
+                                <input type="hidden" name="width" id="manWidth" value="">
+                                <input type="hidden" name="height" id="manHeight" value="">
+								<input type="button" onclick="Filter.submit('imgGenerate')" value="saveImg" class="">
 							</form>
 							<input type="button" onclick="Form.submit('addForm')" value="submit">
 						   

@@ -5,10 +5,27 @@ require_once ('SecureController.php');
 
 class ImageutilController extends SecureController {
     
-	
+	protected function imageCreateTransparent($img,$x, $y) {
+        $colourBlack = imagecolorallocate($img, 0, 0, 0);
+        imagefill ( $img, 0, 0, $colourBlack );
+        imagecolortransparent($img, $colourBlack);
+        return $imageOut;
+    }
+    
+    protected function getPixel($image, $x, $y) {
+        @$colorAt  = imagecolorat($image, $x, $y);
+        $colors = imagecolorsforindex($image,$colorAt);
+        
+        $inrgba = 'rgba(' . $colors['red'] . ',' . $colors['green'] . ',' . $colors['blue'] . ',' . $colors['alpha'] . ')';
+        if($colors['red']==0 && $colors['green']==0 && $colors['blue']==0){
+             imagecolorallocate ( $image , 255 , 255 , 255 );
+        }
+        return $inrgba;
+    }
+    
+    
 	protected function resize_image($file, $w, $h, $crop=FALSE) {
 		list($width, $height) = getimagesize($file);
-		
 		$r = $width / $height;
 		if ($crop) {
 			if ($width > $height) {
@@ -19,61 +36,26 @@ class ImageutilController extends SecureController {
 			$newwidth = $w;
 			$newheight = $h;
 		} else {
-			if ($w/$h > $r) {
-				$newwidth = $h*$r;
-				$newheight = $h;
+			if ($h != 0 && $w/$h > $r) {
+				$newwidth = round($h*$r);
+				$newheight = round($h);
 			} else {
-				$newheight = $w/$r;
-				$newwidth = $w;
+				$newheight = round($w/$r);
+				$newwidth = round($w);
 			}
 		}
 		$src = $this->imagecreatefromfile($file);
-		/*$array =  $userfile_extn = explode(".", strtolower($file));
-		$type = $array[count($array)-1];*/
-		//list($width_orig, $height_orig, $type) = getimagesize($file); 
 		$dst = imagecreatetruecolor($newwidth, $newheight);
 		imagealphablending($dst, false);
 		imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-        //$black = imagecolorallocate($dst, 0, 0, 0);
-        // ??????? ??? ??????????
-        //imagecolortransparent($dst, 'black');
 		imagesavealpha($dst, true);
 		imagepng($dst,'users/'.$this->getAuthUser()->getEmail().'/templateImg1.png');
+        $width = $newwidth;
+        $height = $newheight;
+        //$this->imageCreateTransparent($dst,$width,$height);
 		return $dst;
 	}
 	
-	protected function copyImage($mainPng,$file, $w, $h, $crop=FALSE) {
-		list($width, $height) = getimagesize($file);
-		
-		$r = $width / $height;
-		if ($crop) {
-			if ($width > $height) {
-				$width = ceil($width-($width*($r-$w/$h)));
-			} else {
-				$height = ceil($height-($height*($r-$w/$h)));
-			}
-			$newwidth = $w;
-			$newheight = $h;
-		} else {
-			if ($w/$h > $r) {
-				$newwidth = $h*$r;
-				$newheight = $h;
-			} else {
-				$newheight = $w/$r;
-				$newwidth = $w;
-			}
-		}
-		$src = $this->imagecreatefromfile($file);
-		/*$array =  $userfile_extn = explode(".", strtolower($file));
-		$type = $array[count($array)-1];*/
-		//list($width_orig, $height_orig, $type) = getimagesize($file); 
-		$dst = imagecreatetruecolor($newwidth, $newheight);
-		imagealphablending($dst, false);
-		imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-		imagesavealpha($dst, true);
-		imagepng($dst,'users/'.$this->getAuthUser()->getEmail().'/templateImg1.png');
-		return $dst;
-	}
 	
 	protected function replaceBlackToTransparent($stype){
 		

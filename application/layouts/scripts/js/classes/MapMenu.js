@@ -12,7 +12,7 @@ Cosmo_object = {
         $('#objectList img').click(function(){
             $(this).clone().attr('id', 'templateDress_'+Cosmo_object.currentId).appendTo($('#ImageDiv span')); 
             $('#templateDress_'+Cosmo_object.currentId).mousedown(Cosmo_object.handle_mousedown);
-            $('#templateDress_'+Cosmo_object.currentId).css('position','absolute');
+            $('#templateDress_'+Cosmo_object.currentId).css('position','absolute').attr('class','');
             var height =  $('#templateDress_'+Cosmo_object.currentId).height();
             var width =  $('#templateDress_'+Cosmo_object.currentId).width();
             var top =  $('#templateDress_'+Cosmo_object.currentId).css('top');
@@ -23,7 +23,7 @@ Cosmo_object = {
             '<input type="hidden" name="widths[]" id="putinWidth_'+Cosmo_object.currentId+'" value="'+width+'">'+
             '<input type="hidden" name="heights[]" id="putinHeight_'+Cosmo_object.currentId+'" value="'+height+'">'+
             '<input type="hidden" name="srcs[]" id="putinHeight_'+Cosmo_object.currentId+'" value="'+src+'">';
-            $('#imgSaveForm').append(html);
+            $('#imgGenerate').append(html);
             Cosmo_object.currentId++;
             
         });
@@ -45,12 +45,12 @@ Cosmo_object = {
             $('#headerTemplate').css({'position':'absolute','top':'10px','left':'10px'});
             $('#headerTemplate').mousedown(Cosmo_object.handle_mousedown);
         });*/
-        window.onkeydown=function(e){console.log(e.keyCode);
+        window.onkeydown=function(e){
             if(e.keyCode == 109){//up
-                Cosmo_object.zoomOut(Cosmo_object.selected_element,2);
+                Cosmo_object.zoomOut(Cosmo_object.selected_element,1.2);
             }
             if(e.keyCode == 107){//down
-                Cosmo_object.zoomIn(Cosmo_object.selected_element,2);
+                Cosmo_object.zoomIn(Cosmo_object.selected_element,1.2);
             }  
         }
     },
@@ -76,11 +76,15 @@ Cosmo_object = {
     rotateX: function(elem,rad){
         
     },
-    zoomIn : function(elem,pixel){
-        $(elem).height((parseInt($(elem).height())+pixel));
+    zoomIn : function(elem,raized){
+        $(elem).height((parseInt($(elem).height())*raized));
+        //$(elem).width((parseInt($(elem).width())*raized));
+        Cosmo_object.setInputValues(elem);
     },
-    zoomOut : function(elem,pixel){
-        $(elem).height((parseInt($(elem).height())-pixel));
+    zoomOut : function(elem,raized){
+        $(elem).height((parseInt($(elem).height())/raized));
+        //$(elem).width((parseInt($(elem).width())/raized));console.log($(elem).width());
+        Cosmo_object.setInputValues(elem);
     },
     handle_mousedown : function (e){
         window.my_dragging = {};
