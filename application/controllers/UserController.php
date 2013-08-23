@@ -82,7 +82,6 @@ class UserController extends SecureController {
        
     }
 
-
     public function deleteAction() {
         $this->disableLayout();
         $this->setNoRender();

@@ -8,10 +8,82 @@
             <tbody>
                 <tr class="head">
                     <td>
+						<script>
+							LoveListDeleteObject = {
+								objectsCount : 0,
+								addLovleList : function(id){
+									$('#'+id).attr('class','selectedLoveList');
+									//$('#'+id).attr('onclick','LoveListObject.deleteFromSaveList("'+id+'")');
+									id = id.replace('remove_','');
+									str = '<input type="hidden" id="template_'+id+'" name="ids[]" value="'+id+'"/>';
+									$('#addForm').append(str);
+									LoveListDeleteObject.objectsCount++;
+								},
+								
+								deleteFromSaveList: function(id){
+									$('#'+id).attr('class','unSelectedLoveList');
+									id = id.replace('remove_','');
+									$('#template_'+id).remove();
+									LoveListDeleteObject.objectsCount--;
+								},
+								
+								detectOption : function(id){
+									if($('#'+id).attr('class')=='selectedLoveList'){
+										LoveListDeleteObject.deleteFromSaveList(id);
+									}else{
+										LoveListDeleteObject.addLovleList(id);
+									}
+								}
+							}
+						</script>
+						<script>
+						$(function(){
+							Cosmo_object.init();
+						});
+						</script>
+						<style>
+							.selectedLoveList{
+								cursor:pointer;
+								background:red;
+							}
+							.unSelectedLoveList{
+								cursor:pointer;
+								background:white;
+							}
+						</style>
+						<div>
+							<form id="addForm" name="addForm" action="lovelist/delete">
+								
+							</form>
+							<form action="image" name="imgSaveForm" id="imgSaveForm">
+								<input type="button" onclick="Filter.submit('imgSaveForm')" value="saveImg" class="">
+							</form>
+							<input type="button" onclick="Form.submit('addForm')" value="submit">
+						   
+						</div>
+						<div id="objectList" style="width:100%;">
+							<?php
+								foreach($this->items as $item){
+							?>	
+								<div class="fl w100 mr5">
+									<div class="r100">
+										<div>
+											<!-- <a href="objects/<?php echo $item->getObjectId();?>/overview"><img src="<?php echo $item->getPath();?>" class="r100"></a>-->
+											<img src="<?php echo $item->getPath();?>" class="r100" id="<?php echo $item->getObjectId();?>">
+										</div>
+									</div>
+									<div class="fr">
+										<a  name="remove" id="remove_<?php echo $item->getId();?>" class="unSelectedLoveList" onclick="LoveListDeleteObject.detectOption('remove_<?php echo $item->getId();?>')">RemoveFromList</a>
+									</div>
+								</div>
+							<?php
+								}
+							?>
+						</div>
                     </td>
                 </tr>
                 <tr class='panel'>
-                    <td><?php echo $this->action('list', 'lovelist');?></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
