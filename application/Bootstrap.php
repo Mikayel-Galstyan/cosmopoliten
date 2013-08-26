@@ -150,9 +150,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initRoutes() {
         $frontController = Zend_Controller_Front::getInstance();
         $router = $frontController->getRouter();
-        $router->addRoute('image', new Zend_Controller_Router_Route('image/:folder/:name',
-                array('controller' => 'image', 'action' => 'index', 'folder' => ':folder', 'name' => ':name' ))
-        );
         $router->addRoute('add', new Zend_Controller_Router_Route(':controller/add',
             array('controller' => ':controller','action' => 'edit'))
         );         

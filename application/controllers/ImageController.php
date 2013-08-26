@@ -20,31 +20,26 @@ class ImageController extends ImageutilController {
 	}
     
     public function listAction(){
-        $dest = $this->resize_image($this->getAuthUser()->getPath(), $this->width,  $this->height);
-		for($i = 0;$i<count($this->widths);$i++){
-			$img = $this->resize_image($this->srcs[$i], $this->widths[$i],  $this->heights[$i]);
-            imagesavealpha($dest, true);
-            imagealphablending($dest, true);
-			@imagecopy($dest, $img, $this->lefts[$i], $this->tops[$i], 0, 0, $this->widths[$i], $this->heights[$i]);
-			imagedestroy($img);
-		}
-		
-		$url = 'users/'.$this->getAuthUser()->getEmail().'/templateImg.png';
-        $black = imagecolorallocate($dest, 0, 0, 0);
-        // ??????? ??? ??????????
-        imagecolortransparent($dest, $black);
-        imagesavealpha($dest, true);
-		imagepng($dest,$url);
-		imagedestroy($dest);
-        $width = $this->width;
-        $height = $this->height;
-        /**/
-		$this->view->imgSrc = $url;
-		//$this->javascript()->redirect('lovelist');
+			$dest = $this->resize_image($this->getAuthUser()->getPath(), $this->width,  $this->height);
+			for($i = 0;$i<count($this->widths);$i++){
+				$img = $this->resize_image($this->srcs[$i], $this->widths[$i],  $this->heights[$i]);
+				imagesavealpha($dest, true);
+				imagealphablending($dest, true);
+				@imagecopy($dest, $img, $this->lefts[$i], $this->tops[$i], 0, 0, $this->widths[$i], $this->heights[$i]);
+				imagedestroy($img);
+			}
+			$url = 'users/'.$this->getAuthUser()->getEmail().'/templateImg.png';
+			$black = imagecolorallocate($dest, 0, 0, 0);
+			imagecolortransparent($dest, $black);
+			imagesavealpha($dest, true);
+			imagepng($dest,$url);
+			imagedestroy($dest);
+			$width = $this->width;
+			$height = $this->height;
+			$this->view->imgSrc = $url;
     }
 	
 	public function saveAction(){
-        $this->_helper->viewRenderer->setNoRender(true);
         $path = $this->path;
         $userDomain = $this->getAuthUser();
         $userfile_extn = explode(".", strtolower($path));
@@ -52,7 +47,7 @@ class ImageController extends ImageutilController {
             $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[count($userfile_extn)-1];
             $url = 'users/'.$userDomain->getEmail().'/'.$new_name;
         }while(file_exists($url));
-        @rename ($path,$new_name);
+        $result  = @rename ($path,$new_name);
         $service = new Service_UserImage();
         $domain = new Domain_UserImage();
         $domain->setUserId($userDomain->getId());
