@@ -9,7 +9,7 @@ Cosmo_object = {
     currentId:0,
     zoomPixel: 2,
     init: function(){
-        $('#objectList img').click(function(){
+        $('.objectDiv img').click(function(){
             $(this).clone().attr('id', 'templateDress_'+Cosmo_object.currentId).appendTo($('#ImageDiv span')); 
             $('#templateDress_'+Cosmo_object.currentId).mousedown(Cosmo_object.handle_mousedown);
             $('#templateDress_'+Cosmo_object.currentId).css('position','absolute').attr('class','');

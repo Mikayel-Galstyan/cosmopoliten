@@ -1,3 +1,4 @@
+
 <?php
 
 class Dao_LoveList extends Miqo_Dao_Base {
@@ -8,6 +9,12 @@ class Dao_LoveList extends Miqo_Dao_Base {
 			'object_id' => 'objectId',
 			'publisher_id' => 'publisherId',
             'object_type_name' => 'objectTypeName',
+            'name' => 'name',
+            'cost' => 'cost',
+            'valuta' => 'valuta',
+            'objectTypeId' => 'objectTypeId',
+            'publisherId'=>'publisherId',
+            'shopListId'=>'shopListId',
 			'path'=>'path');
     
     protected $entityClass = 'Domain_LoveList';
@@ -20,8 +27,16 @@ class Dao_LoveList extends Miqo_Dao_Base {
 	
     public function getByUserId($id){
 		$select = $this->dbAdapter->select()->from(array('c'=>Dao_DbTable_List::LOVELIST),array('id', 'user_id', 'object_id','publisher_id'))
-		->joinLeft(Dao_DbTable_List::OBJECTS, 'objects.id=c.object_id',array( 'objects.path as path'))
+		->joinLeft(Dao_DbTable_List::OBJECTS, 'objects.id=c.object_id',array(
+        'objects.path as path', 
+        'objects.name as name', 
+        'objects.cost as cost', 
+        'objects.valuta as valuta', 
+        'objects.publisher_id as publisherId', 
+        'objects.objectType_id as objectTypeId', 
+        'objects.shopList_id as shopListId'))
         ->joinLeft(Dao_DbTable_List::OBJECTTYPE, 'objecttype.id=objects.objectType_id',array( 'objecttype.name as object_type_name'));
+        $select->where('user_id =?',$id);
 		$result = $this->dbAdapter->fetchAll($select);
         $result = $this->getEntities($result);
         return $result;
@@ -41,3 +56,5 @@ class Dao_LoveList extends Miqo_Dao_Base {
 }
 
 ?>
+
+

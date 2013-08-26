@@ -3,7 +3,7 @@
 		objectsCount : 0,
 		addLovleList : function(id){
 			$('#'+id).attr('class','selectedLoveList');
-			//$('#'+id).attr('onclick','LoveListObject.deleteFromSaveList("'+id+'")');
+			
 			id = id.replace('remove_','');
 			str = '<input type="hidden" id="template_'+id+'" name="ids[]" value="'+id+'"/>';
 			$('#addForm').append(str);

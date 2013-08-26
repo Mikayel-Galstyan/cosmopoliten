@@ -13,6 +13,7 @@ class JsminController extends SecureController {
        if (APPLICATION_ENV=="development"){            
             echo file_get_contents(APPLICATION_PATH.'/layouts/scripts/js/classes/Menu.js');
             echo file_get_contents(APPLICATION_PATH.'/layouts/scripts/js/classes/Page.js');
+            echo file_get_contents(APPLICATION_PATH.'/layouts/scripts/js/classes/LoveList.js');
             echo file_get_contents(APPLICATION_PATH.'/layouts/scripts/js/classes/Form.js');
             echo file_get_contents(APPLICATION_PATH.'/layouts/scripts/js/classes/Filter.js');
             echo file_get_contents(APPLICATION_PATH.'/layouts/scripts/js/classes/Ajax.js');
@@ -34,6 +35,7 @@ class JsminController extends SecureController {
             echo file_get_contents(APPLICATION_PATH.'/layouts/scripts/js/Init.js');            
          }else{                        
             echo TF_Util_JSMin::minify(APPLICATION_PATH.'/layouts/scripts/js/classes/Menu.js');
+            echo TF_Util_JSMin::minify(APPLICATION_PATH.'/layouts/scripts/js/classes/LoveList.js');
             echo TF_Util_JSMin::minify(APPLICATION_PATH.'/layouts/scripts/js/classes/Page.js');
             echo TF_Util_JSMin::minify(APPLICATION_PATH.'/layouts/scripts/js/classes/Form.js');
             echo TF_Util_JSMin::minify(APPLICATION_PATH.'/layouts/scripts/js/classes/Filter.js');

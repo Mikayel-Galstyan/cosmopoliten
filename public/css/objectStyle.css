@@ -1,0 +1,112 @@
+.favourDiv{
+    background-image: url('../images/objects/noStars.png');
+    background-repeat: no-repeat;
+    background-size:100%,100%;
+    background-position:0px,0px;
+    width:160px;
+    height:30px;
+    border-top:2px solid silver;
+}
+.favourDiv>a{
+    display:block;
+    float:left;
+    width:30px;
+    height:30px;
+    cursor:pointer;
+}
+.objectDiv>img{
+    width:160px;
+}
+.objectDiv{
+    width:160px;
+    height:250px;
+    position:relative;
+    background:white;
+}
+.actionDiv{
+    border-top:2px solid silver;
+    width:100%;
+}
+.unSelectedLoveList{
+    width:30px;
+    height:30px;
+    display:block;
+    background-image: url('../images/objects/addToList.png');
+    background-repeat: no-repeat;
+    background-size:100%,100%;
+    background-position:0px,0px;
+    cursor:pointer;
+    float:left;
+}
+.selectedLoveList{
+    width:30px;
+    height:30px;
+    display:block;
+    background-image: url('../images/objects/removeFromList.png');
+    background-repeat: no-repeat;
+    background-size:100%,100%;
+    background-position:0px,0px;
+    cursor:pointer;
+    float:left;
+}
+
+.overview{
+    display:block;
+    width:30px;
+    height:30px;
+    background-image: url('../images/objects/overviewIcon.png');
+    background-repeat: no-repeat;
+    background-size:100%,100%;
+    background-position:0px,0px;
+}
+.objectContentDiv{
+    float:left;
+    margin:8px;
+    border:2px solid silver;
+    background:silver;
+    position:relative;
+}
+
+.link{
+    cursor:pointer;
+    margin:5px;
+}
+.fl{
+    float:left;
+}
+.objectMask{
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    background:black;
+    opacity:0.5;
+    z-index:100;
+}
+.actionDiv>div{
+    width:60px;
+    font-size:12px;
+    color:red;
+    float:left;
+    margin-top:7px;
+    margin-left:5px;
+    margin-right:5px;
+}
+.actionDiv>a{
+    float:left;
+    margin-left:6px;
+    margin-right:6px;
+}
+.objectHeader{
+    position:relative;
+    top:-5px;
+    width:100%;
+    background:silver;
+}
+.objectHeader>div{
+    width:100%;
+    height:25px;
+    text-align:center;
+    margin:5px;
+}

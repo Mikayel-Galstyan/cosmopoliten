@@ -47,7 +47,7 @@ class ImageController extends ImageutilController {
             $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[count($userfile_extn)-1];
             $url = 'users/'.$userDomain->getEmail().'/'.$new_name;
         }while(file_exists($url));
-        $result  = @rename ($path,$new_name);
+        $result  = @rename ($path,$url);
         $service = new Service_UserImage();
         $domain = new Domain_UserImage();
         $domain->setUserId($userDomain->getId());

@@ -1,43 +1,8 @@
 <script>
-	LoveListObject = {
-		objectsCount : 0,
-		addLovleList : function(id){
-			$('#'+id).attr('class','selectedLoveList');
-			//$('#'+id).attr('onclick','LoveListObject.deleteFromSaveList("'+id+'")');
-			id = id.replace('add_','');
-			str = '<input type="hidden" id="template_'+id+'" name="objectsIds[]" value="'+id+'"/>';
-			$('#addForm').append(str);console.log(str);
-			LoveListObject.objectsCount++;
-            if(LoveListObject.objectsCount == 1){
-                $('#addToLoveList').show();
-            }
-		},
-		
-		deleteFromSaveList: function(id){
-			$('#'+id).attr('class','unSelectedLoveList');
-			id = id.replace('add_','');
-			$('#template_'+id).remove();
-			LoveListObject.objectsCount--;
-            
-		},
-		
-		detectOption : function(id){
-			if($('#'+id).attr('class')=='selectedLoveList'){
-				LoveListObject.deleteFromSaveList(id);
-			}else{
-				LoveListObject.addLovleList(id);
-			}
-		}
-	}
+	$(function(){
+        LoveListObject.init();
+    })
 </script>
-<style>
-	.selectedLoveList{
-		background:red;
-	}
-	.unSelectedLoveList{
-		background:white;
-	}
-</style>
 <div>
 	<form id="addForm" name="addForm" action="<?php echo ($this->isUser)?'lovelist/save':'objects/delete' ?>">
 	</form>
@@ -47,32 +12,30 @@
 	<?php
 		foreach($this->items as $item){
 	?>	
-		<div class="fl w100 mr5">
-			<div style="text-align:center; width:100"><?php echo ($item->getName())?$item->getName():'no description';?></div>
-			<div class="r100">
-				<div>
-					<a href="objects/<?php echo $item->getId();?>/overview"><img src="<?php echo $item->getPath();?>" class="r100" alt="<?php echo ($item->getDescription())?$item->getDescription():'no description';?>"></a>
-				</div>
-			</div>
-			<div class="fl">
-				<?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
-			</div>
-            <?php if($this->isUser){
-            ?>
-			<div class="fr">
-                    <a  name="add" id="add_<?php echo $item->getId();?>" class="unSelectedLoveList link" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')">addToList</a>
-			</div>
-            <?php } ?>
-            <?php if($this->isPublisher){
-            ?>
-			<div class="fr">
-                    <a  name="add" id="add_<?php echo $item->getId();?>" class="unSelectedLoveList link" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')">delete</a>
-			</div>
-            <div class="fr">
-                    <a  name="edit" class="link" href="objects/<?php echo $item->getId(); ?>/edit">edit</a>
-			</div>
-            <?php } ?>
-		</div>
+        <div data-id="object_<?php echo $item->getId();?>" class="objectContentDiv fl">
+            <div class="objectHeader">
+                <div>
+                    <?php echo ($item->getName())?$item->getName():'no description';?>
+                </div>
+            </div>
+            <div class="objectDiv">
+                <img src="<?php echo $item->getPath();?>">
+            </div>
+            <div class="favourDiv">
+                <a data-img="oneStar.png" data-evaluation="1"></a>
+                <a data-img="twoStars.png" data-evaluation="2"></a>
+                <a data-img="threeStars.png" data-evaluation="3"></a>
+                <a data-img="fourStars.png" data-evaluation="4"></a>
+                <a data-img="fiveStars.png" data-evaluation="5"></a>
+            </div>    
+            <div class="actionDiv">
+                <div>
+                    <?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
+                </div>
+                <a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
+                <a href="" class="link fl overview" ></a>
+            </div>
+        </div>
 	<?php
 		}
 	?>

@@ -1,9 +1,9 @@
 <?php if($this->items || $this->isAuth){ ?>
     <div id="ImageDiv" class="fl">
-        <span><img src="<?php echo $this->img ?>" style="z-index: 1;width:300px" id="templateMan"/></span>
+        <span><img src="<?php echo $this->img ?>" style="z-index: 1;width:400px" id="templateMan"/></span>
     </div>
     <div><a href="user/<?php echo $this->id ?>/edit" class="link">edit</a></div>
-    <div class="fl">
+    <div class="fl w800">
         <table class="mt20">
             <tbody>
                 <tr class="head">
@@ -35,24 +35,16 @@
 									}
 								}
 							}
+                            
 						</script>
 						<script>
 						$(function(){
 							Cosmo_object.init();
+                            LoveListObject.init();
                             $('#manHeight').attr('value',parseInt($('#templateMan').height()));
                             $('#manWidth').attr('value',parseInt($('#templateMan').width()));
 						});
 						</script>
-						<style>
-							.selectedLoveList{
-								cursor:pointer;
-								background:red;
-							}
-							.unSelectedLoveList{
-								cursor:pointer;
-								background:white;
-							}
-						</style>
 						<div>
 							<form id="addForm" name="addForm" action="lovelist/delete">
 								
@@ -68,18 +60,32 @@
 						<div id="objectList" style="width:100%;">
 							<?php
 								foreach($this->items as $item){
-							?>	
-								<div class="fl w100 mr5">
-									<div class="r100">
-										<div>
-											<!-- <a href="objects/<?php echo $item->getObjectId();?>/overview"><img src="<?php echo $item->getPath();?>" class="r100"></a>-->
-											<img src="<?php echo $item->getPath();?>" class="r100" id="<?php echo $item->getObjectId();?>">
-										</div>
-									</div>
-									<div class="fr">
-										<a  name="remove" id="remove_<?php echo $item->getId();?>" class="unSelectedLoveList" onclick="LoveListDeleteObject.detectOption('remove_<?php echo $item->getId();?>')">RemoveFromList</a>
-									</div>
-								</div>
+							?>
+                                	
+								<div data-id="object_<?php echo $item->getId();?>" class="objectContentDiv fl">
+                                    <div class="objectHeader">
+                                        <div>
+                                            <?php echo ($item->getName())?$item->getName():'no description';?>
+                                        </div>
+                                    </div>
+                                    <div class="objectDiv">
+                                        <img src="<?php echo $item->getPath();?>">
+                                    </div>
+                                    <div class="favourDiv">
+                                        <a data-img="oneStar.png" data-evaluation="1"></a>
+                                        <a data-img="twoStars.png" data-evaluation="2"></a>
+                                        <a data-img="threeStars.png" data-evaluation="3"></a>
+                                        <a data-img="fourStars.png" data-evaluation="4"></a>
+                                        <a data-img="fiveStars.png" data-evaluation="5"></a>
+                                    </div>    
+                                    <div class="actionDiv">
+                                        <div>
+                                            <?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
+                                        </div>
+                                        <a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
+                                        <a href="" class="link fl overview" ></a>
+                                    </div>
+                                </div>
 							<?php
 								}
 							?>
