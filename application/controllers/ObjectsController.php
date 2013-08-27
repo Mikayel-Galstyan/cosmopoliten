@@ -189,7 +189,7 @@ class ObjectsController extends SecureController {
         }
         try {
             $service->save($item);
-            $this->printJsonSuccessRedirect($this->translate('success.save'),'objects');
+            $this->printJsonSuccess($this->translate('success.save'));
         } catch ( Miqo_Util_Exception_Validation $vex ) {
             $errors = $this->translateValidationErrors($vex->getValidationErrors());
             $this->printJsonError($errors, $this->translate('validation.error'));

@@ -160,16 +160,6 @@ $(function(){
 		$this = $(this).parent().find('span.checkbox');
         $this.css('outline', 'none');
 	});
-	$(document).on('focus', 'input[type="file"]#file', function(){
-		$('.upload').css('outline', '2px solid #34B4E4');
-	});  
-	$(document).on('blur', 'input[type="file"]#file', function(){
-		$('.upload').css('outline', 'none');
-	});
-	$(document).on('change', 'input[type="file"]#file', function(){
-		$this = $(this);
-        file = $this.val();                    
-        $this.siblings().text(file);
-	});
+
    
 });

@@ -671,6 +671,9 @@
 .pt6{
     padding-top:6px !important;
 }
+.pt8{
+    padding-top:8px !important;
+}
 .pt10{
     padding-top:10px !important;
 }
@@ -935,4 +938,8 @@ a:visited.download {
  */
 .italic {
 	font-style:italic !important;
+}
+.center{
+    margin-left:auto !important;
+    margin-right:auto !important;
 }

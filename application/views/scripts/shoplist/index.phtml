@@ -3,16 +3,13 @@
     $formatting = $this->getHelper('DataFormatting');
 ?>
 
-<div class="page_title">
-    <div><?php echo $this->translate('shopList');?></div>
-</div>
 
 <div class="table_wrapper ml20 mt20">
     <?php if($this->isPublisher){ ?>
         <a href="shoplist/add">add</a>
     <?php } else{ ?>    
 	<form action="shoplist/list" name="ajaxForm" id="ajaxForm">
-		<div class="mr5 fl">
+		<div class="mr5 fl mt-5">
 			<select name="publisherId" id="publisherId">
 				<option value="">--Select--</option>
 				<?php
@@ -24,10 +21,11 @@
 				?>
 			</select>
 		</div>
-		<div>
-			<input type="button" onclick="Filter.submit('ajaxForm');return false;" value="filter">
+		<div class="fl">
+            <a class="button ml10 w100" onclick="Filter.submit('ajaxForm');return false;" ><?php echo $this->translate('filter'); ?> </a>
 		</div>
 	</form>
+    <br>
     <?php } ?>
     <table class="mt20">
     	<tbody>

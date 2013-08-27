@@ -9,6 +9,7 @@
 @import url("jqtransform.css");
 @import url("objectStyle.css");
 @import url("menu.css");
+@import url("formElementStyles.css");
 /* Header
 ---------------------------------------------------------------------------------------------------*/
 .page_wrapper{
@@ -16,7 +17,18 @@
 	height:90px;
 	width:100%;
 }
-
+form td label{
+    color:royalblue;
+}
+.tableTitle{
+    display:block;
+    width:250px;
+    background:rgb(152, 160, 255);
+    color:white;
+    height:25px;
+    padding-top:10px;
+    padding-left:90px;
+}
 /* Panel
 ---------------------------------------------------------------------------------------------------*/
 .registr{

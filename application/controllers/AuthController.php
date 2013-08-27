@@ -8,12 +8,12 @@ class AuthController extends SecureController {
 
     public function init() {
         parent::init();    
-        $this->_helper->layout()->setLayout('login');
+        $this->_helper->layout()->setLayout('layout');
         $this->LOG = Zend_Registry::get('log');
     }
     
     public function indexAction() {
-        $this->_forward('login');
+        $this->_forward('layout');
     }
     
     public function loginAction() {

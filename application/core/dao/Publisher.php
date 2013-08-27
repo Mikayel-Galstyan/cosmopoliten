@@ -13,7 +13,8 @@ class Dao_Publisher extends Miqo_Dao_Base {
             'clicks' => 'clicks',
             'user_id' => 'userId',
             'end_order_date' => 'endOrderDate',
-            'population' => 'population');
+            'population' => 'population',
+            'path' => 'path');
     
     protected $entityClass = 'Domain_Publisher';
 

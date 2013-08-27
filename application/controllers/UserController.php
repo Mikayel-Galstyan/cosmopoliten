@@ -100,7 +100,7 @@ class UserController extends SecureController {
     }
 
     public function saveAction() {
-        $this->_helper->viewRenderer->setNoRender(true);
+       
         $id = $this->id;
         $service = new Service_User();
 		//$seviceImg = new Service_UserImage();
@@ -129,7 +129,7 @@ class UserController extends SecureController {
 		if(!is_dir ("users/".$this->email)){
 			mkdir("users/".$this->email);
 		}
-        if($_FILES['path']){
+        if($_FILES['path']['name'] != ''){
             $path = $_FILES['path'];
             $email = $this->email;
             $userfile_extn = explode(".", strtolower($path['name']));
@@ -139,8 +139,8 @@ class UserController extends SecureController {
             }while(file_exists($fullPath));
             @rename ($path['name'],$new_name);
             move_uploaded_file ($path['tmp_name'],$fullPath);
-            $item->setPath($fullPath);
-        }
+             $item->setPath($fullPath);
+        }     
         try {
             $item = $service->save($item);
             $userSession = $this->getAuthUser();
@@ -149,7 +149,8 @@ class UserController extends SecureController {
                 $userSession->set('authUser', $item); 
             }
             $urlId = ($this->id)?'/'.$this->id:'';
-            $this->printJsonSuccessRedirect($this->translate('success.save'),($this->status==1)?'publisher'.$urlId .'/edit':'index');
+            $this->javascript()->redirect(($this->status==1)?'publisher'.$urlId .'/edit':'index');
+            //$this->printJsonSuccessRedirect($this->translate('success.save'),($this->status==1)?'publisher'.$urlId .'/edit':'index');
         } catch ( Miqo_Util_Exception_Validation $vex ) {
             $errors = $this->translateValidationErrors($vex->getValidationErrors());
             $this->printJsonError($errors, $this->translate('validation.error'));

@@ -4,7 +4,8 @@ class Dao_ObjectType extends Miqo_Dao_Base {
     protected $primaryColumn = 'id';
     protected $columnAliases = array (
             'id' => 'id',
-            'name' => 'name');
+            'name' => 'name',
+            'path' => 'path');
     
     protected $entityClass = 'Domain_ObjectType';
 
@@ -15,7 +16,7 @@ class Dao_ObjectType extends Miqo_Dao_Base {
     
     
     public function &getOrderedList(Filter_Object $filter = null) {
-    	$select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::OBJECTTYPE), array('id AS id', 'name AS name'));
+    	$select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::OBJECTTYPE), array('id AS id', 'name AS name','path as path'));
     	if($filter) {
     		$select->order( array($filter->getOrder().' '.$filter->getSort()));
     	} else {

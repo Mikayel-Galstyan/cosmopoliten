@@ -9,7 +9,8 @@ class Dao_ShopList extends Miqo_Dao_Base {
 			'phone' => 'phone',
 			'description' => 'description',
 			'publisher_id' => 'publisherId',
-            'population' => 'population');
+            'population' => 'population',
+            'path' => 'path');
     
     protected $entityClass = 'Domain_ShopList';
 

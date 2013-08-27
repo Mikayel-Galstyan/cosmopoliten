@@ -40,28 +40,7 @@
 	width:400px !important;
 	float:right;
 }
-.textField{
-	width:150px;
-	margin-left:8px;
-	margin-top:5px;
-	height:30px;
-	padding-top:3px;
-	border:1px solid rgb(152, 160, 255);
-}
-.button{
-	display:block;
-	padding-top:3px;
-	height:24px;
-	cursor:pointer;
-	padding-left:10px;
-	padding-right:10px;
-	margin-left:8px;
-	background:rgb(99, 53, 241);
-	border:none;
-	color:white;
-	box-shadow:2px 2px 2px #000972;
-	border-radius:4px;
-}
+
 .mt5{
 	margin-top:5px;
 }
@@ -75,12 +54,10 @@
 }
 .regText{
 	position:relative;
-	width:400px;
-	height:52px;
 }
 .regText>a{
 	position:absolute;
-	bottom:0px;
+	top:31px;
 	left:10px;
 	
 }

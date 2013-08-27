@@ -1,7 +1,7 @@
 <?php
-require_once ('SecureController.php');
+require_once ('ImageutilController.php');
 
-class PublisherController extends SecureController {
+class PublisherController extends ImageutilController {
     
     private $id = null;
     private $name = null;
@@ -48,7 +48,7 @@ class PublisherController extends SecureController {
     }
     
     public function saveAction(){
-        $this->_helper->viewRenderer->setNoRender(true);
+        
         $id = $this->getPublisherId();
         $service = new Service_Publisher();
         if ($id != null) {
@@ -62,6 +62,21 @@ class PublisherController extends SecureController {
         $item->setAddress($this->address);
         $item->setPhone($this->phone);
         $item->setSite($this->site);
+        if(!is_dir ("users/".$this->getAuthUser()->getEmail().'/'.$this->name)){
+			mkdir("users/".$this->getAuthUser()->getEmail().'/'.$this->name);
+		}
+        if($_FILES['path']['name'] != ''){
+            $path = $_FILES['path'];
+            $email = $this->getAuthUser()->getEmail().'/'.$this->name;
+            $userfile_extn = explode(".", strtolower($path['name']));
+            do{
+                $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[1];
+                $fullPath = "users/".$email.'/'.$new_name;
+            }while(file_exists($fullPath));
+            @rename ($path['name'],$new_name);
+            move_uploaded_file ($path['tmp_name'],$fullPath);
+            $item->setPath($fullPath);
+        }
         try {
             $service->save($item);
             if (!isset($userSession)) {

@@ -44,26 +44,30 @@
                 ?>
             </select>
         </div>
-		<div class="fl mr5">
+		<div class="fl mr5 pt8">
 			cost from
 		</div>
 		<div class="fl mr5">
-			<input class="w50" placeholder="min" name="costMin"/>
+			<input type="text" class="w50 textField" placeholder="min" name="costMin"/>
 		</div>
-		<div class="fl mr5">
+		<div class="fl mr5 pt8">
 			to
 		</div>
 		<div class="fl mr5">
-			<input class="w50" placeholder="max" name="costMax"/>
+			<input type="text" class="w50 textField" placeholder="max" name="costMax"/>
 		</div>
         <div class="fl mr5">
-            <input type="button" value="filter" onclick="Filter.submit('ajaxForm');return false;">
+            <a class="button w50"  onclick="Filter.submit('ajaxForm');return false;"><?php echo $this->translate('filter'); ?></a>
         </div>
+        <?php if($this->isPublisher){ ?>
+        <div class="fl mr5">
+            <a href="objects/add" class="button w50"><?php echo $this->translate('add'); ?></a>
+           
+        </div>
+         <?php } ?>
     </form>
     <br/>
-    <?php if($this->isPublisher){ ?>
-        <a href="objects/add">add</a>
-    <?php } ?>
+   
     <br/>
     <table class="mt20">
     	<tbody>
@@ -108,7 +112,7 @@
                                         <?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
                                     </div>
                                     <a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
-                                    <a href="" class="link fl overview" ></a>
+                                    <a href="objects/<?php echo $item->getId();?>/overview" class="link fl overview" ></a>
                                 </div>
                             </div>
                         <?php

@@ -16,7 +16,8 @@ $(function(){
 <?php
     if($this->isPublisher){
 ?>
-    <form id="ajaxForm" action="publisher/save" method="post" onsubmit="Form.submit('ajaxForm'); return false;">
+    <form id="ajaxForm" action="publisher/save" method="post" onsubmit="Filter.submit('ajaxForm','tempForReload');">
+        <div id="tempForReload"></div>
         <input type="hidden" name="id" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getId()):'')?>" />
         <input type="hidden" name="userId" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getUserId()):'')?>" />
         <div class="fixed_head">
@@ -68,8 +69,14 @@ $(function(){
                         <td class="middle left"><input type="text" name="site" id="site" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getSite()):'')?>"/></td>
                     </tr> 
                     <tr>
+                        <td class="middle left"><label for="path"><?php echo $this->translate('image')?> *</label></td>
+                        <td class="middle left">
+                            <input type="file" name="path" id="path" value="<?php echo ($this->img ? $this->htmlEscape($this->img->getPath()):'')?>" class="mt10 ml8"/>
+                        </td>
+                    </tr>	
+                    <tr>
                         <td class="middle left"></td>
-                        <td class="middle left"><input type="button" onclick="Filter.submit('ajaxForm','navigationMenu')" value="save"/></td>
+                        <td class="middle left"><input type="button" onclick="Filter.submit('ajaxForm','tempForReload')" value="save"/></td>
                     </tr>                     
                 </tbody>
                 <tfoot><tr><td class="h p5_0"></td></tr></tfoot>

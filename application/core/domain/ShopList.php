@@ -31,7 +31,19 @@ class Domain_ShopList extends Miqo_Domain_AbstractEntity {
      * @var int
      */
     protected $population = null;
+    /**
+     *
+     * @var int
+     */
+    protected $path = null;
     
+    public function getPath() {
+        return $this->path;
+    }
+    public function &setPath($val) {
+        $this->path = $val;
+        return $this;
+    }
     
     public function getAddress() {
         return $this->userId;

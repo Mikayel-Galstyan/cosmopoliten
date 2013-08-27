@@ -10,10 +10,11 @@ $(function(){
 ?>
 <script type="text/javascript">
     $(function(){
-    	Menu.acitvate('user');        
+    	
     });
 </script>
-<form id="ajaxForm" action="user/save" method="post" onsubmit="Form.submit('ajaxForm'); return false;">
+<form id="ajaxForm" action="user/save" method="post" onsubmit="Filter.submit('ajaxForm','tempForReload'); return false;">
+    <div id="tempForReload"></div>
     <input type="hidden" name="id" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getId()):'')?>" />
     <div class="fixed_head">
         <span class="tableTitle"><?php echo $this->translate('users'). ' // ' . ($this->item ? $this->translate('edit').' // ' . $this->htmlEscape($this->item->getEmail()) : $this->translate('add')); ?></span>        
@@ -32,9 +33,9 @@ $(function(){
                     <td class="middle left"><input type="text" name="lastName" id="lastName" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getLastName()):'')?>"/></td>
                 </tr>
                 <tr>
-                   <td class="middle left"><label for="status"><?php echo $this->translate('gender')?> </label></td>
+                   <td class="middle left"><label for="gender"><?php echo $this->translate('gender')?> </label></td>
                    <td class="middle left">
-                       <select name="gender" id="gender">
+                       <select name="gender" id="gender" class="mt5">
                             <option value="1"><?php echo $this->translate('male')?></option>
                             <option value="2"><?php echo $this->translate('female')?></option>
                        </select>
@@ -44,7 +45,7 @@ $(function(){
                 <tr>
                    <td class="middle left"><label for="status"><?php echo $this->translate('user.role')?> </label></td>
                    <td class="middle left">
-                       <select name="status" id="status">
+                       <select name="status" id="status" class="mt5">
                             <option value="2"><?php echo $this->translate('user')?></option>
                             <option value="1"><?php echo $this->translate('publisher')?></option>
                        </select>
@@ -63,12 +64,14 @@ $(function(){
                <?php }?>
 				<tr>
                     <td class="middle left"><label for="path"><?php echo $this->translate('image')?> *</label></td>
-                    <td class="middle left"><input type="file" name="path" id="path" value="<?php echo ($this->img ? $this->htmlEscape($this->img->getPath()):'')?>"/></td>
+                    <td class="middle left">
+                        <input type="file" name="path" id="path" value="<?php echo ($this->img ? $this->htmlEscape($this->img->getPath()):'')?>" class="mt10 ml8"/>
+                    </td>
                 </tr>			   
                 <tr>
                     <td class="middle left"><?php echo $formatting->space(); ?></td>
                     <td class="middle left">
-                        <a href="" class="button save" onclick="Form.changeAction('ajaxForm','user/save');Form.submit('ajaxForm');Form.changeAction('ajaxForm','auth/login');Filter.submit('ajaxForm','navigationMenu'); return false;"><?php echo $this->translate('save');?></a>
+                        <a href="" class="button w100 mt10" onclick="Form.changeAction('ajaxForm','user/save');Filter.submit('ajaxForm','tempForReload');"><?php echo $this->translate('save');?></a>
                     </td>
                 </tr>        
             </tbody>

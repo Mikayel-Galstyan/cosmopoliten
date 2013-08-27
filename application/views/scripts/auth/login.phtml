@@ -1,25 +1,26 @@
-<script>
-	$(function(){
-		
-	});
-</script>
-<div id="loginInfo">  
-    <form action="auth/login" method="POST" id="loginForm" name="loginForm">
-        <?php
-            if($this->name){
-                echo '<span class="fl">'.$this->translate('hi').'  '.$this->name.'</span>'; ?><img class="fl mr5 mt5 ml5" style="height:25px;width:25px;" src="<?php echo $this->img; ?>">
-				<a class="button fl mt5" onclick = 'Form.changeAction("loginForm","auth/logout");Filter.submit("loginForm","loginInfo");' ><?php echo $this->translate('log.out') ?></a>
-                
-         <?php   }else {
-         ?>		
-                <input type="text" id="username" name="email" class="textField fl" placeholder="Username">
-				<input type="password" id="password" class="textField fl" name="password" placeholder="Password">
-				<a class="button fl mt5" onclick = 'Filter.submit("loginForm","loginInfo");'><?php echo $this->translate('log.in') ?></a>
-        <?php
-            }
-        ?>
-     </form>
-	 <div class="regText">
-		<a href="user/edit" class="link textw"><?php echo $this->translate('registration') ?></a>
-	</div>
-</div>
+
+
+<form action="auth/login" method="POST" id="loginForm" name="loginForm">
+    <?php
+        if($this->name){ ?>
+                <a class="button fr mt5 ml20 mr20" onclick = 'Form.changeAction("loginForm","auth/logout");Filter.submit("loginForm","loginInfo");' ><?php echo $this->translate('log.out') ?></a>
+                <img class="fr ml20 mt5 mr20" style="height:25px;width:25px;" src="<?php echo $this->img; ?>">
+                <div class="fr textW pt8 ml20"><?php echo $this->translate('hi').'  '.$this->name; ?></div>               
+     <?php   }else {
+     ?>		
+            <input type="text" id="username" name="email" class="textField fl" placeholder="Username">
+            <input type="password" id="password" class="textField fl" name="password" placeholder="Password">
+            <a class="button fl mt5" onclick = 'Filter.submit("loginForm","loginInfo");'><?php echo $this->translate('log.in') ?></a>
+    <?php
+        }
+    ?>
+ </form>
+ <?php
+    if(!$this->name){
+    ?>
+    <div class="regText">
+        <a href="user/edit" class="link textw"><?php echo $this->translate('registration') ?></a>
+    </div>
+<?php
+    }
+?>

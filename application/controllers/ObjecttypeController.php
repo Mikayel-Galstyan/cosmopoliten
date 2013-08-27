@@ -1,7 +1,7 @@
 <?php
-require_once ('SecureController.php');
+require_once ('ImageutilController.php');
 
-class ObjectTypeController extends SecureController {
+class ObjectTypeController extends ImageutilController {
     private $id = null;
     private $name = null;
     public function indexAction() {
@@ -41,7 +41,23 @@ class ObjectTypeController extends SecureController {
         } else {
             $item = new Domain_ObjectType();
         }
+
         $item->setName($this->name);
+        if(!is_dir ("users/".$this->name)){
+			mkdir("users/".$this->name);
+		}
+        if($_FILES['path']['name'] != ''){
+            $path = $_FILES['path'];
+            $email = $this->name;
+            $userfile_extn = explode(".", strtolower($path['name']));
+            do{
+                $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[1];
+                $fullPath = "users/".$email.'/'.$new_name;
+            }while(file_exists($fullPath));
+            @rename ($path['name'],$new_name);
+            move_uploaded_file ($path['tmp_name'],$fullPath);
+            $item->setPath($fullPath);
+        }
         try {
             $service->save($item);
             $this->printJsonSuccessRedirect($this->translate('success.save'),'objecttype');

@@ -52,8 +52,8 @@ $(function(){
         }
     });
 	$('.nav>div>a').click(function(){
-		$('.nav>div>a').attr('class','');
-		$(this).attr('class','selectedMenu');
+		$('.nav>div>a').removeClass('selectedMenu');
+		$(this).addClass('selectedMenu');
 	});
 	$.tablesorter.addParser({
 	    id: "monetaryValue",

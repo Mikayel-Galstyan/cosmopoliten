@@ -24,7 +24,7 @@ class ImageutilController extends SecureController {
     }
     
     
-	protected function resize_image($file, $w, $h, $crop=FALSE) {
+	protected function resize_image($file, $w, $h, $crop=FALSE,$newImgUrl=null) {
 		list($width, $height) = getimagesize($file);
 		$r = $width / $height;
 		if ($crop) {
@@ -49,7 +49,7 @@ class ImageutilController extends SecureController {
 		imagealphablending($dst, false);
 		imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 		imagesavealpha($dst, true);
-		imagepng($dst,'users/'.$this->getAuthUser()->getEmail().'/templateImg1.png');
+		imagepng($dst,($newImgUrl)?$newImgUrl:'users/'.$this->getAuthUser()->getEmail().'/templateImg1.png');
         $width = $newwidth;
         $height = $newheight;
         //$this->imageCreateTransparent($dst,$width,$height);
@@ -60,8 +60,6 @@ class ImageutilController extends SecureController {
 	protected function replaceBlackToTransparent($stype){
 		
 	}
-	
-	
 	
 	protected function imageToPng($srcFile) {
 		$array =  $userfile_extn = explode(".", strtolower($srcFile));

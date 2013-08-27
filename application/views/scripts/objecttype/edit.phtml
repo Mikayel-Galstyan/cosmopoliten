@@ -15,8 +15,14 @@
                 <tbody>                    
                     <tr>
                         <td class="middle left w180"><label for="name"><?php echo $this->translate('name')?> *</label></td>
-                        <td class="middle left"><input type="text" name="name" id="name" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getName()):'')?>"/></td>                    
+                        <td class="middle left"><input type="text" name="name" id="name" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getName()):'')?>"/></td>
                     </tr>    
+                    <tr>
+                        <td class="middle left"><label for="path"><?php echo $this->translate('image')?> *</label></td>
+                        <td class="middle left">
+                            <input type="file" name="path" id="path" value="<?php echo ($this->img ? $this->htmlEscape($this->img->getPath()):'')?>" class="mt10 ml8"/>
+                        </td>
+                    </tr>	
                     <tr>
                         <td class="middle left"></td>
                         <td class="middle left"><input type="button" onclick="Form.submit('ajaxForm')" value="save"/></td>

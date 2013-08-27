@@ -1,0 +1,70 @@
+.upload {
+    float:left;            
+    position: relative;
+    width: 220px; 
+    height: 31px;   
+    background: url(../images/form/upload.png) no-repeat;
+    overflow: hidden;
+    font-size: 12px;
+    color: black;
+    text-align: left;
+    cursor: pointer;
+    top:11px;
+}
+.upload .filename{    
+    line-height:31px;
+    padding:0px 25px 0px 10px;
+    width: 220px; 
+    height: 31px;    
+    font-size: 12px;
+    word-wrap: break-word;
+    font-weight: normal;
+    cursor: pointer;    
+    color: #a2a1a1;
+    
+}
+.upload input {    
+    display: block;
+    position:absolute;
+    top:0;
+    left: 0;    
+    font-size: 100px;
+    opacity:0;
+    -moz-opacity:0;
+    filter:alpha(opacity:0);        
+    z-index:2; 
+    width:100%;
+    height: 100%;
+}
+input[type=text],input[type=password]{
+	width:150px;
+	margin-left:8px;
+	margin-top:5px;
+	height:30px;
+	padding-top:3px;
+    padding-left:8px;
+	border:1px solid rgb(152, 160, 255);
+}
+select{
+    width:150px;
+	margin-left:8px;
+	height:33px;
+    padding-left:8px;
+	border:1px solid rgb(152, 160, 255);
+}
+.button{
+	display:block;
+	padding-top:9px;
+	height:24px;
+	cursor:pointer;
+	padding-left:10px;
+	padding-right:10px;
+	margin-left:8px;
+	background:rgb(99, 53, 241);
+	border:none;
+	color:white;
+	box-shadow:2px 2px 2px #000972;
+	border-radius:4px;
+    text-decoration:none;
+    text-align:center;
+}
