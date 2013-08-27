@@ -6,14 +6,14 @@ LoveListObject = {
     init    :   function(){
         var h = location.href;
         h=h.toString();//console.log(h.indexOf('lovelist'));
-        if(h.indexOf('lovelist')<1){
+        /*if(h.indexOf('lovelist')<1){
             $('.objectDiv').hover(function(){
                 var html = "<div  class='objectMask'><div>";
                 $(this).append(html);
             }).mouseleave(function() {
                 $('.objectMask').remove();
             });
-        }
+        }*/
        
         LoveListObject.objectsCount = 0;
         $('.favourDiv>a').hover(function(){

@@ -13,46 +13,47 @@
 		});
 	});
 </script>
-<div class="nav fl mt5 ml5">
+<div class="nav">
     <?php 
         if(!$this->isPublisher){
         ?>
-        <div class="ml5 objectsTypes">
-            <a href="objects" class="link"><?php echo $this->translate('objects')?></a>
-        </div>
-        <div class="ml5">
-            <a href="objecttype" class="link"><?php echo $this->translate('objecttype')?></a>
-        </div>
-        <div class="ml5 publisherListLink">
-            <a href="publisher" class="link"><?php echo $this->translate('publisher')?></a>
-        </div>
-        <div class="ml5 shopListLink">
-            <a href="shoplist" class="link"><?php echo $this->translate('shoplist')?></a>
-        </div>
+        <div>
+			<a href="objects"><?php echo $this->translate('objects')?></a>
+		</div>
+		<div>
+			<a href="objecttype"><?php echo $this->translate('objecttype')?></a>
+		</div>
+		<div>
+			<a href="publisher"><?php echo $this->translate('publisher')?></a>
+		</div>
+		<div>
+			<a href="shoplist" class="<?php echo (!$this->isUser)?'navDivlastChildA':''; ?>"><?php echo $this->translate('shoplist')?></a>
+		</div>		
     <?php } ?>
 
 	<?php 
         if($this->isUser){
         ?>
-        <div class="ml5 menu">
-            <a href="lovelist" class="link"><?php echo $this->translate('lovelist')?></a>
+        <div>
+            <a href="lovelist" class="navDivlastChildA"><?php echo $this->translate('lovelist')?></a>
         </div>
     <?php } ?>
     
     <?php 
         if($this->publisherId){
         ?>
-        <div class="ml5 menu">
-            <a href="publisher<?php echo ($this->publisherId)?'/'.$this->publisherId:'';?>/edit" class="link"><?php echo $this->translate('my.company')?></a>
+        <div>
+            <a href="publisher<?php echo ($this->publisherId)?'/'.$this->publisherId:'';?>/edit"><?php echo $this->translate('my.company')?></a>
         </div>
-        <div class="ml5 menu">
-            <a href="shoplist" class="link"><?php echo $this->translate('my.shops')?></a>
+        <div>
+            <a href="shoplist"><?php echo $this->translate('my.shops')?></a>
         </div>
-        <div class="ml5 menu">
-            <a href="objects" class="link"><?php echo $this->translate('my.objects')?></a>
+        <div>
+            <a href="objects"><?php echo $this->translate('my.objects')?></a>
         </div>
-		<div class="ml5 menu">
-            <a href="user/<?php echo $this->userId; ?>/edit" class="link"><?php echo $this->translate('user.edit')?></a>
+		<div>
+            <a href="user/<?php echo $this->userId; ?>/edit" class="navDivlastChildA"><?php echo $this->translate('user.edit')?></a>
         </div>
     <?php } ?>
+	<?php echo $this->action("login", "auth"); ?>
 </div>

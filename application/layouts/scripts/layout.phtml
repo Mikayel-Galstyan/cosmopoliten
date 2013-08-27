@@ -32,17 +32,11 @@
     </head>
 <body>
     <div class="page_wrapper">
+		<?php echo $this->action("menu", "objects"); ?>
 	</div>
 	<div class="content_wrapper">
 		<div class="content_container">
-			<div class="leftHead"  id="navigationMenu">
-				<div class="ml5">
-					 <?php echo $this->action("login", "auth"); ?>
-				</div>
-				<div>
-					<?php echo $this->action("menu", "objects"); ?>
-				</div>
-			</div>
+			
 			<div class="panel fl ml20">
 					 <?php echo $this->layout()->content; ?>
 			</div>
