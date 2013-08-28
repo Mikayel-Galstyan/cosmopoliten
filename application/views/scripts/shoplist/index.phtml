@@ -6,7 +6,9 @@
 
 <div class="table_wrapper ml20 mt20">
     <?php if($this->isPublisher){ ?>
-        <a href="shoplist/add">add</a>
+        <a href="shoplist/add" class="button w50">
+			<?php echo $this->translate('add'); ?>
+		</a>
     <?php } else{ ?>    
 	<form action="shoplist/list" name="ajaxForm" id="ajaxForm">
 		<div class="mr5 fl mt-5">

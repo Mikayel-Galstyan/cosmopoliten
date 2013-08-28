@@ -1,9 +1,4 @@
-<script>
-$(function(){
-    //CustomFormElement.init();
-    //$("#ajaxForm").jqTransform();
-});
-</script>
+<div class="w350 center editBorders">
 <?php
     $this->setPageTitle('user.management');
     $formatting = $this->getHelper('DataFormatting');
@@ -39,30 +34,38 @@ $(function(){
                     <tr>
                        <td class="middle left"><label for="order"><?php echo $this->translate('order')?> </label></td>
                        <td class="middle left">
+							<div class="mt5">
 							<?php 
 								if($this->item && $this->item->getStatus() == 1){
 							?>
-								<span style="color:green;">
+								<span style="color:green;" class="ml8">
 									<?php echo $this->translate('active.until').'  '.$this->item->getEndOrderDate(); ?>
 								</span>
 							<?php
 									}else if(!$this->item){
 							?>
-								<span style="color:green;">
+								<span style="color:green;" class="ml8">
 									<?php echo $this->translate('active.until').'  '.$this->dateTime; ?>
 								</span>
 							<?php }else { ?>
-								<span style="color:red;">
+								<span style="color:red;" class="ml8">
 									<?php echo $this->translate('out.of.date'); ?>
 								</span>
 							<?php
 								}
 							?>
+							</div>
                        </td>
                     </tr> 
                     <tr>
-                        <td class="middle left"><label for="clicks"><?php echo $this->translate('clicks')?></label></td>
-                        <td class="middle left"><?php echo ($this->item ? $this->htmlEscape($this->item->getClicks()):'0')?></td>
+                        <td class="middle left">
+							<label for="clicks">
+								<?php echo $this->translate('clicks')?>
+							</label>
+						</td>
+                        <td class="middle left">
+							<div class="mt5 ml8"><?php echo ($this->item ? $this->htmlEscape($this->item->getClicks()):'0')?></div>
+						</td>
                     </tr>
                     <tr>
                         <td class="middle left"><label for="site"><?php echo $this->translate('site')?></label></td>
@@ -76,7 +79,11 @@ $(function(){
                     </tr>	
                     <tr>
                         <td class="middle left"></td>
-                        <td class="middle left"><input type="button" onclick="Filter.submit('ajaxForm','tempForReload')" value="save"/></td>
+                        <td class="middle left">
+							<a class="button w50 mt5" onclick="Filter.submit('ajaxForm','tempForReload')" >
+								<?php echo $this->translate('save');?>
+							</a>	
+						</td>
                     </tr>                     
                 </tbody>
                 <tfoot><tr><td class="h p5_0"></td></tr></tfoot>
@@ -88,3 +95,4 @@ $(function(){
             <?php echo $this->translate('this.action.only.for.publishers');?>
         </div>
     <?php } ?>
+</div>

@@ -2,7 +2,6 @@
     <div id="ImageDiv" class="fl">
         <span><img src="<?php echo $this->img ?>" style="z-index: 1;width:400px" id="templateMan"/></span>
     </div>
-    <div><a href="user/<?php echo $this->id ?>/edit" class="link">edit</a></div>
     <div class="fl w800">
         <table class="mt20">
             <tbody>
@@ -45,16 +44,17 @@
                             $('#manWidth').attr('value',parseInt($('#templateMan').width()));
 						});
 						</script>
-						<div>
+						<div class="mb50 mt-20">
 							<form id="addForm" name="addForm" action="lovelist/delete">
 								
 							</form>
 							<form action="image/list" name="imgGenerate" method="POST" id="imgGenerate">
                                 <input type="hidden" name="width" id="manWidth" value="">
                                 <input type="hidden" name="height" id="manHeight" value="">
-								<input type="button" onclick="Filter.submit('imgGenerate')" value="saveImg" class="">
+								<a class="button w50 fl" onclick="Filter.submit('imgGenerate')"><?php echo $this->translate('saveImg'); ?></a>
 							</form>
-							<input type="button" onclick="Form.submit('addForm')" value="submit">
+							<a class="button w50 fl" onclick="Form.submit('addForm')"><?php echo $this->translate('delete'); ?></a>
+							<div><a href="user/<?php echo $this->id ?>/edit" class="button w50 fl"><?php echo $this->translate('edit'); ?></a></div>
 						   
 						</div>
 						<div id="objectList" style="width:100%;">

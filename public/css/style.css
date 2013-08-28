@@ -22,12 +22,14 @@ form td label{
 }
 .tableTitle{
     display:block;
-    width:250px;
+    width:350px;
     background:rgb(152, 160, 255);
     color:white;
     height:25px;
     padding-top:10px;
-    padding-left:90px;
+}
+.editBorders{
+	border:1px solid rgb(152, 160, 255);
 }
 /* Panel
 ---------------------------------------------------------------------------------------------------*/

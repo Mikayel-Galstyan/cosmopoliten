@@ -5,11 +5,7 @@ class ObjectTypeController extends ImageutilController {
     private $id = null;
     private $name = null;
     public function indexAction() {
-        if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::PUBLISHER_ROLE){
-            $this->view->isPublisher = true;
-        }else{
-            $this->view->isPublisher = false;
-        }
+       $this->getStatus();
     }
     
     public function listAction() {
@@ -18,17 +14,15 @@ class ObjectTypeController extends ImageutilController {
     }
     
     public function editAction(){
-		if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::PUBLISHER_ROLE){
+		if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::ADMIN_ROLE){
 			if($this->id){
 				$service = new Service_ObjectType();
 				$this->view->item = $service->getById($this->id);
 			}else{
 				$this->view->item = null;
 			}
-			$this->view->isPublisher = true;
-		}else{
-            $this->view->isPublisher = false;
-        }
+		}
+		$this->getStatus();
     }
     
     

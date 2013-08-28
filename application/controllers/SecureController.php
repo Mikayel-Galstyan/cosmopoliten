@@ -57,12 +57,19 @@ abstract class SecureController extends ControllerActionSupport {
         if($auth && $auth->getStatus()== Service_User::PUBLISHER_ROLE){
             $this->view->isPublisher = true;
             $this->view->isUser = false;
-        }else if($auth){
-            $this->view->isPublisher = false;
-            $this->view->isUser = true;
-        }else{
+			$this->view->isAdmin = false;
+        }else if($auth && $auth->getStatus()== Service_User::ADMIN_ROLE){
             $this->view->isPublisher = false;
             $this->view->isUser = false;
+			$this->view->isAdmin = true;
+        }else if($auth){
+			$this->view->isPublisher = false;
+            $this->view->isUser = true;
+			$this->view->isAdmin = false;
+		}else{
+            $this->view->isPublisher = false;
+            $this->view->isUser = false;
+			$this->view->isAdmin = false;
         }
     }
     

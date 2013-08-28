@@ -137,6 +137,9 @@
 .w65{
     width:65px !important;
 }
+.w69{
+    width:69px !important;
+}
 .w70{
     width:70px !important;
 }
@@ -277,6 +280,9 @@
 }
 .w305{
     width:305px !important; 
+}
+.w310{
+    width:310px !important; 
 }
 .w320{
     width:320px !important; 
@@ -423,6 +429,9 @@
 .mb20 {
     margin-bottom:20px !important;
 }
+.mb50 {
+    margin-bottom:50px !important;
+}
 /* Margin top
 ---------------------------------------------------------------------*/
 .mt1 {
@@ -464,6 +473,9 @@
 .mt25 {
     margin-top: 25px !important;;
 }
+.mt50 {
+    margin-top: 50px !important;;
+}
 .mt-10{
     margin-top:-10px !important;
 }
@@ -478,6 +490,9 @@
 }
 .mt-25{
     margin-top:-25px !important;
+}
+.mt-20{
+    margin-top:-20px !important;
 }
 
 /* Margin left

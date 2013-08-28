@@ -1,9 +1,4 @@
-<script>
-$(function(){
-    //CustomFormElement.init();
-    //$("#ajaxForm").jqTransform();
-});
-</script>
+<div class="w350 center editBorders">
 <?php
     $this->setPageTitle('user.management');
     $formatting = $this->getHelper('DataFormatting');
@@ -42,8 +37,8 @@ $(function(){
                     <tr>
                         <td class="middle left"><label for="cost"><?php echo $this->translate('cost')?></label></td>
                         <td class="middle left">
-								<input type="text" name="cost" id="cost" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getCost()):'30')?>"/>
-								<select name="value" id="value">
+								<input type="text" name="cost" id="cost" class="w69" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getCost()):'30')?>"/>
+								<select name="value" id="value" class="w69">
 									<option value="1" <?php echo ($this->item && $this->item->getShopListId()=='1')?'selected="selected"':'' ?> ><?php echo $this->translate('dram')?></option>
 									<option value="2"<?php echo ($this->item && $this->item->getShopListId()=='2')?'selected="selected"':'' ?> ><?php echo $this->translate('dolar')?></option>
 									<option value="3" <?php echo ($this->item && $this->item->getShopListId()=='3')?'selected="selected"':'' ?> ><?php echo $this->translate('euro')?></option>
@@ -53,7 +48,7 @@ $(function(){
                     <tr>
                        <td class="middle left"><label for="objectTypeId"><?php echo $this->translate('select.types')?> </label></td>
                        <td class="middle left">
-                           <div class="fl">
+                           <div class="fl  mt5">
 								<select name="objectTypeId" id="objectTypeId">
 									<?php
 										foreach($this->types as $item){
@@ -112,3 +107,4 @@ $(function(){
             <?php echo $this->translate('this.action.only.for.publishers');?>
         </div>
     <?php } ?>
+	</div>

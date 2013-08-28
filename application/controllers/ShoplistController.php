@@ -95,7 +95,7 @@ class ShoplistController extends ImageutilController {
         }
         try {
             $service->save($item);
-            $this->printJsonSuccessRedirect($this->translate('success.save'),'objecttype');
+            $this->printJsonSuccessRedirect($this->translate('success.save'),'shoplist');
         } catch ( Miqo_Util_Exception_Validation $vex ) {
             $errors = $this->translateValidationErrors($vex->getValidationErrors());
             $this->printJsonError($errors, $this->translate('validation.error'));

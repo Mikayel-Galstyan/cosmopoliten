@@ -1,81 +1,73 @@
-<script>
-$(function(){
-    //CustomFormElement.init();
-    //$("#ajaxForm").jqTransform();
-});
-</script>
-<?php
-    $this->setPageTitle('user.management');
-    $formatting = $this->getHelper('DataFormatting');
-?>
-<script type="text/javascript">
-    $(function(){
-    	
-    });
-</script>
-<form id="ajaxForm" action="user/save" method="post" onsubmit="Filter.submit('ajaxForm','tempForReload'); return false;">
-    <div id="tempForReload"></div>
-    <input type="hidden" name="id" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getId()):'')?>" />
-    <div class="fixed_head">
-        <span class="tableTitle"><?php echo $this->translate('users'). ' // ' . ($this->item ? $this->translate('edit').' // ' . $this->htmlEscape($this->item->getEmail()) : $this->translate('add')); ?></span>        
-        <table class="editTable">                    
-            <tbody>                    
-                <tr>
-                    <td class="middle left w180"><label for="email"><?php echo $this->translate('email')?> *</label></td>
-                    <td class="middle left"><input type="text" name="email" id="email" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getEmail()):'')?>"/></td>                    
-                </tr>    
-                <tr>
-                    <td class="middle left w150"><label for="firstName"><?php echo $this->translate('first.name')?></label></td>
-                    <td class="middle left"><input type="text" name="firstName" id="firstName" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getFirstName()):'')?>"/></td>
-                </tr>
-                <tr>
-                    <td class="middle left"><label for="lastName"><?php echo $this->translate('last.name')?></label></td>
-                    <td class="middle left"><input type="text" name="lastName" id="lastName" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getLastName()):'')?>"/></td>
-                </tr>
-                <tr>
-                   <td class="middle left"><label for="gender"><?php echo $this->translate('gender')?> </label></td>
-                   <td class="middle left">
-                       <select name="gender" id="gender" class="mt5">
-                            <option value="1"><?php echo $this->translate('male')?></option>
-                            <option value="2"><?php echo $this->translate('female')?></option>
-                       </select>
-                   </td>
-                </tr>
-               <?php if($this->authorize('role')){?>
-                <tr>
-                   <td class="middle left"><label for="status"><?php echo $this->translate('user.role')?> </label></td>
-                   <td class="middle left">
-                       <select name="status" id="status" class="mt5">
-                            <option value="2"><?php echo $this->translate('user')?></option>
-                            <option value="1"><?php echo $this->translate('publisher')?></option>
-                       </select>
-                   </td>
-                </tr>
-               <?php }?>
-               <?php if($this->authorize('password') ||  ($this->item && $this->item->getId()==$this->getUser()->getId())){?>
-                <tr>
-                    <td class="middle left"><label for="password"><?php echo $this->translate('password')?> *</label></td>
-                    <td class="middle left"><input type="password" name="password" id="password" value=""/></td>
-                </tr>
-                <tr>
-                    <td class="middle left"><label for="passwordConfirm"><?php echo $this->translate('password.confirm')?> *</label></td>
-                    <td class="middle left"><input type="password" name="passwordConfirm" id="passwordConfirm" value=""/></td>
-                </tr>
-               <?php }?>
-				<tr>
-                    <td class="middle left"><label for="path"><?php echo $this->translate('image')?> *</label></td>
-                    <td class="middle left">
-                        <input type="file" name="path" id="path" value="<?php echo ($this->img ? $this->htmlEscape($this->img->getPath()):'')?>" class="mt10 ml8"/>
-                    </td>
-                </tr>			   
-                <tr>
-                    <td class="middle left"><?php echo $formatting->space(); ?></td>
-                    <td class="middle left">
-                        <a href="" class="button w100 mt10" onclick="Form.changeAction('ajaxForm','user/save');Filter.submit('ajaxForm','tempForReload');"><?php echo $this->translate('save');?></a>
-                    </td>
-                </tr>        
-            </tbody>
-            <tfoot><tr><td class="h p5_0"></td></tr></tfoot>
-        </table>
-    </div> 
-</form>
+<div class="w350 center editBorders">
+
+	<?php
+		$this->setPageTitle('user.management');
+		$formatting = $this->getHelper('DataFormatting');
+	?>
+	<form id="ajaxForm" action="user/save" method="post" onsubmit="Filter.submit('ajaxForm','tempForReload'); return false;">
+		<div id="tempForReload"></div>
+		<input type="hidden" name="id" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getId()):'')?>" />
+		<div class="fixed_head">
+			<span class="tableTitle"><?php echo $this->translate('users'). ' // ' . ($this->item ? $this->translate('edit').' // ' . $this->htmlEscape($this->item->getEmail()) : $this->translate('add')); ?></span>        
+			<table class="editTable">                    
+				<tbody>                    
+					<tr>
+						<td class="middle left w180"><label for="email"><?php echo $this->translate('email')?> *</label></td>
+						<td class="middle left"><input type="text" name="email" id="email" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getEmail()):'')?>"/></td>                    
+					</tr>    
+					<tr>
+						<td class="middle left w150"><label for="firstName"><?php echo $this->translate('first.name')?></label></td>
+						<td class="middle left"><input type="text" name="firstName" id="firstName" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getFirstName()):'')?>"/></td>
+					</tr>
+					<tr>
+						<td class="middle left"><label for="lastName"><?php echo $this->translate('last.name')?></label></td>
+						<td class="middle left"><input type="text" name="lastName" id="lastName" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getLastName()):'')?>"/></td>
+					</tr>
+					<tr>
+					   <td class="middle left"><label for="gender"><?php echo $this->translate('gender')?> </label></td>
+					   <td class="middle left">
+						   <select name="gender" id="gender" class="mt5">
+								<option value="1"><?php echo $this->translate('male')?></option>
+								<option value="2"><?php echo $this->translate('female')?></option>
+						   </select>
+					   </td>
+					</tr>
+				   <?php if($this->authorize('role')){?>
+					<tr>
+					   <td class="middle left"><label for="status"><?php echo $this->translate('user.role')?> </label></td>
+					   <td class="middle left">
+						   <select name="status" id="status" class="mt5">
+								<option value="2"><?php echo $this->translate('user')?></option>
+								<option value="1"><?php echo $this->translate('publisher')?></option>
+						   </select>
+					   </td>
+					</tr>
+				   <?php }?>
+				   <?php if($this->authorize('password') ||  ($this->item && $this->item->getId()==$this->getUser()->getId())){?>
+					<tr>
+						<td class="middle left"><label for="password"><?php echo $this->translate('password')?> *</label></td>
+						<td class="middle left"><input type="password" name="password" id="password" value=""/></td>
+					</tr>
+					<tr>
+						<td class="middle left"><label for="passwordConfirm"><?php echo $this->translate('password.confirm')?> *</label></td>
+						<td class="middle left"><input type="password" name="passwordConfirm" id="passwordConfirm" value=""/></td>
+					</tr>
+				   <?php }?>
+					<tr>
+						<td class="middle left"><label for="path"><?php echo $this->translate('image')?> *</label></td>
+						<td class="middle left">
+							<input type="file" name="path" id="path" value="<?php echo ($this->img ? $this->htmlEscape($this->img->getPath()):'')?>" class="mt10 ml8"/>
+						</td>
+					</tr>			   
+					<tr>
+						<td class="middle left"><?php echo $formatting->space(); ?></td>
+						<td class="middle left">
+							<a href="" class="button w100 mt10" onclick="Form.changeAction('ajaxForm','user/save');Filter.submit('ajaxForm','tempForReload');"><?php echo $this->translate('save');?></a>
+						</td>
+					</tr>        
+				</tbody>
+				<tfoot><tr><td class="h p5_0"></td></tr></tfoot>
+			</table>
+		</div> 
+	</form>
+</div>
