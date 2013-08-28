@@ -13,8 +13,15 @@
 		});
 	});
 </script>
-<div class="nav">
+    <div class="nav">
     <?php 
+        if(!$this->isUser && !$this->isPublisher){
+    ?>
+        <div class="mt10 ml10 fr">
+            <div id="fb-root"></div>
+            <fb:login-button perms="email" autologoutlink="true" ></fb:login-button>
+        </div>
+    <?php }
         if(!$this->isPublisher){
         ?>
         <div>

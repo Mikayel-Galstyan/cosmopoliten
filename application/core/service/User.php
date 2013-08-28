@@ -154,5 +154,9 @@ class Service_User extends Miqo_Service_Base {
         }   
         return $errors;
     }
+    
+    public function getByFacebookId($email){
+        return $this->dao->getByFacebookId($email);
+    }
 }
 ?>

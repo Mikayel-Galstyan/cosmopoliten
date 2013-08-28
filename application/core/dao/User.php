@@ -76,6 +76,14 @@ class Dao_User extends Miqo_Dao_Base {
        return $items;
     }
     
+    public function getByFacebookId($email) {
+        $item = $this->dbTable->fetchRow(
+                array('email = ?' => $email)
+        );
+       $item = $this->getEntity($item);
+       return $item;
+    }
+    
     private function &applyFilter(Filter_User $filter, Zend_Db_Table_Select $select) {
         if ($filter->getCountryId()) {
             $select->where('country_id = ?', $filter->getCountryId());

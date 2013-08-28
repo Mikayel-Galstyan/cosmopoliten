@@ -59,7 +59,10 @@
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
-      console.log(response);
+        data = {
+            first_name : response.first_name,
+            last_name : response.last_name,
+        }
     });
   }
 </script>

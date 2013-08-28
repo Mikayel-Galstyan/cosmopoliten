@@ -1,9 +1,8 @@
 
-
 <form action="auth/login" method="POST" id="loginForm" name="loginForm">
     <?php
         if($this->name){ ?>
-                <a class="button fr mt5 ml20 mr20" onclick = 'Form.changeAction("loginForm","auth/logout");Filter.submit("loginForm","loginInfo");' ><?php echo $this->translate('log.out') ?></a>
+                <a class="button fr mt5 ml20 mr20" onclick = 'Form.changeAction("loginForm","auth/logout");Filter.submit("loginForm","loginInfo");FB.logout()' ><?php echo $this->translate('log.out') ?></a>
                 <img class="fr ml20 mt5 mr20" style="height:25px;width:25px;" src="<?php echo $this->img; ?>">
                 <div class="fr textW pt8 ml20"><?php echo $this->translate('hi').'  '.$this->name; ?></div>               
      <?php   }else {
@@ -14,6 +13,7 @@
     <?php
         }
     ?>
+    
  </form>
  <?php
     if(!$this->name){
