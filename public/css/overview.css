@@ -1,0 +1,41 @@
+.overviewDiv{
+	width:1000px;
+}
+.overviewImageDiv{
+	float:left; 
+	height:300px;
+}
+.overviewImageDiv>img{ 
+	height:200px;
+}
+.overviewInfoDiv{
+	width:690px;
+	float:right;
+	height:300px;
+}
+.overviewInfoDiv>table tr td:first-child{
+	width  : 100px;
+}
+.overviewInfoDiv>table tr td:last-child{
+	width  : 600px;
+	height: 40px;
+}
+.overviewInfoDiv>table tr td label{
+	color:royalblue;
+}
+.overviewInfoDiv table tr td div{
+	float:right;
+	color:royalblue;
+}
+.overviewInfoDiv table tr td span{
+	color:black;
+}
+.divForDescription{
+	float:left; 
+	width:800px;
+}
+#divForMap{
+	width:400px;
+	height:400px; 
+	float:right;
+}

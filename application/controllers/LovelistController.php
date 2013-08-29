@@ -4,7 +4,9 @@ require_once ('SecureController.php');
 class LovelistController extends SecureController {
     
     private $id = null;
+	private $objectIds = null;
 	private $ids = null;
+	private $objectTypeId = null;
     
 
     public function indexAction() {
@@ -25,12 +27,12 @@ class LovelistController extends SecureController {
 	
     public function deleteAction() {
         $this->setNoRender();
-        if(!is_null($this->ids)){
+        if(!is_null($this->objectsIds)){
             $service = new Service_LoveList();
             try{
-                $service->__t_deleteList($this->ids);
+                $service->__t_deleteList($this->objectsIds);
                 $this->printJsonSuccessRedirect($this->translate('success.delete'),'lovelist');
-            } catch ( TF_Util_Exception_Service $ex ) {
+            } catch ( Miqo_Util_Exception_Service $ex ) {
                 $this->printJsonFailRedirect($this->translate('cant.delete.record'),'lovelist');
             }
         }    
@@ -73,7 +75,7 @@ class LovelistController extends SecureController {
 				$service->save($item);
 				
 			}
-			$this->printJsonSuccessRedirect($this->translate('success.save'),'objects');
+			$this->printJsonSuccessRedirect($this->translate('success.save'),'lovelist');
 		} catch ( Miqo_Util_Exception_Validation $vex ) {
 			$errors = $this->translateValidationErrors($vex->getValidationErrors());
 			$this->printJsonError($errors, $this->translate('validation.error'));
@@ -98,17 +100,12 @@ class LovelistController extends SecureController {
         $this->objectsId = $val;
         return $this;
     }
+	public function &setObjectTypeId($val) {
+        $this->objectTypeId = $val;
+        return $this;
+    }
 	public function &setIds($val) {
-        $this->ids = $val;
-        return $this;
-    }
-	
-	 public function &setPublisherIds($val) {
-        $this->publisherIds = $val;
-        return $this;
-    }
-    public function &setPublisherId($val) {
-        $this->publisherId = $val;
+        $this->objectIds = $val;
         return $this;
     }
 	public function &setId($val) {

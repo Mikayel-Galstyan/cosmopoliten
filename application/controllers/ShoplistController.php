@@ -9,6 +9,7 @@ class ShoplistController extends ImageutilController {
     private $phone = null;
     private $description = null;
     private $publisherId = null;
+	private $site = null;
     private $order = null;
 
     public function indexAction() {
@@ -74,6 +75,7 @@ class ShoplistController extends ImageutilController {
 		$publisher = $sevicePublisher->getByParams($filterPublisher);
         $publisherId = $publisher[0]->getId();
         $item->setName($this->name);
+		$item->setSite($this->site);
         $item->setPublisherId($publisherId);
         $item->setAddress($this->address);
         $item->setPhone($this->phone);
@@ -109,7 +111,10 @@ class ShoplistController extends ImageutilController {
             if(!$this->getPublisherId()){
                 $service->addClick($id);
             }
-			$this->view->item = $service->getById($id);
+			$item = $service->getById($id);
+			$this->view->item = $item;
+			$servicePublisher =  new Service_Publisher();
+			$this->view->publisher = $servicePublisher->getById($item->getId());
 		}else{
 			
 		}
@@ -147,5 +152,4 @@ class ShoplistController extends ImageutilController {
         $this->order = $val;
         return $this;
     }
-    
 }

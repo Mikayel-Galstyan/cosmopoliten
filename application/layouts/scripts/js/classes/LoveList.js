@@ -5,7 +5,8 @@ LoveListObject = {
     //evaluatedStarsCount : 0,
     init    :   function(){
         var h = location.href;
-        h=h.toString();//console.log(h.indexOf('lovelist'));
+        h=h.toString();
+		//console.log(h.indexOf('lovelist'));
         /*if(h.indexOf('lovelist')<1){
             $('.objectDiv').hover(function(){
                 var html = "<div  class='objectMask'><div>";

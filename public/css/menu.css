@@ -46,8 +46,8 @@
 }
 .link{
 	cursor:pointer;
-	font-size:12px;
 	text-decoration:none;
+	color:blue;
 }
 .textw{
 	color:white;

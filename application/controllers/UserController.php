@@ -8,6 +8,7 @@ class UserController extends SecureController {
     const DEFAULT_SORT = 'ASC';
 
     private $id = null;
+	private $url = null;
     private $email = null;
     private $company = null;
     private $lastName = null;
@@ -42,6 +43,7 @@ class UserController extends SecureController {
     public function editAction() {
         //$countryService = new Service_Country();
         //$this->view->countryList = $countryService->getAll();
+		$this->getStatus();
         $id = $this->id;
         if ($id) {
             $service = new Service_User();
@@ -72,7 +74,7 @@ class UserController extends SecureController {
         $this->view->id = $this->id;
     }
 
-    public function saveAction() { 
+    public function saveAction() {
         $id = $this->id;
         $service = new Service_User();
         if ($id != null) {
@@ -84,18 +86,19 @@ class UserController extends SecureController {
                 $item = new Domain_User();
                 $this->password = "Qw".$this->oauthUid;
                 $this->passwordConfirm = "Qw".$this->oauthUid;
+				$item->setStatus($this->status);
                 $authantiticate = false;
             }else{
                 $authantiticate = true;
             }
         }else{
             $item = new Domain_User();
+			$item->setStatus($this->status);
             $authantiticate = false;
         }
         
         
         $item->setEmail($this->email);
-        $item->setStatus($this->status);
         $item->setFirstName($this->firstName);
         $item->setLastName($this->lastName);
 		$item->setGender($this->gender);
@@ -141,10 +144,15 @@ class UserController extends SecureController {
                 $this->userSession->set('authUser', $item); 
                 $urlId = ($this->id)?'/'.$this->id:'';
                 $this->javascript()->redirect('user/'.$id.'/edit');
-            }else{
+            }else if(!$this->getAuthUser() && !$this->oauthUid){
+                $this->userSession =  new Miqo_Session_Base();
                 $this->userSession->set('authUser', $item); 
                 $urlId = ($this->id)?'/'.$this->id:'';
-                $this->_redirect(($this->status==1)?'publisher'.$urlId .'/edit':'index');
+                $this->javascript()->redirect(($this->status==1)?'publisher'.$urlId .'/edit':'index');
+            }else{
+                $this->userSession->set('authUser', $item);
+                $urlId = ($this->id)?'/'.$this->id:'';
+                $this->_redirect(($this->status==1)?'publisher'.$urlId .'/edit':$this->url);
             }
             //$this->printJsonSuccessRedirect($this->translate('success.save'),($this->status==1)?'publisher'.$urlId .'/edit':'index');
         } catch ( Miqo_Util_Exception_Validation $vex ) {
@@ -207,6 +215,10 @@ class UserController extends SecureController {
     }
     public function &setOauthUid($val) {
         $this->oauthUid = $val;
+        return $this;
+    }
+	public function &setUrl($val) {
+        $this->url = $val;
         return $this;
     }
 }

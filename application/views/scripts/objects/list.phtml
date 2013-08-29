@@ -31,8 +31,12 @@
             <div class="actionDiv">
                 <div>
                     <?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
-                </div>
-                <a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
+                </div>                
+				<?php if($this->isUser) { ?>
+					<a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
+				<?php }else if($this->isPublisher){ ?>
+					<a href="objects/<?php echo $item->getId();?>/edit" class="link fr editIco" >edit</a>
+				<?php }?>
                 <a href="" class="link fl overview" ></a>
             </div>
         </div>

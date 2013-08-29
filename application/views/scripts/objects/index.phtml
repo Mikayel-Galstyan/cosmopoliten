@@ -44,6 +44,12 @@
                 ?>
             </select>
         </div>
+		<div class="fl mr5">
+            <select name="for" id="for">
+				<option value="1"><?php echo $this->translate('male'); ?></option>
+				<option value="2"><?php echo $this->translate('female'); ?></option>
+            </select>
+        </div>
 		<div class="fl mr5 pt8">
 			cost from
 		</div>
@@ -62,10 +68,16 @@
         <?php if($this->isPublisher){ ?>
         <div class="fl mr5">
             <a href="objects/add" class="button w50"><?php echo $this->translate('add'); ?></a>
-           
         </div>
          <?php } ?>
     </form>
+	<?php if(!$this->isPublisher){ ?>
+		<div class="fl mr5">
+			<form id="addForm" name="addForm" action="<?php echo ($this->isUser)?'lovelist/save':'objects/delete' ?>">
+			</form>
+			<a onclick="Form.submit('addForm')" class="button w50" id="addToLoveList" style="display:none;"><?php echo $this->translate('add'); ?></a>
+		</div>
+	<?php } ?>
     <br/>
    
     <br/>
@@ -82,11 +94,6 @@
                             LoveListObject.init();
                         });
                     </script>
-                    <div>
-                        <form id="addForm" name="addForm" action="<?php echo ($this->isUser)?'lovelist/save':'objects/delete' ?>">
-                        </form>
-                        <input type="button" onclick="Form.submit('addForm')" value="submit" id="addToLoveList" style="display:none;">
-                    </div>
                     <div id="objectList" style="width:100%;">
                         <?php
                             foreach($this->objects as $item){
@@ -111,7 +118,13 @@
                                     <div>
                                         <?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
                                     </div>
-                                    <a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
+									<?php?>
+                                    
+									<?php if($this->isUser) { ?>
+										<a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
+									<?php }else if($this->isPublisher){ ?>
+										<a href="objects/<?php echo $item->getId();?>/edit" class="link fr editIco" >edit</a>
+									<?php }?>
                                     <a href="objects/<?php echo $item->getId();?>/overview" class="link fl overview" ></a>
                                 </div>
                             </div>

@@ -45,15 +45,15 @@
 						});
 						</script>
 						<div class="mb50 mt-20">
-							<form id="addForm" name="addForm" action="lovelist/delete">
-								
-							</form>
+							
 							<form action="image/list" name="imgGenerate" method="POST" id="imgGenerate">
                                 <input type="hidden" name="width" id="manWidth" value="">
                                 <input type="hidden" name="height" id="manHeight" value="">
-								<a class="button w50 fl" onclick="Filter.submit('imgGenerate')"><?php echo $this->translate('saveImg'); ?></a>
+								<a class="button w100 fl" onclick="Filter.submit('imgGenerate')"><?php echo $this->translate('generate.img'); ?></a>
 							</form>
-							<a class="button w50 fl" onclick="Form.submit('addForm')"><?php echo $this->translate('delete'); ?></a>
+							<form id="addForm" name="addForm" action="lovelist/delete" method="POST">
+								<a class="button w50 fl" onclick="Form.submit('addForm')"><?php echo $this->translate('delete'); ?></a>
+							</form>	
 							<div><a href="user/<?php echo $this->id ?>/edit" class="button w50 fl"><?php echo $this->translate('edit'); ?></a></div>
 						   
 						</div>

@@ -36,6 +36,11 @@ class Domain_ShopList extends Miqo_Domain_AbstractEntity {
      * @var int
      */
     protected $path = null;
+	/**
+     *
+     * @var int
+     */
+    protected $site = null;
     
     public function getPath() {
         return $this->path;
@@ -44,7 +49,15 @@ class Domain_ShopList extends Miqo_Domain_AbstractEntity {
         $this->path = $val;
         return $this;
     }
-    
+	
+    public function getSite() {
+        return $this->site;
+    }
+    public function &setSite($val) {
+        $this->site = $val;
+        return $this;
+    }
+	
     public function getAddress() {
         return $this->userId;
     }

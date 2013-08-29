@@ -165,6 +165,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $router->addRoute('delete', new Zend_Controller_Router_Route(':controller/:id/delete',
             array('controller' => ':controller','action' => 'delete','id' => ':id'))
         );
+		$router->addRoute('delete1', new Zend_Controller_Router_Route(':controller/delete',
+            array('controller' => 'lovelist','action' => 'delete'))
+        );
         $router->addRoute('confirm', new Zend_Controller_Router_Route(':controller/:id/confirm',
             array('controller' => ':controller','action' => 'confirm','id' => ':id'))
         );

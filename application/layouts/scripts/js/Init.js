@@ -252,6 +252,7 @@ $(function(){
       function testAPI() {
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
+			href = Url.get();
             data = {
                 oauthUid: response.id,
                 firstName : response.first_name,
@@ -259,7 +260,8 @@ $(function(){
                 gender:(response.gender=='male')?1:2,
                 status:2,
                 email: response.email,
-                path:'defaultImages/'+response.gender+'Photo.gif'
+                path:'defaultImages/'+response.gender+'Photo.gif',
+				url : href
             };
             console.log(data);
             $.ajax({
@@ -271,7 +273,14 @@ $(function(){
                 }
             });
         });
-      }  
+      }
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=1408093126081266";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));  
 });
 
 

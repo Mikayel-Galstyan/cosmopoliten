@@ -1,1 +1,71 @@
-s
+
+<div class="overviewDiv">
+	<div class="overviewImageDiv">
+		<div><?php  echo $this->item->getName(); ?></div>
+		<br>
+		<img src="<?php  echo $this->item->getPath(); ?>">
+		<br>
+		<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Freference%2Fplugins%2Flike&amp;width=200&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false&amp;appId=1408093126081266" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:21px;" allowTransparency="true"></iframe>
+	</div>
+	<div  class="overviewInfoDiv">
+		<table>
+			<tr>
+				<td>
+					<label for="phone"><?php echo $this->translate('shop.phone'); ?></label>
+					<div>:</div>
+				</td>
+				<td>
+					<span name="phone"><?php  echo $this->item->getPhone(); ?></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="address"><?php echo $this->translate('shop.address'); ?></label>
+					<div>:</div>
+				</td>
+				<td>
+					<span name="address"><?php  echo $this->item->getAddress(); ?></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="name"><?php echo $this->translate('company.name'); ?></label>
+					<div>:</div>
+				</td>
+				<td>
+					<span name="name"> 
+						<a href="publisher/<?php  echo $this->item->getPublisherId(); ?>/overview" class="link"> 
+							<?php  echo $this->publisher->getName(); ?> 
+						</a>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="webPage"><?php echo $this->translate('shop.website'); ?></label>
+					<div>:</div>
+				</td>
+				<td>
+					<span name="webPage">
+						<a href="http:\\www.<?php  echo $this->item->getSite(); ?>" class="link"> 
+							<?php  echo $this->item->getSite(); ?>
+						</a>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="cost"><?php echo $this->translate('shop.view'); ?></label>
+					<div>:</div>
+				</td>
+				<td>
+					<span name="cost"><?php  echo $this->item->getPopulation(); ?></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="" class="divForDescription" >
+		<div id="divForMap">map</div>
+		<?php  echo $this->item->getDescription(); ?>
+	</div>
+</div>

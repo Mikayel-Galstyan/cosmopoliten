@@ -37,9 +37,9 @@ $(function(){
         
     </form>
     <form action="image/save" name="imgSaveForm" id="imgSaveForm">
-        <input type="button" onclick="Filter.submit('imgSaveForm')" value="saveImg" class="">
+		<a class="button w50 fl" onclick="Filter.submit('imgSaveForm')"><?php echo $this->translate('save.img'); ?></a>
     </form>
-    <input type="button" onclick="Form.submit('addForm')" value="submit">
+	<a class="button w50 fl" onclick="Form.submit('addForm')"><?php echo $this->translate('save.img'); ?></a>
    
 </div>
 <div id="objectList" style="width:100%;">

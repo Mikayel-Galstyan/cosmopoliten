@@ -49,7 +49,7 @@ class ObjectsController extends SecureController {
                $service->addClick($this->objectTypeId);
             }
         }
-		if($this->getAuthUser() && !$this->for){
+		if($this->getAuthUser() && !$this->for && $this->getAuthUser()->getStatus() != 1){
 			$this->for = $this->getAuthUser()->getGender();
 		}
 		$filter->setGender($this->for);
@@ -147,7 +147,11 @@ class ObjectsController extends SecureController {
             if(!$this->getPublisherId()){
                 $service->addClick($id);
             }
-			$this->view->item = $service->getById($id);
+			$item = $service->getById($id);
+			$this->view->item = $item;
+			$publisherService = new Service_Publisher();
+			$shopService = new Service_ShopList();
+			$this->view->shopList = $shopService->getById($item->getShopListId());
 		}else{
 			
 		}

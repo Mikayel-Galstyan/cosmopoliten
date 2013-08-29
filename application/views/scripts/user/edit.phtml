@@ -27,18 +27,18 @@
 					   <td class="middle left"><label for="gender"><?php echo $this->translate('gender')?> </label></td>
 					   <td class="middle left">
 						   <select name="gender" id="gender" class="mt5">
-								<option value="1"><?php echo $this->translate('male')?></option>
-								<option value="2"><?php echo $this->translate('female')?></option>
+								<option value="1" <?php echo ($this->item && $this->item->getGender()==1)? 'selected = "selected"':''?>><?php echo $this->translate('male')?></option>
+								<option value="2" <?php echo ($this->item && $this->item->getGender()==2)? 'selected = "selected"':''?>><?php echo $this->translate('female')?></option>
 						   </select>
 					   </td>
 					</tr>
-				   <?php if($this->authorize('role')){?>
+				   <?php if(!$this->isPublisher && !$this->isUser){?>
 					<tr>
 					   <td class="middle left"><label for="status"><?php echo $this->translate('user.role')?> </label></td>
 					   <td class="middle left">
 						   <select name="status" id="status" class="mt5">
-								<option value="2"><?php echo $this->translate('user')?></option>
-								<option value="1"><?php echo $this->translate('publisher')?></option>
+								<option value="2" <?php echo ($this->item && $this->item->getStatus()==2)? 'selected = "selected"':''?>><?php echo $this->translate('user')?></option>
+								<option value="1" <?php echo ($this->item && $this->item->getStatus()==1)? 'selected = "selected"':''?>><?php echo $this->translate('publisher')?></option>
 						   </select>
 					   </td>
 					</tr>

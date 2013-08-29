@@ -52,6 +52,10 @@
                     <?php
                         }
                     ?>
+					<tr>
+                        <td class="middle left"><label for="site"><?php echo $this->translate('site')?></label></td>
+                        <td class="middle left"><input type="text" name="site" id="site" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getSite()):'')?>"/></td>
+                    </tr> 
                     <tr>
                         <td class="middle left"></td>
                         <td class="middle left">

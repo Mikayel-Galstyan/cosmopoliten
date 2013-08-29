@@ -95,7 +95,11 @@
                     </tr> 
                     <tr>
                         <td class="middle left"></td>
-                        <td class="middle left"><input type="button" onclick="Form.submit('ajaxForm')" value="save"/></td>
+                        <td class="middle left">
+							<a class="button w50 mt5" onclick="Form.submit('ajaxForm')" >
+								<?php echo $this->translate('save');?>
+							</a>
+						</td>
                     </tr>                     
                 </tbody>
                 <tfoot><tr><td class="h p5_0"></td></tr></tfoot>
