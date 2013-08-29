@@ -60,14 +60,12 @@ class ShoplistController extends ImageutilController {
     
     public function saveAction(){
         $this->_helper->viewRenderer->setNoRender(true);
-        /*$userId = $this->userId;*/
         $id = $this->id;
         $service = new Service_ShopList();
-        if ($id != null) {
+        if ($id) {
             $item = $service->getById($id);
         } else {
             $item = new Domain_ShopList();
-           // $item->setOrder(1);
         }
 		$sevicePublisher = new Service_Publisher();
 		$filterPublisher = new Filter_Publisher();

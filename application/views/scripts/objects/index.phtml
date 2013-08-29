@@ -118,7 +118,6 @@
                                     <div>
                                         <?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
                                     </div>
-									<?php?>
                                     
 									<?php if($this->isUser) { ?>
 										<a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>

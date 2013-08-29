@@ -4,111 +4,202 @@
 * @author sourcio.com
 * 
 */
-Cosmo_object = {
-    selected_element: null,
+ImageObject = {
+
+    selectedObject:'',
+    
+    objectUniqId : '',
+    
     currentId:0,
-    zoomPixel: 2,
+    
+    zIndex : 1,
+    
     init: function(){
-        $('.objectDiv img').click(function(){
-            $(this).clone().attr('id', 'templateDress_'+Cosmo_object.currentId).appendTo($('#ImageDiv span')); 
-            $('#templateDress_'+Cosmo_object.currentId).mousedown(Cosmo_object.handle_mousedown);
-            $('#templateDress_'+Cosmo_object.currentId).css('position','absolute').attr('class','');
-            var height =  $('#templateDress_'+Cosmo_object.currentId).height();
-            var width =  $('#templateDress_'+Cosmo_object.currentId).width();
-            var top =  $('#templateDress_'+Cosmo_object.currentId).css('top');
-            var src = $('#templateDress_'+Cosmo_object.currentId).attr('src');console.log(src);
-            var left =  $('#templateDress_'+Cosmo_object.currentId).css('left');
-            var html = '<input type="hidden" value="" name="tops[]" id="putinTop_'+Cosmo_object.currentId+'" value="'+parseInt(top)+'">'+
-            '<input type="hidden" name="lefts[]" id="putinLeft_'+Cosmo_object.currentId+'" value="'+parseInt(left)+'">'+
-            '<input type="hidden" name="widths[]" id="putinWidth_'+Cosmo_object.currentId+'" value="'+width+'">'+
-            '<input type="hidden" name="heights[]" id="putinHeight_'+Cosmo_object.currentId+'" value="'+height+'">'+
-            '<input type="hidden" name="srcs[]" id="putinHeight_'+Cosmo_object.currentId+'" value="'+src+'">';
+        ImageObject.selectedObject = $('#mainImage');
+        $('#mainImage').css('position','absolute');
+        $(ImageObject.selectedObject ).draggable({ containment: "#imgDiv", scroll: false });
+       $('.objectDiv img').click(function(){
+            $(this).clone().attr('id', 'templateDress_'+ImageObject.currentId).appendTo($('#imgDiv'));
+            $('#templateDress_'+ImageObject.currentId).css({'position':'absolute','z-index':ImageObject.zIndex}).attr('class',$(this).attr('data-class'));
+            var height =  $('#templateDress_'+ImageObject.currentId).height();
+            var width =  $('#templateDress_'+ImageObject.currentId).width();
+            var top =  $('#templateDress_'+ImageObject.currentId).css('top');
+            var src = $('#templateDress_'+ImageObject.currentId).attr('src');
+            var zIndex =  $('#templateDress_'+ImageObject.currentId).css('z-index');
+            var left =  $('#templateDress_'+ImageObject.currentId).css('left');
+            var html = '<input type="hidden" value="" name="tops[]" id="putinTop_'+ImageObject.currentId+'" value="'+parseInt(top)+'">'+
+            '<input type="hidden" name="lefts[]" id="putinLeft_'+ImageObject.currentId+'" value="'+parseInt(left)+'">'+
+            '<input type="hidden" name="widths[]" id="putinWidth_'+ImageObject.currentId+'" value="'+width+'">'+
+            '<input type="hidden" name="heights[]" id="putinHeight_'+ImageObject.currentId+'" value="'+height+'">'+
+            '<input type="hidden" name="srcs[]" id="putinHeight_'+ImageObject.currentId+'" value="'+src+'">'+
+            '<input type="hidden" name="rotates[]" id="putinRotate_'+ImageObject.currentId+'" value="'+0+'">'+
+            '<input type="hidden" name="zIndexes[]" id="putinZIndex_'+ImageObject.currentId+'" value="'+ImageObject.zIndex+'">';
             $('#imgGenerate').append(html);
-            Cosmo_object.currentId++;
-            
+            ImageObject.selectedObject = $('#templateDress_'+ImageObject.currentId);
+            ImageObject.selectedObject.css('position','absolute');
+            $(ImageObject.selectedObject ).draggable({ containment: "#imgDiv", scroll: false });
+            ImageObject.currentId++;
+            ImageObject.zIndex++;
+            $('#imgDiv>img').click(function(){
+                    ImageObject.zIndex++;
+                    ImageObject.selectedObject = $(this);
+                    $(this).css('z-index',ImageObject.zIndex)
+                    ImageObject.objectUniqId = $(this).attr('id').replace('templateDress_','');
+                    ImageObject.setInputValues(ImageObject.selectedObject);
+            });
         });
-        /*$('#heir img').click(function(){
-            //$('#templateheir').remove();
-            $(this).clone().attr('id', 'templateheir').appendTo($('#ImageDiv span'));
-            $('#templateheir').css({'position':'absolute','top':'10px','left':'10px'});
-            $('#templateheir').mousedown(Cosmo_object.handle_mousedown);
-        });
-        $('#gold img').click(function(){
-            $('#goldTemplate').remove();
-            $(this).clone().attr('id', 'goldTemplate').appendTo($('#ImageDiv span'));
-            $('#goldTemplate').css({'position':'absolute','top':'10px','left':'10px'});
-            $('#goldTemplate').mousedown(Cosmo_object.handle_mousedown);
-        });
-        $('#header img').click(function(){
-            $('#headerTemplate').remove();
-            $(this).clone().attr('id', 'headerTemplate').appendTo($('#ImageDiv span'));
-            $('#headerTemplate').css({'position':'absolute','top':'10px','left':'10px'});
-            $('#headerTemplate').mousedown(Cosmo_object.handle_mousedown);
-        });*/
         window.onkeydown=function(e){
             if(e.keyCode == 109){//up
-                Cosmo_object.zoomOut(Cosmo_object.selected_element,1.2);
+                ImageObject.move('in')
             }
             if(e.keyCode == 107){//down
-                Cosmo_object.zoomIn(Cosmo_object.selected_element,1.2);
+               ImageObject.move('out')
             }  
         }
     },
     
-    setInputValues: function(obj){
+    move : function(doing){
+        switch (doing){
+            case 'left': 
+                ImageObject.left();
+                break;
+            case 'up': 
+                ImageObject.top();
+                break;   
+            case 'right': 
+                ImageObject.right();
+                break;
+            case 'down': 
+                ImageObject.bottom();
+                break;
+            case 'in': 
+                ImageObject.zoomIn();
+                break;
+            case 'out': 
+                ImageObject.zoomOut();
+                break;
+            case 'rotateLeft': 
+                ImageObject.rotateLeft();
+                break;
+            case 'rotateRight': 
+                ImageObject.rotateRight();
+                break;
+            case 'widthIn': 
+                ImageObject.widthIn();
+                break;
+            case 'widthOut': 
+                ImageObject.widthOut();
+                break;
+            case 'heightIn': 
+                ImageObject.heightIn();
+                break;
+            case 'heightOut': 
+                ImageObject.heightOut();
+                break;
+            default: 
+                break;
+        }
+        ImageObject.setInputValues(ImageObject.selectedObject);
+    },
+    
+    left : function(){
+        var left = parseInt($(ImageObject.selectedObject).css('left'))+1;
+        $(ImageObject.selectedObject).css('left',(left)?left:1);
+    },
+    
+    right : function(){
+        var left = parseInt($(ImageObject.selectedObject).css('left'))-1;
+        $(ImageObject.selectedObject).css('left',(left)?left:1);
+    },
+    
+    top : function(){
+        var top = parseInt($(ImageObject.selectedObject).css('top'))+1;
+        $(ImageObject.selectedObject).css('top',(top)?top:1);
+    },
+    
+    bottom : function(){
+        var bottom = parseInt($(ImageObject.selectedObject).css('top'))-1;
+        $(ImageObject.selectedObject).css('top',(bottom)?bottom:-1);
+    },
+    
+    zoomIn : function(){
+        var width = parseInt($(ImageObject.selectedObject).width())+1;
+        $(ImageObject.selectedObject).css({'width':width,'height':'auto'});
+    },
+    
+    zoomOut : function(){
+        var width = parseInt($(ImageObject.selectedObject).width())-1;
+        $(ImageObject.selectedObject).css({'width':width,'height':'auto'});
+    },
+    
+    rotateLeft : function(){
+        var rotate = ImageObject.getRotationDegrees($(ImageObject.selectedObject)).toString();console.log(rotate);
+        var index = rotate.indexOf('(');
+        rotate.replace(rotate.substring(0,index),'');
+        rotate.replace('rotate(','');
+        rotate.replace('deg)','');
+        rotate = parseInt(rotate)+1;
+        $(ImageObject.selectedObject).css({'transform':'rotate('+rotate+'deg)','-ms-transform':'rotate('+rotate+'deg)','-webkit-transform':'rotate('+rotate+'deg)'});
+    },
+    
+    rotateRight : function(){
+        var rotate = ImageObject.getRotationDegrees($(ImageObject.selectedObject)).toString();console.log(rotate);
+        var index = rotate.indexOf('(');
+        rotate.replace(rotate.substring(0,index),'');
+        rotate.replace('rotate(','');
+        rotate.replace('deg)','');
+        rotate = parseInt(rotate)-1;
+        $(ImageObject.selectedObject).css({'transform':'rotate('+rotate+'deg)','-ms-transform':'rotate('+rotate+'deg)','-webkit-transform':'rotate('+rotate+'deg)'});
+
+    },
+    
+    widthIn : function(){
+        var width = parseInt($(ImageObject.selectedObject).width())-1;
+        $(ImageObject.selectedObject).css({'width':width,'height':$(ImageObject.selectedObject).height()});
+    },
+    
+    widthOut : function(){
+        var width = parseInt($(ImageObject.selectedObject).width())+1;
+        $(ImageObject.selectedObject).css({'width':width,'height':$(ImageObject.selectedObject).height()});
+    },
+    
+    heightIn : function(){
+        var height = parseInt($(ImageObject.selectedObject).height())-1;
+        $(ImageObject.selectedObject).css('height',height);
+    },
+    
+    heightOut : function(){
+        var height = parseInt($(ImageObject.selectedObject).height())+1;
+        $(ImageObject.selectedObject).css('height',height);
+    },
+    getRotationDegrees: function(obj) {
+        var matrix = obj.css("-webkit-transform") ||
+        obj.css("-moz-transform")    ||
+        obj.css("-ms-transform")     ||
+        obj.css("-o-transform")      ||
+        obj.css("transform");
+        if(matrix !== 'none') {
+            var values = matrix.split('(')[1].split(')')[0].split(',');
+            var a = values[0];
+            var b = values[1];
+            var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+        } else { var angle = 0; }
+        return (angle < 0) ? angle +=360 : angle;
+    },
+    
+     setInputValues: function(obj){
         var height = $(obj).height();
         var width = $(obj).width();
         var top = parseInt($(obj).css('top'));
         var left = parseInt($(obj).css('left'));
+        var rotate = parseInt(ImageObject.getRotationDegrees(obj));
+        var zIndex = parseInt($(obj).css('z-index'));
         var id = $(obj).attr('id').replace('templateDress_','');
         $('#putinTop_'+id).attr('value',top);
         $('#putinLeft_'+id).attr('value',left);
         $('#putinWidth_'+id).attr('value',width);
         $('#putinHeight_'+id).attr('value',height);
+        $('#putinRotate_'+id).attr('value',rotate);
+        $('#putinZIndex_'+id).attr('value',zIndex);
     },
-    
-    rotateY: function(elem,rad){
-       
-    },
-    rotateZ: function(elem,rad){
-       
-    },
-    rotateX: function(elem,rad){
-        
-    },
-    zoomIn : function(elem,raized){
-        $(elem).height((parseInt($(elem).height())*raized));
-        //$(elem).width((parseInt($(elem).width())*raized));
-        Cosmo_object.setInputValues(elem);
-    },
-    zoomOut : function(elem,raized){
-        $(elem).height((parseInt($(elem).height())/raized));
-        //$(elem).width((parseInt($(elem).width())/raized));console.log($(elem).width());
-        Cosmo_object.setInputValues(elem);
-    },
-    handle_mousedown : function (e){
-        window.my_dragging = {};
-        my_dragging.pageX0 = e.pageX;
-        my_dragging.pageY0 = e.pageY;
-        my_dragging.elem = this;
-        Cosmo_object.selected_element = this;
-        my_dragging.offset0 = $(this).offset();
-        function handle_dragging(e){
-            var left = my_dragging.offset0.left + (e.pageX - my_dragging.pageX0);
-            var top = my_dragging.offset0.top + (e.pageY - my_dragging.pageY0);
-            if(left)
-            $(my_dragging.elem)
-            .offset({top: top, left: left});
-            Cosmo_object.setInputValues(my_dragging.elem);
-            
-        }
-        function handle_mouseup(e){
-            $('body')
-            .off('mousemove', handle_dragging)
-            .off('mouseup', handle_mouseup);
-        }
-        $('body')
-        .on('mouseup', handle_mouseup)
-        .on('mousemove', handle_dragging);
-    }
- }
+}

@@ -1,63 +1,126 @@
+<script>
+    LoveListDeleteObject = {
+        objectsCount : 0,
+        addLovleList : function(id){
+            $('#'+id).attr('class','selectedLoveList');
+            //$('#'+id).attr('onclick','LoveListObject.deleteFromSaveList("'+id+'")');
+            id = id.replace('remove_','');
+            str = '<input type="hidden" id="template_'+id+'" name="ids[]" value="'+id+'"/>';
+            $('#addForm').append(str);
+            LoveListDeleteObject.objectsCount++;
+        },
+        
+        deleteFromSaveList: function(id){
+            $('#'+id).attr('class','unSelectedLoveList');
+            id = id.replace('remove_','');
+            $('#template_'+id).remove();
+            LoveListDeleteObject.objectsCount--;
+        },
+        
+        detectOption : function(id){
+            if($('#'+id).attr('class')=='selectedLoveList'){
+                LoveListDeleteObject.deleteFromSaveList(id);
+            }else{
+                LoveListDeleteObject.addLovleList(id);
+            }
+        }
+    }
+    
+</script>
+<script>
+$(function(){
+    ImageObject.init();
+    LoveListObject.init();
+    $('#manHeight').attr('value',parseInt($('#templateMan').height()));
+    $('#manWidth').attr('value',parseInt($('#templateMan').width()));
+});
+</script>
 <?php if($this->items || $this->isAuth){ ?>
-    <div id="ImageDiv" class="fl">
+        <div class="loveListParentDiv">
+            <div class="loveListWorkDiv">
+                <div id="imgDiv">
+                        <img src="<?php echo $this->img ?>"  id="mainImage">
+                </div>
+            </div>
+            
+            
+            <div class="LoveObjectsListDiv">
+                <div id="objectList">
+                    <?php
+                        foreach($this->items as $item){
+                    ?>
+                            
+                        <div data-id="object_<?php echo $item->getId();?>" class="objectContentDiv fl">
+                            <div class="objectHeader">
+                                <div>
+                                    <?php echo ($item->getName())?$item->getName():'no description';?>
+                                </div>
+                            </div>
+                            <div class="objectDiv">
+                                <img src="<?php echo $item->getPath();?>">
+                            </div>
+                            <div class="favourDiv">
+                                <a data-img="oneStar.png" data-evaluation="1"></a>
+                                <a data-img="twoStars.png" data-evaluation="2"></a>
+                                <a data-img="threeStars.png" data-evaluation="3"></a>
+                                <a data-img="fourStars.png" data-evaluation="4"></a>
+                                <a data-img="fiveStars.png" data-evaluation="5"></a>
+                            </div>    
+                            <div class="actionDiv">
+                                <div>
+                                    <?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
+                                </div>
+                                <a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
+                                <a href="" class="link fl overview" ></a>
+                            </div>
+                        </div>
+                    <?php
+                        }
+                    ?>
+                </div>        
+            </div>
+            
+            
+            <div class="LoveListControlPanel">
+                <div class="map-control type2">                        
+                    <a  onclick="ImageObject.move('left')" class="left" title="Left"></a>
+                    <a  onclick="ImageObject.move('right')" class="right" title="Right"></a>
+                    <a  onclick="ImageObject.move('up')" class="up" title="Up"></a>
+                    <a  onclick="ImageObject.move('down')" class="down" title="Down"></a>
+                    <a  onclick="ImageObject.move('in')" class="zoom-in" title="Zoom In"></a>
+                    <a  onclick="ImageObject.move('out')" class="zoom-out" title="Zoom Out"></a>                        
+                    <a  onclick="ImageObject.move('widthIn')" class="width-in" title="Width In"></a>
+                    <a  onclick="ImageObject.move('widthOut')" class="width-out" title="Width Out"></a>
+                    <a  onclick="ImageObject.move('heightIn')" class="height-in" title="Height In"></a>
+                    <a  onclick="ImageObject.move('heightOut')" class="height-out" title="Height Out"></a>                                                
+                </div>
+                <a class="aRotateLeft link" onclick="ImageObject.move('rotateLeft')"></a>
+                <a class="aRotateRight link" onclick="ImageObject.move('rotateRight')"></a>
+            </div>
+            
+            <div class="LoveListButtonsDiv">				
+                <form action="image/list" name="imgGenerate" method="POST" id="imgGenerate">
+                    <input type="hidden" name="width" id="manWidth" value="">
+                    <input type="hidden" name="height" id="manHeight" value="">
+                    <a class="button w100 fl mt5" onclick="Filter.submit('imgGenerate')"><?php echo $this->translate('generate.img'); ?></a>
+                </form>
+                <form id="addForm" name="addForm" action="lovelist/delete" method="POST">
+                    <a class="button w50 fr mt5 mr10" onclick="Form.submit('addForm')"><?php echo $this->translate('delete'); ?></a>
+                </form>	
+                <div><a href="user/<?php echo $this->id ?>/edit" class="button w100 fl mt5 ml65"><?php echo $this->translate(array('edit','user')); ?></a></div>
+            </div>
+        </div>
+     <!--<div id="ImageDiv" class="fl">
         <span><img src="<?php echo $this->img ?>" style="z-index: 1;width:400px" id="templateMan"/></span>
     </div>
-    <div class="fl w800">
+   <div class="fl w800">
         <table class="mt20">
             <tbody>
                 <tr class="head">
                     <td>
-						<script>
-							LoveListDeleteObject = {
-								objectsCount : 0,
-								addLovleList : function(id){
-									$('#'+id).attr('class','selectedLoveList');
-									//$('#'+id).attr('onclick','LoveListObject.deleteFromSaveList("'+id+'")');
-									id = id.replace('remove_','');
-									str = '<input type="hidden" id="template_'+id+'" name="ids[]" value="'+id+'"/>';
-									$('#addForm').append(str);
-									LoveListDeleteObject.objectsCount++;
-								},
-								
-								deleteFromSaveList: function(id){
-									$('#'+id).attr('class','unSelectedLoveList');
-									id = id.replace('remove_','');
-									$('#template_'+id).remove();
-									LoveListDeleteObject.objectsCount--;
-								},
-								
-								detectOption : function(id){
-									if($('#'+id).attr('class')=='selectedLoveList'){
-										LoveListDeleteObject.deleteFromSaveList(id);
-									}else{
-										LoveListDeleteObject.addLovleList(id);
-									}
-								}
-							}
-                            
-						</script>
-						<script>
-						$(function(){
-							Cosmo_object.init();
-                            LoveListObject.init();
-                            $('#manHeight').attr('value',parseInt($('#templateMan').height()));
-                            $('#manWidth').attr('value',parseInt($('#templateMan').width()));
-						});
-						</script>
-						<div class="mb50 mt-20">
-							
-							<form action="image/list" name="imgGenerate" method="POST" id="imgGenerate">
-                                <input type="hidden" name="width" id="manWidth" value="">
-                                <input type="hidden" name="height" id="manHeight" value="">
-								<a class="button w100 fl" onclick="Filter.submit('imgGenerate')"><?php echo $this->translate('generate.img'); ?></a>
-							</form>
-							<form id="addForm" name="addForm" action="lovelist/delete" method="POST">
-								<a class="button w50 fl" onclick="Form.submit('addForm')"><?php echo $this->translate('delete'); ?></a>
-							</form>	
-							<div><a href="user/<?php echo $this->id ?>/edit" class="button w50 fl"><?php echo $this->translate('edit'); ?></a></div>
-						   
-						</div>
-						<div id="objectList" style="width:100%;">
+						
+						
+						<div id="objectList">
 							<?php
 								foreach($this->items as $item){
 							?>
@@ -97,7 +160,7 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div>-->
 <?php }else{ ?>
     please Login or registrate 
 <?php } ?>

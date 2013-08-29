@@ -1,0 +1,166 @@
+.aRotateRight{
+    display:block;
+    background: url(../images/mapmenu/rotateLeft.png) no-repeat;
+    background-size: 100%,100%;
+    position:relative;
+    height: 30px;
+    width: 30px;
+    top:-84px;
+    left:95px;
+}
+.aRotateLeft{
+    display:block;
+    background: url(../images/mapmenu/rotate.png) no-repeat;
+    background-size: 100%,100%;
+    position:relative;
+    height: 30px;
+    width: 30px;
+    top:-50px;
+    left:340px;
+}
+.aRotateLeft:hover{
+    opacity: .4;
+}
+.aRotateRight:hover{
+    opacity: .4;
+}
+.type2 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10;
+    background: url(../images/mapmenu/type2.png) no-repeat;
+    height: 59px;
+    width: 203px;
+}
+.type2 a {
+    position: relative !important;
+}
+
+.map-control a {
+    height: 18px;
+    width: 18px;
+    display: block;
+    text-indent: -999em;
+    position: absolute;
+    outline: none;
+}
+
+.map-control a:hover {
+    background: #535353;
+    opacity: .4;
+    filter: alpha(opacity =     40);
+}
+
+.type2 a.left {
+    left: 3px;
+    top: 21px;
+}
+
+.type2 a.right {
+    left: 41px;
+    top: 3px;
+}
+
+.type2 a.up {
+    left: 22px;
+    top: -32px;
+}
+
+.type2 a.down {
+    left: 22px;
+    top: -16px;
+}
+.type2 a.zoom-in {
+    left: 77px;
+    top: -64px;
+    height: 21px;
+    width: 21px;
+}
+
+.type2 a.zoom-out {
+    left: 77px;
+    top: -63px;
+    height: 21px;
+    width: 21px;
+}
+
+.type2 a.width-in {
+    left: 102px;
+    top: -106px;
+    height: 21px;
+    width: 43px;
+}
+
+.type2 a.width-out {
+    left: 102px;
+    top: -105px;
+    height: 21px;
+    width: 43px;
+}
+
+.type2 a.height-in {
+    left: 171px;
+    top: -148px;
+    height: 43px;
+    width: 21px;
+}
+
+.type2 a.height-out {
+    left: 149px;
+    top: -191px;
+    height: 43px;
+    width: 21px;
+}
+.loveListParentDiv{
+    margin-left:auto;
+    margin-right:auto;
+    width:1015px;
+    height:650px;
+    background:rgb(121, 121, 121);
+}
+.loveListWorkDiv{
+    float:left;
+    width:475px;
+    height:500px;
+    background:white;
+    margin-left:5px;
+    margin-top:5px;
+}
+.loveListWorkDiv>div{
+    position:relative;
+    width:100%;
+    height:500px;
+    overflow:hidden;
+    display:block;    
+}
+.loveListWorkDiv>div>img{
+   width:350px;
+   max-height:495px;
+   margin-top:10px;
+}
+.LoveObjectsListDiv{
+    float:right;
+    width:525px;
+    height:640px;
+    background:white;
+    margin-right:5px;
+    margin-top:5px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+.LoveListControlPanel{
+    float:right;
+    width:475px;
+    height:85px;
+    background:white;
+    margin-right:5px;
+    margin-top:5px;
+}
+.LoveListButtonsDiv{
+    width:475px;
+    height:45px;
+    margin-right:5px;
+    margin-top:5px;
+    background:white;
+    float:right;
+}
