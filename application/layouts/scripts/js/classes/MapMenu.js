@@ -14,11 +14,13 @@ ImageObject = {
     
     zIndex : 1,
     
+	mainImage: '',
+	
     init: function(){
-        ImageObject.selectedObject = $('#mainImage');
+        //ImageObject.selectedObject = $('#mainImage');
+		ImageObject.mainImage = $('#mainImage');
         $('#mainImage').css('position','absolute');
-        $(ImageObject.selectedObject ).draggable({ containment: "#imgDiv", scroll: false });
-       $('.objectDiv img').click(function(){
+		$('.objectDiv img').click(function(){
             $(this).clone().attr('id', 'templateDress_'+ImageObject.currentId).appendTo($('#imgDiv'));
             $('#templateDress_'+ImageObject.currentId).css({'position':'absolute','z-index':ImageObject.zIndex}).attr('class',$(this).attr('data-class'));
             var height =  $('#templateDress_'+ImageObject.currentId).height();
@@ -37,27 +39,109 @@ ImageObject = {
             $('#imgGenerate').append(html);
             ImageObject.selectedObject = $('#templateDress_'+ImageObject.currentId);
             ImageObject.selectedObject.css('position','absolute');
-            $(ImageObject.selectedObject ).draggable({ containment: "#imgDiv", scroll: false });
+			ImageObject.addResizePoints(ImageObject.selectedObject);
+            $(ImageObject.selectedObject ).draggable({ containment: ".loveListWorkDiv", scroll: false, 
+				start: function() {
+					ImageObject.resetResizePoints(ImageObject.selectedObject);
+				},
+				drag: function() {
+					ImageObject.resetResizePoints(ImageObject.selectedObject);
+				},
+				stop: function() {
+					ImageObject.resetResizePoints(ImageObject.selectedObject);
+				}
+			});
             ImageObject.currentId++;
             ImageObject.zIndex++;
             $('#imgDiv>img').click(function(){
-                    ImageObject.zIndex++;
-                    ImageObject.selectedObject = $(this);
-                    $(this).css('z-index',ImageObject.zIndex)
-                    ImageObject.objectUniqId = $(this).attr('id').replace('templateDress_','');
-                    ImageObject.setInputValues(ImageObject.selectedObject);
+				ImageObject.zIndex++;
+				ImageObject.selectedObject = $(this);
+				$(this).css('z-index',ImageObject.zIndex)
+				ImageObject.objectUniqId = $(this).attr('id').replace('templateDress_','');
+				ImageObject.setInputValues(ImageObject.selectedObject);
+				ImageObject.addResizePoints(ImageObject.selectedObject);
             });
         });
+		$('#imgDiv>img').click(function(){
+			ImageObject.zIndex++;
+			ImageObject.selectedObject = $(this);
+			$(this).css('z-index',ImageObject.zIndex)
+			ImageObject.objectUniqId = $(this).attr('id').replace('templateDress_','');
+			ImageObject.setInputValues(ImageObject.selectedObject);
+			ImageObject.addResizePoints(ImageObject.selectedObject);
+		});
         window.onkeydown=function(e){
-            if(e.keyCode == 109){//up
-                ImageObject.move('in')
+            if(e.keyCode == 109){//min
+                ImageObject.move('out')
             }
-            if(e.keyCode == 107){//down
-               ImageObject.move('out')
-            }  
+            if(e.keyCode == 107){//plus
+               ImageObject.move('in')
+            }
+			if(e.keyCode == 38){//down
+               ImageObject.move('down')
+            }
+			if(e.keyCode == 40){//up
+               ImageObject.move('up')
+            }
+			if(e.keyCode == 37){//down
+               ImageObject.move('right')
+            }
+			if(e.keyCode == 39){//down
+               ImageObject.move('left')
+            }
         }
     },
     
+	addResizePoints: function(obj){
+		var x1 = parseInt($(obj).css("left"))-2.5;
+		var y1  = parseInt($(obj).css("top"))+7.5;
+		var x2 = parseInt($(obj).css("left"))+parseInt($(obj).width())-2.5;
+		var y2  = parseInt($(obj).css("top"))+parseInt($(obj).height())+7.5;
+		html = '<div class="resizeButton" id="leftTop" style="top:'+y1+'px;left:'+x1+'px;position:absolute;width:5px;height:5px;background:black;z-index:10000000;"></div>'+
+		'<div class="resizeButton" id="rightTop" style="top:'+y1+'px;left:'+x2+'px;width:5px;position:absolute;height:5px;background:black;z-index:10000000;"></div>'+
+		'<div class="resizeButton" id="leftBottom" style="top:'+y2+'px;left:'+x2+'px;width:5px;position:absolute;height:5px;background:black;z-index:10000000;"></div>'+
+		'<div class="resizeButton" id="rightBottom" style="top:'+y2+'px;left:'+x1+'px;width:5px;position:absolute;height:5px;background:black;z-index:10000000;"></div>';
+		$('.resizeButton').remove();
+		$('#imgDiv').append(html);
+		$('#leftTop').css({'top':y1+'px','left':x1+'px'});
+		$('#rightTop').css({'top':y1+'px','left':x2+'px'});
+		$('#leftBottom').css({'top':y2+'px','left':x2+'px'});
+		$('#rightBottom').css({'top':y2+'px','left':x1+'px'});
+		$('.resizeButton').draggable({containment: "#imgDiv", scroll: false, 
+			drag: function() {
+				console.log($(this).attr('id'));
+			}
+		});		
+	},
+	
+	resetResizePoints: function(obj){
+		var x1 = parseInt($(obj).css("left"))-2.5;
+		var y1  = parseInt($(obj).css("top"))+2.5;
+		var x2 = parseInt($(obj).css("left"))+parseInt($(obj).width())-2.5;
+		var y2  = parseInt($(obj).css("top"))+parseInt($(obj).height())+2.5;
+		$('#leftTop').css({'top':y1+'px','left':x1+'px'});
+		$('#rightTop').css({'top':y1+'px','left':x2+'px'});
+		$('#leftBottom').css({'top':y2+'px','left':x2+'px'});
+		$('#rightBottom').css({'top':y2+'px','left':x1+'px'});
+	},
+	
+	resizeLeftTop: function(obj){
+		x = parseInt($(obj).css('top'))+2.5;
+		y = parseInt($(obj).css('left'))-2.5;
+	},
+	
+	resizeLeftTop: function(){
+	
+	},
+	
+	resizeLeftTop: function(){
+	
+	},
+	
+	resizeLeftTop: function(){
+	
+	},
+	
     move : function(doing){
         switch (doing){
             case 'left': 
@@ -190,8 +274,8 @@ ImageObject = {
      setInputValues: function(obj){
         var height = $(obj).height();
         var width = $(obj).width();
-        var top = parseInt($(obj).css('top'));
-        var left = parseInt($(obj).css('left'));
+        var top = parseInt($(obj).css('top'))-parseInt($(ImageObject.mainImage).css('top'));
+        var left = parseInt($(obj).css('left'))-parseInt($(ImageObject.mainImage).css('left'));
         var rotate = parseInt(ImageObject.getRotationDegrees(obj));
         var zIndex = parseInt($(obj).css('z-index'));
         var id = $(obj).attr('id').replace('templateDress_','');
