@@ -30,21 +30,41 @@
 <script>
 $(function(){
     ImageObject.init();
-	$(".LoveObjectsListDiv").niceScroll({cursorcolor:"rgb(152, 160, 255)"});
+	$(".LoveObjectsListDiv,.putInDressesList").niceScroll({cursorcolor:"rgb(152, 160, 255)"});
     LoveListObject.init();
-    $('#manHeight').attr('value',parseInt($('#templateMan').height()));
-    $('#manWidth').attr('value',parseInt($('#templateMan').width()));
+    setTimeout(function(){
+        $('#manHeight').attr('value',parseInt($('#mainImage').height()));
+        $('#manWidth').attr('value',parseInt($('#mainImage').width()));
+    },1000)
+    
 });
 </script>
 <?php if($this->items || $this->isAuth){ ?>
         <div class="loveListParentDiv">
+            <div class="putInDressesList">
+                <div id="putInList">
+                </div>
+            </div>
+            <div id="result">
+                
+            </div>
             <div class="loveListWorkDiv">
                 <div id="imgDiv">
                         <img src="<?php echo $this->img ?>"  id="mainImage">
                 </div>
             </div>
-            
-            
+            <div class="selectBoxDivForLoveList mt5">
+                <select class="fl ml5  mt5">
+                    <option value="">
+                        select
+                    </option>
+                </select>
+                <a class="button tw w70 fl ml5 mt5">Filter</a>
+                <form id="addForm" name="addForm" action="lovelist/delete" method="POST">
+                    <a class="button w50 fr mt5 mr25" onclick="Form.submit('addForm')"><?php echo $this->translate('delete'); ?></a>
+                </form>	
+            </div>
+           
             <div class="LoveObjectsListDiv">
                 <div id="objectList">
                     <?php
@@ -58,7 +78,7 @@ $(function(){
                                 </div>
                             </div>
                             <div class="objectDiv">
-                                <img src="<?php echo $item->getPath();?>">
+                                <img src="<?php echo $item->getPath();?>" name="<?php echo ($item->getName())?$item->getName():'no description';?>">
                             </div>
                             <div class="favourDiv">
                                 <a data-img="oneStar.png" data-evaluation="1"></a>
@@ -97,17 +117,15 @@ $(function(){
                 </div>
                 <a class="aRotateLeft link" onclick="ImageObject.move('rotateLeft')"></a>
                 <a class="aRotateRight link" onclick="ImageObject.move('rotateRight')"></a>
+                <!--<input type="text" onchange="ImageObject.deltaChange = (parseInt($(this).val()))?parseInt($(this).val()):1">-->
             </div>
             
             <div class="LoveListButtonsDiv">				
                 <form action="image/list" name="imgGenerate" method="POST" id="imgGenerate">
                     <input type="hidden" name="width" id="manWidth" value="">
                     <input type="hidden" name="height" id="manHeight" value="">
-                    <a class="button w100 fl mt5" onclick="Filter.submit('imgGenerate')"><?php echo $this->translate('generate.img'); ?></a>
+                    <a class="button w100 fl mt5" onclick="Filter.submit('imgGenerate','result');"><?php echo $this->translate('generate.img'); ?></a>
                 </form>
-                <form id="addForm" name="addForm" action="lovelist/delete" method="POST">
-                    <a class="button w50 fr mt5 mr10" onclick="Form.submit('addForm')"><?php echo $this->translate('delete'); ?></a>
-                </form>	
                 <div><a href="user/<?php echo $this->id ?>/edit" class="button w100 fl mt5 ml65"><?php echo $this->translate(array('edit','user')); ?></a></div>
             </div>
         </div>
@@ -162,6 +180,13 @@ $(function(){
             </tbody>
         </table>
     </div>-->
+    <table class="mt20">
+    	<tbody>
+    		<tr class='panel'>
+    			<td></td>
+    		</tr>
+    	</tbody>
+    </table>
 <?php }else{ ?>
     please Login or registrate 
 <?php } ?>

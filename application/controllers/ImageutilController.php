@@ -24,15 +24,23 @@ class ImageutilController extends SecureController {
     }
     
     
-	protected function resize_image($file, $w, $h, $crop=FALSE,$newImgUrl=null) {
+	protected function resize_image($file, $w, $h, $crop=FALSE,$degrees = 0) {
+        $src = $this->imagecreatefromfile($file);
+         /*rotate*/
+            $src = imagerotate($src, $degrees, imageColorAllocateAlpha($src, 0, 0, 0, 127));
+            imagealphablending($src, false);
+            imagesavealpha($src, false);
+            $file = 'users/'.$this->getAuthUser()->getEmail().'/templateImg1.png';
+            imagepng($src, $file);
+        /**/
 		list($width, $height) = getimagesize($file);
 		$r = $width / $height;
 		if ($crop) {
-			if ($width > $height) {
+			/*if ($width > $height) {
 				$width = ceil($width-($width*($r-$w/$h)));
 			} else {
 				$height = ceil($height-($height*($r-$w/$h)));
-			}
+			}*/
 			$newwidth = $w;
 			$newheight = $h;
 		} else {
@@ -44,12 +52,11 @@ class ImageutilController extends SecureController {
 				$newwidth = round($w);
 			}
 		}
-		$src = $this->imagecreatefromfile($file);
 		$dst = imagecreatetruecolor($newwidth, $newheight);
 		imagealphablending($dst, false);
 		imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 		imagesavealpha($dst, true);
-		imagepng($dst,($newImgUrl)?$newImgUrl:'users/'.$this->getAuthUser()->getEmail().'/templateImg1.png');
+		imagepng($dst, $file);
         $width = $newwidth;
         $height = $newheight;
         //$this->imageCreateTransparent($dst,$width,$height);

@@ -9,6 +9,8 @@ class ImageController extends ImageutilController {
 	protected $lefts = null;
     protected $tops = null;
 	protected $srcs = null;
+    protected $rotates = null;
+    protected $zIndexes = null;
     
     protected $width = null;
     protected $height = null;
@@ -20,9 +22,38 @@ class ImageController extends ImageutilController {
 	}
     
     public function listAction(){
-			$dest = $this->resize_image($this->getAuthUser()->getPath(), $this->width,  $this->height);
-			for($i = 0;$i<count($this->widths);$i++){
-				$img = $this->resize_image($this->srcs[$i], $this->widths[$i],  $this->heights[$i]);
+            for($i=0;$i<count($this->widths)-1;$i++){
+                for($j=$i+1;$j<count($this->widths);$j++){
+                    if($this->zIndexes[$i]>$this->zIndexes[$j]){
+                        $zIndex = $this->zIndexes[$i];
+                        $path = $this->srcs[$i];
+                        $rotate = $this->rotates[$i];
+                        $widths = $this->widths[$i];
+                        $heights = $this->heights[$i];
+                        $tops = $this->tops[$i];
+                        $lefts = $this->lefts[$i];
+                        
+                        $this->zIndexes[$i] = $this->zIndexes[$j];
+                        $this->rotates[$i] = $this->rotates[$j];
+                        $this->widths[$i] = $this->widths[$j];
+                        $this->heights[$i] = $this->heights[$j];
+                        $this->tops[$i] = $this->tops[$j];
+                        $this->lefts[$i] = $this->lefts[$j];
+                        $this->srcs[$i] = $this->srcs[$j];
+                        
+                        $this->zIndexes[$j] = $zIndex;
+                        $this->srcs[$j] = $path;
+                        $this->rotates[$j] = $rotate;
+                        $this->widths[$j] = $widths;
+                        $this->heights[$j] = $heights;
+                        $this->tops[$j] = $tops;
+                        $this->lefts[$j] = $lefts;
+                    }
+                }
+            }
+			$dest = $this->resize_image($this->getAuthUser()->getPath(), $this->width,  $this->height,true);
+			for($i = 0;$i<count($this->widths);$i++){ 
+				$img = $this->resize_image($this->srcs[$i], $this->widths[$i],  $this->heights[$i],true, ($this->rotates[$i])?(-$this->rotates[$i]):0.1);
 				imagesavealpha($dest, true);
 				imagealphablending($dest, true);
 				@imagecopy($dest, $img, $this->lefts[$i], $this->tops[$i], 0, 0, $this->widths[$i], $this->heights[$i]);
@@ -96,6 +127,14 @@ class ImageController extends ImageutilController {
 	}
     public function &setPath($val) {
        $this->path = $val;
+       return $this;
+	}
+    public function &setZIndexes($val) {
+       $this->zIndexes = $val;
+       return $this;
+	}
+    public function &setRotates($val) {
+       $this->rotates = $val;
        return $this;
 	}
 }

@@ -114,7 +114,7 @@
 .loveListParentDiv{
     margin-left:auto;
     margin-right:auto;
-    width:1015px;
+    width:1225px;
     height:650px;
     background:rgb(152, 160, 255);
 }
@@ -141,9 +141,19 @@
 .LoveObjectsListDiv{
     float:right;
     width:525px;
-    height:640px;
+    height:590px;
     background:white;
     margin-right:5px;
+    margin-top:5px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+.selectBoxDivForLoveList{
+    float:left;
+    width:525px;
+    height:45px;
+    background:white;
+    margin-left:5px;
     margin-top:5px;
     overflow-y:auto;
     overflow-x:hidden;
@@ -163,4 +173,63 @@
     margin-top:5px;
     background:white;
     float:right;
+}
+#leftTop,#rightBottom{
+    cursor:nw-resize;
+}
+#leftBottom,#rightTop{
+    cursor:ne-resize;
+}
+.putInDressesList{
+    width:205px;
+    float:left;
+    background:white;
+    margin-top:5px;
+    margin-left:5px;
+    height:640px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+#putInList{
+    width:194px;
+    height:35px;
+    margin:5px;
+}
+#putInList>div>a:first-child{
+    float:left;
+    display:block;
+    background:silver;
+    width:160px;
+    height:25px;
+    padding-left:5px;
+    padding-top:10px;
+    cursor:pointer;
+    background:#3b5998;
+    color:white;
+    border-bottom:2px solid white;
+}
+#putInList>div>a:last-child{
+    display:block;
+    padding:2px;
+    float:left;
+    cursor:pointer;
+    z-index:5;
+    height:23px;
+    padding-top:10px;
+    padding-left:9px;
+    background:#3b5998;
+    color:white;
+    width:18px;
+    border-bottom:2px solid white;
+    
+}
+#result{
+    position:absolute;
+    top:5px;
+    left:523px;
+    width:475px;
+    height:500px;
+    background:rgb(41, 51, 119);
+    z-index:100000000;
+    display:none;
 }

@@ -32,5 +32,9 @@ function Util() {
     	}
         //Hide mask
     	Mask.hide();
+        console.log(elements[0]);
+        if($(elements[0]).attr('id')=='result'){
+            $('#result').slideDown(1000);
+        }
     };
 };

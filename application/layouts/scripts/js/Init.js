@@ -210,7 +210,7 @@ $(function(){
           // for any authentication related change, such as login, logout or session refresh. This means that
           // whenever someone who was previously logged out tries to log in again, the correct case below 
           // will be handled. 
-          FB.Event.subscribe('auth.authResponseChange', function(response) {console.log('199319931993');console.log(response);
+          FB.Event.subscribe('auth.authResponseChange', function(response) {
             // Here we specify what we do with the response anytime this event occurs. 
             if (response.status === 'connected') {
               // The response object is returned with a status field that lets the app know the current
@@ -250,7 +250,6 @@ $(function(){
       // Here we run a very simple test of the Graph API after login is successful. 
       // This testAPI() function is only called in those cases. 
       function testAPI() {
-        console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
 			href = Url.get();
             data = {
@@ -263,7 +262,6 @@ $(function(){
                 path:'defaultImages/'+response.gender+'Photo.gif',
 				url : href
             };
-            console.log(data);
             $.ajax({
                 url: 'user/save',
                 data:data,
