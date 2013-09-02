@@ -1,17 +1,17 @@
 <?php
 
-class Dao_ShopImage extends Miqo_Dao_Base {
+class Dao_ShopGroup extends Miqo_Dao_Base {
     protected $primaryColumn = 'id';
     protected $columnAliases = array (
             'id' => 'id',
-            'path' => 'path',
-			'shopList_id' => 'shopListId'
+            'name' => 'name',
+			'path' => 'path'
 			);
     
-    protected $entityClass = 'Domain_ShopImage';
+    protected $entityClass = 'ShopGroup';
 
     public function __construct() {
-        $this->dbTable = new Dao_DbTable_ShopImage();
+        $this->dbTable = new Dao_DbTable_ShopGroup();
     }
 	
     

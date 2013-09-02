@@ -8,5 +8,12 @@ class Dao_DbTable_List {
     const USERIMAGE    = 'userimage';
     const SHOPIMAGE    = 'shopimage';
     const USERS        = 'users';   
-    const PUBLISHER    = 'publishers';    
+    const PUBLISHER    = 'publishers';
+	const OBJECTSGROUP = 'objectsGroup';
+	const COMMENT      = 'comment';
+	const DISCOUNT     = 'discount';
+	const IMAGESSTATUS = 'imagesStatus';
+	const MATERIAL     = 'material';
+	const BRAND        = 'brand';
+	const SHOPGROUP    = 'shopGroup';	
 }

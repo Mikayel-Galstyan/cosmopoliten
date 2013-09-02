@@ -24,7 +24,7 @@ class ImageutilController extends SecureController {
     }
     
     
-	protected function resize_image($file, $w, $h, $crop=FALSE,$degrees = 0) {
+	protected function resize_image($file, $w, $h, $crop=FALSE,$degrees = 0.00001) {
         $src = $this->imagecreatefromfile($file);
          /*rotate*/
             $src = imagerotate($src, $degrees, imageColorAllocateAlpha($src, 0, 0, 0, 127));

@@ -20,6 +20,8 @@ ImageObject = {
     
     pointWidth: 5,
 	
+	shotchik : 0,
+	
     init: function(){
         //ImageObject.selectedObject = $('#mainImage');
 		ImageObject.mainImage = $('#mainImage');
@@ -37,7 +39,7 @@ ImageObject = {
             '<input type="hidden" name="lefts[]" id="putinLeft_'+ImageObject.currentId+'" value="0">'+
             '<input type="hidden" name="widths[]" id="putinWidth_'+ImageObject.currentId+'" value="'+width+'">'+
             '<input type="hidden" name="heights[]" id="putinHeight_'+ImageObject.currentId+'" value="'+height+'">'+
-            '<input type="hidden" name="srcs[]" id="putinHeight_'+ImageObject.currentId+'" value="'+src+'">'+
+            '<input type="hidden" name="srcs[]" id="putinSrcs_'+ImageObject.currentId+'" value="'+src+'">'+
             '<input type="hidden" name="rotates[]" id="putinRotate_'+ImageObject.currentId+'" value="'+0+'">'+
             '<input type="hidden" name="zIndexes[]" id="putinZIndex_'+ImageObject.currentId+'" value="'+ImageObject.zIndex+'">';
             $('#imgGenerate').append(html);
@@ -57,7 +59,7 @@ ImageObject = {
 				}
 			});
 
-            $('#imgDiv>img :not(#mainImage)').mousedown(function(){
+            $('#imgDiv>img').mousedown(function(){
 				ImageObject.zIndex++;
 				ImageObject.selectedObject = $(this);
 				$(this).css('z-index',ImageObject.zIndex)
@@ -108,10 +110,11 @@ ImageObject = {
     },
     
     removeObjectFromList : function(id){
-        id = id.replace('remove_','');console.log();
+        id = id.replace('remove_','');
         $('#infoDress_'+id).remove();
         $('#templateDress_'+id).remove();
-        $('#putinTop_'+id).remove();
+        $('#putinSrcs_'+id).remove();
+		$('#putinTop_'+id).remove();
         $('#putinLeft_'+id).remove();
         $('#putinWidth_'+id).remove();
         $('#putinHeight_'+id).remove();
@@ -140,9 +143,14 @@ ImageObject = {
 		$('#rightBottom').css({'top':y2+'px','left':x2+'px'});
 		$('#leftBottom').css({'top':y2+'px','left':x1+'px'});
 		$('.resizeButton').draggable({containment: "#imgDiv", scroll: false, 
+			start: function(){
+				ImageObject.shotchik = 0;
+			},
 			drag: function() {
-				//ImageObject.resizeImageByPoints($(this).attr('id'));
-                
+				ImageObject.shotchik++;
+				if(ImageObject.shotchik%15==0){
+					ImageObject.resizeImageByPoints($(this).attr('id'));
+				}
 			},
             stop : function(){
             	ImageObject.resizeImageByPoints($(this).attr('id'));
