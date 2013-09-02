@@ -19,6 +19,10 @@ class UserController extends SecureController {
     private $gender = null;
     private $oauthUid = null;
     private $path  =  null;
+    private $activationKey = null;
+    private $age = null;
+    private $type = null;
+    private $sendDiscountMaileStatus  =  null;
     private $order = self::DEFAULT_ORDER;
     private $sort = self::DEFAULT_SORT;
 
@@ -80,23 +84,11 @@ class UserController extends SecureController {
         if ($id != null) {
             $item = $service->getById($id);
             $authantiticate = false;
-        } else if($this->oauthUid){
-            $item = $service->getByFacebookId($this->email);
-            if(!$item->getEmail()){
-                $item = new Domain_User();
-                $this->password = "Qw".$this->oauthUid;
-                $this->passwordConfirm = "Qw".$this->oauthUid;
-				$item->setStatus($this->status);
-                $authantiticate = false;
-            }else{
-                $authantiticate = true;
-            }
         }else{
             $item = new Domain_User();
 			$item->setStatus($this->status);
             $authantiticate = false;
         }
-        
         
         $item->setEmail($this->email);
         $item->setFirstName($this->firstName);
@@ -107,7 +99,12 @@ class UserController extends SecureController {
             $item->setPassword($this->password);
             $item->setPasswordConfirm($this->passwordConfirm);
             $item->setPasswordSalt(ControllerActionSupport::getUniqueString());
-        } else {
+        } else if($this->type=='byMail') {
+            $password = 'Qw'.rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
+            $item->setPassword($password);
+            $item->setPasswordConfirm($password);
+            $item->setPasswordSalt(ControllerActionSupport::getUniqueString());
+        }else{
             $item->setPassword(null);
             $item->setPasswordConfirm(null);
         }
@@ -128,31 +125,33 @@ class UserController extends SecureController {
             move_uploaded_file ($path['tmp_name'],$fullPath);
             $item->setPath($fullPath);
             
-        }
+        }else{
+            $email = $this->email;
+            do{
+                $new_name = md5(rand ( -100000 , 100000 )).'.jpg';//.$userfile_extn[1];
+                $fullPath = "users/".$email.'/'.$new_name;
+            }while(file_exists($fullPath));
+            if(isset($this->gender) && $this->gender==2){
+                copy ('defaultImages/women.jpg' , $fullPath);
+            }else{
+                copy ('defaultImages/man.jpg' , $fullPath);
+            }
+            $item->setPath($fullPath);
+        }//echo $this->type;exit;
         try {
             if(isset($authantiticate) && !$authantiticate){
-                $item = $service->save($item);
+                $item = $service->save($item,$this->type);
             }
-            //$item = $this->getAuthUser();
-            if (!$this->getAuthUser() && $this->oauthUid) {
-                $this->userSession =  new Miqo_Session_Base();
-                $this->userSession->set('authUser', $item); 
-                $urlId = ($this->id)?'/'.$this->id:'';
-                $this->javascript()->redirect('index');
-            }else if($this->getAuthUser() && !$this->oauthUid){
+            if($this->getAuthUser()){
                 $this->userSession =  new Miqo_Session_Base();
                 $this->userSession->set('authUser', $item); 
                 $urlId = ($this->id)?'/'.$this->id:'';
                 $this->javascript()->redirect('user/'.$id.'/edit');
-            }else if(!$this->getAuthUser() && !$this->oauthUid){
+            }else{
                 $this->userSession =  new Miqo_Session_Base();
                 $this->userSession->set('authUser', $item); 
                 $urlId = ($this->id)?'/'.$this->id:'';
                 $this->javascript()->redirect(($this->status==1)?'publisher'.$urlId .'/edit':'index');
-            }else{
-                $this->userSession->set('authUser', $item);
-                $urlId = ($this->id)?'/'.$this->id:'';
-                $this->_redirect(($this->status==1)?'publisher'.$urlId .'/edit':$this->url);
             }
             //$this->printJsonSuccessRedirect($this->translate('success.save'),($this->status==1)?'publisher'.$urlId .'/edit':'index');
         } catch ( Miqo_Util_Exception_Validation $vex ) {
@@ -219,6 +218,22 @@ class UserController extends SecureController {
     }
 	public function &setUrl($val) {
         $this->url = $val;
+        return $this;
+    }
+    public function &setAge($val) {
+        $this->age = $val;
+        return $this;
+    }
+    public function &setActivationKey($val) {
+        $this->sctivationKey = $val;
+        return $this;
+    }
+    public function &setSendDiscountMaileStatus($val) {
+        $this->sendDiscountMaileStatus = $val;
+        return $this;
+    }
+    public function &setType($val) {
+        $this->type = $val;
         return $this;
     }
 }

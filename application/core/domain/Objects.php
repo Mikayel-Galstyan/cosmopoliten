@@ -52,6 +52,68 @@ class Domain_Objects extends Miqo_Domain_AbstractEntity {
      */
 	protected $gender;
     
+    /**
+     *
+     * @var string
+     */
+    protected $materialId = null;
+    /**
+     *
+     * @var string
+     */
+	 protected $brandId = null;
+     /**
+     *
+     * @var string
+     */
+    protected $color = null;
+    /**
+     *
+     * @var string
+     */
+	protected $objectGroupId = null;
+    /**
+     *
+     * @var string
+     */
+	protected $pathBack = null;
+    
+    public function getPathBack() {
+        return $this->pathBack;
+    }
+    public function &setPathBack($val) {
+        $this->pathBack = $val;
+        return $this;
+    }
+    public function getMaterialId() {
+        return $this->materialId;
+    }
+    public function &setmMaterialId($val) {
+        $this->materialId = $val;
+        return $this;
+    }
+    public function getBrandId() {
+        return $this->brandId;
+    }
+    public function &setBrandId($val) {
+        $this->brandId = $val;
+        return $this;
+    }
+    public function getColor() {
+        return $this->color;
+    }
+    public function &setColor($val) {
+        $this->color = $val;
+        return $this;
+    }
+    public function getObjectGroupId() {
+        return $this->objectGroupId;
+    }
+    public function &setObjectGroupId($val) {
+        $this->objectGroupId = $val;
+        return $this;
+    }
+
     
     public function getName() {
         return $this->name;

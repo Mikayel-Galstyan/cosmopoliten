@@ -41,6 +41,32 @@ class Domain_ShopList extends Miqo_Domain_AbstractEntity {
      * @var int
      */
     protected $site = null;
+    /**
+     *
+     * @var int
+     */
+    protected $mapControl = null;
+	/**
+     *
+     * @var int
+     */
+    protected $shopsGroupId = null;
+    
+    public function getMapControl() {
+        return $this->mapControl;
+    }
+    public function &setMapControl($val) {
+        $this->mapControl = $val;
+        return $this;
+    }
+    
+    public function getShopsGroupId() {
+        return $this->shopsGroupId;
+    }
+    public function &setShopsGroupId($val) {
+        $this->shopsGroupId = $val;
+        return $this;
+    }
     
     public function getPath() {
         return $this->path;

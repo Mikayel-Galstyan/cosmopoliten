@@ -129,57 +129,6 @@ $(function(){
                 <div><a href="user/<?php echo $this->id ?>/edit" class="button w100 fl mt5 ml65"><?php echo $this->translate(array('edit','user')); ?></a></div>
             </div>
         </div>
-     <!--<div id="ImageDiv" class="fl">
-        <span><img src="<?php echo $this->img ?>" style="z-index: 1;width:400px" id="templateMan"/></span>
-    </div>
-   <div class="fl w800">
-        <table class="mt20">
-            <tbody>
-                <tr class="head">
-                    <td>
-						
-						
-						<div id="objectList">
-							<?php
-								foreach($this->items as $item){
-							?>
-                                	
-								<div data-id="object_<?php echo $item->getId();?>" class="objectContentDiv fl">
-                                    <div class="objectHeader">
-                                        <div>
-                                            <?php echo ($item->getName())?$item->getName():'no description';?>
-                                        </div>
-                                    </div>
-                                    <div class="objectDiv">
-                                        <img src="<?php echo $item->getPath();?>">
-                                    </div>
-                                    <div class="favourDiv">
-                                        <a data-img="oneStar.png" data-evaluation="1"></a>
-                                        <a data-img="twoStars.png" data-evaluation="2"></a>
-                                        <a data-img="threeStars.png" data-evaluation="3"></a>
-                                        <a data-img="fourStars.png" data-evaluation="4"></a>
-                                        <a data-img="fiveStars.png" data-evaluation="5"></a>
-                                    </div>    
-                                    <div class="actionDiv">
-                                        <div>
-                                            <?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
-                                        </div>
-                                        <a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
-                                        <a href="" class="link fl overview" ></a>
-                                    </div>
-                                </div>
-							<?php
-								}
-							?>
-						</div>
-                    </td>
-                </tr>
-                <tr class='panel'>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>-->
     <table class="mt20">
     	<tbody>
     		<tr class='panel'>
@@ -188,5 +137,14 @@ $(function(){
     	</tbody>
     </table>
 <?php }else{ ?>
-    please Login or registrate 
+    <div style="margin-left:auto;margin-right:auto;width:500px;">
+        <span> <?php echo $this->translate('requirement'); ?> For Using This Program Please InserYour email </span>
+        <form action="user/save/type/byMail" method="POST" id="addUserEmail">
+            <input type="text" name="email" value="" placeholder="<?php echo $this->translate('email'); ?>">
+            <a class="tw button w100 mt5 ml5" onclick="Filter.submit('addUserEmail','addUserEmail')"><?php echo $this->translate('save'); ?></a>
+        </form><br>
+        <?php echo $this->translate('show'); ?> This video show you how it work :<br><br><br>
+        <embed width="420" height="345" src="http://www.youtube.com/v/XGSy3_Czz8k" type="application/x-shockwave-flash"> </embed>
+    </div>
+    
 <?php } ?>

@@ -1,0 +1,46 @@
+<div class="w350 center editBorders">
+<?php
+    $this->setPageTitle('admin.management');
+    $formatting = $this->getHelper('DataFormatting');
+?>
+<script type="text/javascript">
+    $(function(){
+    	Menu.acitvate('user');        
+    });
+</script>
+<?php
+    if($this->isAdmin){
+?>
+    <form id="ajaxForm" action="brand/save" method="post" onsubmit="Form.submit('ajaxForm'); return false;">
+        <input type="hidden" name="id" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getId()):'')?>" />
+        <div class="fixed_head">
+            <span class="tableTitle"><?php echo $this->translate('brand'). ' // ' . ($this->item ? $this->translate('edit'): $this->translate('add')); ?></span>        
+            <table class="editTable">                    
+                <tbody>                    
+                    <tr>
+                        <td class="middle left w180"><label for="name"><?php echo $this->translate('name')?> *</label></td>
+                        <td class="middle left"><input type="text" name="name" id="name" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getName()):$this->translate('brand.name'))?>"/></td>                    
+                    </tr>
+                    <tr>
+                        <td class="middle left"><label for="path"><?php echo $this->translate('brand.logo')?></label></td>
+                        <td class="middle left"><input type="file" name="logo" id="logo" value=""/><?php echo ($this->item ? '<img src="'.$this->htmlEscape($this->item->getPath()).'" style="width:100px;">':'')?></td>
+                    </tr> 
+                    <tr>
+                        <td class="middle left"></td>
+                        <td class="middle left">
+							<a class="button w50 mt5" onclick="Form.submit('ajaxForm')" >
+								<?php echo $this->translate('save');?>
+							</a>
+						</td>
+                    </tr>                     
+                </tbody>
+                <tfoot><tr><td class="h p5_0"></td></tr></tfoot>
+            </table>
+        </div> 
+    </form>
+    <?php }else{ ?>
+        <div>
+            <?php echo $this->translate('this.action.only.for.admin');?>
+        </div>
+    <?php } ?>
+	</div>

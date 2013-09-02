@@ -1,0 +1,20 @@
+<?php 
+    $this->setPageTitle('objectype'); 
+    $formatting = $this->getHelper('DataFormatting');
+?>
+<script>
+$(function(){
+    Grid.init('club/list');
+});
+
+</script>
+<div id="deleteFormDiv">
+
+</div>
+<?php if($this->isAdmin){ ?>
+    <a class="link" href="material/add" >add</a>
+<?php } ?>
+<?php echo $this->action('list', 'objecttype');?></td>
+    
+
+

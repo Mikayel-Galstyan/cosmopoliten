@@ -12,16 +12,10 @@
 			}
 		});
 	});
+
 </script>
     <div class="nav">
     <?php 
-        if(!$this->isUser && !$this->isPublisher){
-    ?>
-        <div class="mt10 ml10 fr">
-            <div id="fb-root"></div>
-            <fb:login-button perms="email" autologoutlink="true" ></fb:login-button>
-        </div>
-    <?php }
         if(!$this->isPublisher){
         ?>
         <div>
@@ -34,9 +28,12 @@
 			<a href="publisher"><?php echo $this->translate('publisher')?></a>
 		</div>
 		<div>
-			<a href="shoplist" class="<?php echo (!$this->isUser)?'navDivlastChildA':''; ?>"><?php echo $this->translate('shoplist')?></a>
-		</div>		
-    <?php } else{
+			<a href="shoplist"><?php echo $this->translate('shoplist')?></a>
+		</div>	
+        <div>
+            <a href="lovelist" class="navDivlastChildA"><?php echo $this->translate('lovelist')?></a>
+        </div>        
+    <?php } else if(!$this->isAdmin){
         ?>
         <div>
             <a href="publisher<?php echo ($this->publisherId)?'/'.$this->publisherId:'';?>/edit"><?php echo $this->translate('my.company')?></a>
@@ -50,15 +47,34 @@
 		<div>
             <a href="user/<?php echo $this->userId; ?>/edit" class="navDivlastChildA"><?php echo $this->translate('user.edit')?></a>
         </div>
-    <?php } ?>
-    <?php 
-        if($this->isUser){
-        ?>
+
+    <?php }else{ ?>
         <div>
-            <a href="lovelist" class="navDivlastChildA"><?php echo $this->translate('lovelist')?></a>
+            <a href="material/add"><?php echo $this->translate('my.company')?></a>
         </div>
-    <?php } ?>
+        <div>
+            <a href="objectType/add"><?php echo $this->translate('my.shops')?></a>
+        </div>
+    <?php
+        }
+    ?>
     <div id="loginInfo">  
-        <?php echo $this->action("login", "auth"); ?>
+        <?php if(!$this->isPublisher && (!$this->isUser)){ 
+        ?>
+            <div>
+                <a href="user/add" class="button w50 fr mt10 mr10" ><?php echo $this->translate('sign.up')?></a>
+                <a href="auth/login" class="button w50 fr mt10 mr10"><?php echo $this->translate('sign.in')?></a>
+            </div>
+        <?php 
+            }else{
+        ?>
+            <form action="auth/logout" method="POST" id="loginForm" name="loginForm">
+                <div><a class="button fr mt5 ml20 mr20" onclick = 'Filter.submit("loginForm","loginInfo");' ><?php echo $this->translate('log.out') ?></a></div>
+                <img class="fr ml20 mt5 mr20" style="height:25px;width:25px;" src="<?php echo $this->img; ?>">
+                <div class="fr textW pt8 ml20"><?php echo $this->translate('hi').'  '.$this->name; ?></div>
+            </form>
+        <?php 
+            }
+        ?>
     </div>
 </div>

@@ -22,12 +22,17 @@ class Dao_User extends Miqo_Dao_Base {
             'twitter_oauth_token_secret' => 'twitterOauthTokenSecret',
             'username' => 'username',
 			'background' => 'background',
-            'country_id' => 'countryId' );
+            'country_id' => 'countryId',
+            'send_discount_maile_status' => 'sendDiscountMaileStatus',
+            'activate' => 'activate',
+            'activation_key' => 'activationKey');
     protected $dateColumns = array('date');
     protected $entityClass = 'Domain_User';
 
     public function __construct() {
         $this->dbTable = new Dao_DbTable_User();
+        $this->dbAdapter = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $this->dbAdapter->setFetchMode(Zend_Db::FETCH_OBJ);
     }
 
     public function authenticate($email, $password) {//echo $email;echo $password;exit;
@@ -66,6 +71,17 @@ class Dao_User extends Miqo_Dao_Base {
             return $items;
         }
         return null;
+    }
+    
+    public function activateUser($activate) {
+        $query = 'UPDATE users SET activate=true
+        where activation_key = '.$activate;
+        $result = $this->dbAdapter->query($query); 
+        if($result){
+            $result = $this->dbTable->fetchRow(array ('where activation_key = ?' => $activate));
+            $result = $this->getEntity($result);
+        }
+        return $result;
     }
     
     public function getByPublisherId($id) {

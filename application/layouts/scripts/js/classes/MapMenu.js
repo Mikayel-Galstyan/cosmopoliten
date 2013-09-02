@@ -1,7 +1,7 @@
 /**
 * Map right click context menu class
 *
-* @author sourcio.com
+* @author MIQO
 * 
 */
 ImageObject = {

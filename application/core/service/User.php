@@ -2,8 +2,8 @@
 
 class Service_User extends Miqo_Service_Base {
     
-    const USER_ROLE = 2;
     const PUBLISHER_ROLE = 1;
+    const USER_ROLE = 2;
     const ADMIN_ROLE = 3;
     
     private $validator = null;
@@ -44,23 +44,41 @@ class Service_User extends Miqo_Service_Base {
         return $user;
     }
     
-    public function &__t_save(Domain_User $domain) {
+    public function &__t_save(Domain_User $domain, $type=null) {
         $errors = $this->validate($domain);       
         if (sizeof($errors) == 0) {            
             $id = $domain->getId();            
             if (!$id){                
                 $domain->setDate(date("Y-m-d H:i:s"));
             }
+            $message = "Your Password Is ".$domain->getPassword();
             if ($domain->getPassword() != null){
                 $domain->setPassword($this->encodePassword($domain->getPassword(),$domain->getPasswordSalt()));
             }
+            $domain->setActivationKey($this->generateActivationString());
             $domain = $this->dao->save($domain);
+           /* $email = 'my_siteEmail';
+            $message = 'Please click here for activate. http://localhost/public/user/activate/'.$activationString;
+            $to = $domain->getEmail;
+            $subject = 'User Account Confirmation';
+            $body =     $message . PHP_EOL;
+            mail($to, $subject, $body);*/
             return $domain;
         } else {
             throw new Miqo_Util_Exception_Validation($errors, "save.of.user.is.suspended.as.there.are.validation.errors");
         }
     }
 
+    public function activateUser($message){
+        $this->dao->activateUser($message);
+    }  
+    
+    private function generateActivationString() {
+        $randomSalt = '*&(*(JHjhkjnkjn9898';
+        $uniqId = uniqid(mt_rand(), true);
+        return md5($randomSalt.$uniqId);
+    }
+    
     public function saveRestricted(Domain_User $domain, $key) {
         if($domain->getEmail()){
             $errors = $this->validateRestricted($domain, $key);        

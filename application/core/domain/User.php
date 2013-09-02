@@ -112,6 +112,26 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
      * @var string
      */
     protected $background = null;
+    /**
+     *
+     * @var int
+     */
+    protected $sendDiscountMaileStatus = null;
+     /**
+     *
+     * @var string
+     */
+    protected $activate = null;
+    /**
+     *
+     * @var string
+     */
+    protected $age = null;
+    /**
+     *
+     * @var string
+     */
+    protected $activationKey = null;
 	
 	public function getBackground() {
         return $this->background;
@@ -120,11 +140,39 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
         $this->background = $val;
         return $this;
     }
+    public function getActivationKey() {
+        return $this->activationKey;
+    }
+    public function &setActivationKey($val) {
+        $this->activationKey = $val;
+        return $this;
+    }
+    public function getAge() {
+        return $this->background;
+    }
+    public function &setAge($val) {
+        $this->background = $val;
+        return $this;
+    }
     public function getEmail() {
         return $this->email;
     }
     public function &setEmail($val) {
         $this->email = $val;
+        return $this;
+    }
+    public function getSendDiscountMaileStatus() {
+        return $this->sendDiscountMaileStatus;
+    }
+    public function &setSendDiscountMaileStatus($val) {
+        $this->sendDiscountMaileStatus = $val;
+        return $this;
+    }
+    public function getActivate() {
+        return $this->activate;
+    }
+    public function &setActivate($val) {
+        $this->activate = $val;
         return $this;
     }
     

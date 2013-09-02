@@ -13,7 +13,12 @@ class Dao_Objects extends Miqo_Dao_Base {
             'shopList_id' => 'shopListId',
             'population' => 'population',
 			'valuta' => 'valuta',
-			'gender'        => 'gender');
+			'gender'        => 'gender',
+            'object_group_id' => 'objectGroupId',
+            'color' => 'color',
+			'material_id' => 'material_id',
+			'brand_id'        => 'brand_id',
+            'path_back' => 'pathBack');
     
     protected $entityClass = 'Domain_Objects';
 

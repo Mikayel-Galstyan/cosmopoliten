@@ -22,7 +22,6 @@ class AuthController extends SecureController {
         }
         $userSession = new Miqo_Session_Base();
         if ($userSession->get('authUser')) {
-            $this->view->name = $userSession->get('authUser')->getFirstName();
             $this->view->img = $userSession->get('authUser')->getPath();
         }else{
             

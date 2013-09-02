@@ -1,26 +1,34 @@
-
-<form action="auth/login" method="POST" id="loginForm" name="loginForm">
-    <?php
-        if($this->name){ ?>
-                <a class="button fr mt5 ml20 mr20" onclick = 'Form.changeAction("loginForm","auth/logout");Filter.submit("loginForm","loginInfo");FB.logout()' ><?php echo $this->translate('log.out') ?></a>
-                <img class="fr ml20 mt5 mr20" style="height:25px;width:25px;" src="<?php echo $this->img; ?>">
-                <div class="fr textW pt8 ml20"><?php echo $this->translate('hi').'  '.$this->name; ?></div>               
-     <?php   }else {
-     ?>		
-            <input type="text" id="username" name="email" class="textField fl" placeholder="Username">
-            <input type="password" id="password" class="textField fl" name="password" placeholder="Password">
-            <a class="button fl mt5" onclick = 'Filter.submit("loginForm","loginInfo");'><?php echo $this->translate('log.in') ?></a>
-    <?php
-        }
-    ?>
-    
- </form>
- <?php
-    if(!$this->name){
-    ?>
-    <div class="regText">
-        <a href="user/edit" class="link textw"><?php echo $this->translate('registration') ?></a>
-    </div>
+ <?php   if(!$this->name){
+?>	
+<div class="w350 center editBorders">
+    <form action="auth/login" method="POST" id="loginForm" name="loginForm">
+        <div id="tempForReload"></div>
+        <div class="fixed_head">
+            <span class="tableTitle"><?php echo $this->translate('login'); ?></span>        
+            <table class="editTable">                    
+                <tbody>                    
+                    <tr>
+                        <td class="middle left w180"><label for="email"><?php echo $this->translate('email')?> *</label></td>
+                        <td class="middle left">
+                            <input type="text" id="username" name="email" class="textField mt5" placeholder="<?php echo $this->translate('email')?>">
+                        </td>                    
+                    </tr>    
+                    <tr>
+                        <td class="middle left w150"><label for="firstName"><?php echo $this->translate('password')?></label></td>
+                        <td class="middle left">
+                            <input type="password" id="password" class="textField mt5" name="password" placeholder="<?php echo $this->translate('password')?>">
+                        </td>
+                    </tr>
+                    <tr>
+                       <td class="middle" colspan="2">
+                           <a class="button mt5 w50" style="margin-left:auto;margin-right:auto; margin-bottom:5px;" onclick = 'Filter.submit("loginForm","loginInfo");'><?php echo $this->translate('log.in') ?></a>
+                       </td>
+                    </tr>
+            </table>
+        </div> 
+    </form>
+</div>
 <?php
-    }
+}
 ?>
+

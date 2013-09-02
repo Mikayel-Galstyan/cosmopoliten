@@ -171,8 +171,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $router->addRoute('confirm', new Zend_Controller_Router_Route(':controller/:id/confirm',
             array('controller' => ':controller','action' => 'confirm','id' => ':id'))
         );
-		/*$router->addRoute('defaultList', new Zend_Controller_Router_Route(':controller/:id/:action',
-            array('controller' => ':controller','action' => ':action','id' => ':id'))
+		/*$router->addRoute('userByMail', new Zend_Controller_Router_Route('user/:type/save',
+            array('user' => ':controller','save' => ':action','type' => ':type'))
         );*/
     }
     /**

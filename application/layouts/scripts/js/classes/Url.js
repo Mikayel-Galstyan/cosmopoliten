@@ -52,10 +52,6 @@ function Url() {
 		if(!href){        
 			var href = Url.get();
 		}
-		//loading page
-		if(href == 'auth/login'){
-			href="objects";
-		}
         if (href.length > 0) {
             //activate menus
             Menu.acitvate(href);

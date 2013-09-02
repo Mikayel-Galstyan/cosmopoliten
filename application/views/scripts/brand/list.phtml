@@ -1,0 +1,23 @@
+<div>
+	<?php 
+		foreach($this->items as $item){
+	?>
+        <a href="objects/<?php echo $item->getId() ?>/brand/index">
+            <div data-id="object_<?php echo $item->getId();?>" class="objectContentDiv fl">
+                <div class="objectHeader">
+                    <div>
+                        <?php echo ($item->getName())?$item->getName():'no description';?>
+                    </div>
+                </div>
+                <div class="objectDiv">
+                    <img src="<?php echo $item->getLogo(); ?>">
+                </div>   
+                <div class="actionDiv">
+                    
+                </div>
+            </div>
+        </a>
+	<?php
+		}
+	?>
+</div>
