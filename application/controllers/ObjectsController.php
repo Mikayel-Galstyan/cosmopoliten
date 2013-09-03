@@ -67,6 +67,7 @@ class ObjectsController extends SecureController {
 			$this->view->publisherId = $this->getPublisherId();
 			$this->view->userId = $this->getAuthUser()->getId();
             $this->view->name =  $this->getAuthUser()->getFirstName();
+            $this->view->path = $this->getAuthUser()->getPath();
 		}
 	}
 	

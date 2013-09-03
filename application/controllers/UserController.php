@@ -77,7 +77,7 @@ class UserController extends SecureController {
     public function confirmAction() {
         $this->view->id = $this->id;
     }
-
+    
     public function saveAction() {
         $id = $this->id;
         $service = new Service_User();
@@ -124,7 +124,6 @@ class UserController extends SecureController {
             @rename ($path['name'],$new_name);
             move_uploaded_file ($path['tmp_name'],$fullPath);
             $item->setPath($fullPath);
-            
         }else{
             $email = $this->email;
             do{
@@ -138,6 +137,9 @@ class UserController extends SecureController {
             }
             $item->setPath($fullPath);
         }//echo $this->type;exit;
+        if(!$id){
+            $item->setUsedLastImage($fullPath);
+        }
         try {
             if(isset($authantiticate) && !$authantiticate){
                 $item = $service->save($item,$this->type);

@@ -1,0 +1,15 @@
+<script>
+    $(function(){
+        ImageObject.init();
+         setTimeout(function(){
+            $('#manHeight').attr('value',parseInt($('#mainImage').height()));
+            $('#manWidth').attr('value',parseInt($('#mainImage').width()));
+        },1000);
+    });
+</script>
+<img src="<?php echo $this->imagePath ?>"  id="mainImage">
+<form action="image/list" name="imgGenerate" method="POST" id="imgGenerate">
+    <input type="hidden" name="width" id="manWidth" value="">
+    <input type="hidden" name="height" id="manHeight" value="">
+    <input type="hidden" name="src" id="manSrc" value="<?php echo $this->imagePath ?>">
+</form>

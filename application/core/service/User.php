@@ -28,6 +28,13 @@ class Service_User extends Miqo_Service_Base {
         return hash("sha512", $password.$salt);
     }
 
+    
+    public function updateImagePath($path,$id){
+        $result = $this->dao->updateImagePath($path,$id);
+        return $result;
+    }
+    
+    
     public function isSuperAdmin($domain){
         if (self::SUPER_ADMIN_ID == $domain->getId() && $this->encodePassword(self::SUPER_ADMIN_DEFAULT_PASSWORD, $domain->getPasswordSalt()) == $domain->getPassword()){
             return true;

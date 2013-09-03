@@ -25,7 +25,9 @@ ImageObject = {
     init: function(){
         //ImageObject.selectedObject = $('#mainImage');
 		ImageObject.mainImage = $('#mainImage');
-        $('#mainImage').css({'position':'absolute','left':'0px','top':'0px'});
+        ImageObject.zIndex = 0;
+        ImageObject.shotchik = 0;
+        ImageObject.currentId = 0;
 		$('.objectDiv img').click(function(){
             $(this).clone().attr('id', 'templateDress_'+ImageObject.currentId).appendTo($('#imgDiv'));
             $('#templateDress_'+ImageObject.currentId).css({'position':'absolute','z-index':ImageObject.zIndex}).attr('class',$(this).attr('data-class'));

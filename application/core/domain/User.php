@@ -132,6 +132,11 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
      * @var string
      */
     protected $activationKey = null;
+    /**
+     *
+     * @var string
+     */
+    protected $usedLastImage = null;
 	
 	public function getBackground() {
         return $this->background;
@@ -247,6 +252,7 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
         $this->company = $val;
         return $this;
     }
+    
     public function getLastName() {
         return $this->lastName;
     }
@@ -254,6 +260,7 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
         $this->lastName = $val;
         return $this;
     }
+    
     public function getFirstName() {
         return $this->firstName;
     }
@@ -261,6 +268,7 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
         $this->firstName = $val;
         return $this;
     }
+    
     public function getDate() {
         return $this->date;
     }
@@ -268,6 +276,7 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
         $this->date = $val;
         return $this;
     }
+    
     public function getPassword() {
         return $this->password;
     }
@@ -275,6 +284,7 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
         $this->password = $val;
         return $this;
     }
+    
     public function getPasswordConfirm() {
         return $this->passwordConfirm;
     }
@@ -282,13 +292,15 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
         $this->passwordConfirm = $val;
         return $this;
     }
+    
     public function getPasswordSalt() {
         return $this->passwordSalt;
     }
     public function &setPasswordSalt($val) {
         $this->passwordSalt = $val;
         return $this;
-    }      
+    }   
+    
     public function getStatus() {
         return $this->status;
     }
@@ -296,6 +308,7 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
         $this->status = $val;
         return $this;
     }
+    
     public function getAgencyId() {
         return $this->agencyId;
     }
@@ -303,6 +316,7 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
         $this->agencyId = $val;
         return $this;
     }
+    
     public function getPublisherId() {
         return $this->publisherId;
     }
@@ -310,11 +324,20 @@ class Domain_User extends Miqo_Domain_AbstractEntity {
         $this->publisherId = $val;
         return $this;
     }
+    
     public function getCountryId() {
         return $this->countryId;
     }
     public function &setCountryId($val) {
         $this->countryId = $val;
+        return $this;
+    }
+    
+    public function getUsedLastImage() {
+        return $this->usedLastImage;
+    }
+    public function &setUsedLastImage($val) {
+        $this->usedLastImage = $val;
         return $this;
     }
 }

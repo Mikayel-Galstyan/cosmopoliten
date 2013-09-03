@@ -25,7 +25,8 @@ class Dao_User extends Miqo_Dao_Base {
             'country_id' => 'countryId',
             'send_discount_maile_status' => 'sendDiscountMaileStatus',
             'activate' => 'activate',
-            'activation_key' => 'activationKey');
+            'activation_key' => 'activationKey',
+            'used_last_image' => 'usedLastImage');
     protected $dateColumns = array('date');
     protected $entityClass = 'Domain_User';
 
@@ -50,6 +51,13 @@ class Dao_User extends Miqo_Dao_Base {
         return null;
     }
 
+    public function updateImagePath($path,$id){
+        $query = 'UPDATE users SET used_last_image="'.$path.'" where `id`= '.$id;
+        $result = $this->dbAdapter->query($query); 
+        return $result;
+    }
+
+    
     public function &getByParams(Filter_User $filter) {
         $select = $this->dbTable->select();
         $select = $this->applyFilter($filter, $select);

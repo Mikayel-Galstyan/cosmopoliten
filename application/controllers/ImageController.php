@@ -15,7 +15,7 @@ class ImageController extends ImageutilController {
     protected $width = null;
     protected $height = null;
     protected $path = null;
-	//protected $src = null;
+	protected $src = null;
 
     public function indexAction() {
 		
@@ -51,7 +51,7 @@ class ImageController extends ImageutilController {
                     }
                 }
             }
-			$dest = $this->resize_image($this->getAuthUser()->getPath(), $this->width,  $this->height,true);
+			$dest = $this->resize_image($this->src, $this->width,  $this->height,true);
 			for($i = 0;$i<count($this->widths);$i++){ 
 				$img = $this->resize_image($this->srcs[$i], $this->widths[$i],  $this->heights[$i],true, ($this->rotates[$i])?(-$this->rotates[$i]):0.1);
 				imagesavealpha($dest, true);
@@ -92,7 +92,47 @@ class ImageController extends ImageutilController {
         }
         
 	}
+    
+    
+    public function uploadimageAction(){
+         $email = $this->getAuthUser()->getEmail();
+        if(!is_dir ("users/".$email)){
+			mkdir("users/".$email);
+		}
+        if(isset($_FILES['path']) && $_FILES['path']['name'] != ''){
+            $userId = $this->getAuthUser()->getId();
+            $service = new Service_UserImage();
+            $item = new Domain_UserImage();
+            $path = $_FILES['path'];
+            $userfile_extn = explode(".", strtolower($path['name']));
+            do{
+                $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[1];
+                $fullPath = "users/".$email.'/'.$new_name;
+            }while(file_exists($fullPath));
+            @rename ($path['name'],$new_name);
+            move_uploaded_file ($path['tmp_name'],$fullPath);
+            $item->setPath($fullPath);
+            $item->setUserId($userId);
+            $this->view->imagePath = $fullPath;
+            $serviceUser = new Service_User();
+            try {
+                $item = $service->save($item);
+                $serviceUser->updateImagePath($fullPath,$userId);
+                $item = $this->getAuthuser();
+                $item->setUsedLastImage($fullPath);
+                if (!$this->userSession) {
+                    $this->userSession = new Miqo_Session_Base();
+                }
+                $this->userSession->set('authUser', $item);
+                //$this->printJsonSuccessRedirect($this->translate('success.save'),($this->status==1)?'publisher'.$urlId .'/edit':'index');
+            } catch ( Miqo_Util_Exception_Validation $vex ) {
+                $errors = $this->translateValidationErrors($vex->getValidationErrors());
+                $this->printJsonError($errors, $this->translate('validation.error'));
+            }
+        }
+    }
 	
+    
 	public function &setWidths($val) {
        $this->widths = $val;
        return $this;

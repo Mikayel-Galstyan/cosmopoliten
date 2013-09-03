@@ -50,7 +50,12 @@ $(function(){
             </div>
             <div class="loveListWorkDiv">
                 <div id="imgDiv">
-                        <img src="<?php echo $this->img ?>"  id="mainImage">
+                     <img src="<?php echo $this->img ?>"  id="mainImage">
+                    <form action="image/list" name="imgGenerate" method="POST" id="imgGenerate">
+                        <input type="hidden" name="width" id="manWidth" value="">
+                        <input type="hidden" name="height" id="manHeight" value="">
+                        <input type="hidden" name="src" id="manSrc" value="<?php echo $this->img ?>">
+                    </form>
                 </div>
             </div>
             <div class="selectBoxDivForLoveList mt5">
@@ -124,9 +129,16 @@ $(function(){
                 <form action="image/list" name="imgGenerate" method="POST" id="imgGenerate">
                     <input type="hidden" name="width" id="manWidth" value="">
                     <input type="hidden" name="height" id="manHeight" value="">
-                    <a class="button w100 fl mt5" onclick="Filter.submit('imgGenerate','result');"><?php echo $this->translate('generate.img'); ?></a>
+                    <input type="hidden" name="src" id="manSrc" value="<?php echo $this->img ?>">
                 </form>
-                <div><a href="user/<?php echo $this->id ?>/edit" class="button w100 fl mt5 ml65"><?php echo $this->translate(array('edit','user')); ?></a></div>
+                <a class="button w100 fl mt5" onclick="Filter.submit('imgGenerate','result');"><?php echo $this->translate('generate.img'); ?></a>
+                <div><a href="user/<?php echo $this->id ?>/edit" class="button w100 fl mt5 ml48"><?php echo $this->translate(array('edit','user')); ?></a></div>
+                <form action="image/uploadimage" method="POST" enctype="multipart/form-data" id="imageUpload">
+                    <div style="width:100px;height:40px; float:right;position:relative;margin:5px;margin-right:40px;">
+                        <a  class="button tw" style="position:absolute;top:0px;left:0px;width:100px;">upload file</a>
+                        <input type="file" name="path" style="opacity:0;position:absolute;top:0px;left:0px;width:100%;height:40px;cursour:pointer;" onchange="Filter.submit('imageUpload','imgDiv')">
+                    </div>
+                </form>
             </div>
         </div>
     <table class="mt20">

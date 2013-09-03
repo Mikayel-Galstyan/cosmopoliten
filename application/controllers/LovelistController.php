@@ -14,7 +14,7 @@ class LovelistController extends SecureController {
         if($this->getAuthUser()){
             $this->view->isAuth = true;
             $this->view->id = $this->getAuthUser()->getId();
-            $this->view->img = $this->getAuthUser()->getPath();
+            $this->view->img = $this->getAuthUser()->getUsedLastImage();
 			$service = new Service_LoveList();
 			$items = $service->getByUserId($this->getAuthUser()->getId());
 			$this->view->items = $items;   
