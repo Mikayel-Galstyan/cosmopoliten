@@ -1,7 +1,7 @@
 <?php
 require_once ('SecureController.php');
 
-class BrandController extends ImageutilController {
+class BrandController extends SecureController {
     
     private $id = null;
     private $name = null;
@@ -42,11 +42,14 @@ class BrandController extends ImageutilController {
             $item = new Domain_Brand();
         }
 		$item->setName($this->name);
-        if(!is_dir ("users/".$this->getAuthUser()->getEmail().'/'.$this->name)){
+        if(!is_dir ("users/".$this->getAuthUser()->getEmail())){
+			mkdir("users/".$this->getAuthUser()->getEmail());
+		}
+		if(!is_dir ("users/".$this->getAuthUser()->getEmail().'/'.$this->name)){
 			mkdir("users/".$this->getAuthUser()->getEmail().'/'.$this->name);
 		}
-        if($_FILES['path']['name'] != ''){
-            $path = $_FILES['path'];
+        if($_FILES['logo']['name'] != ''){
+            $path = $_FILES['logo'];
             $email = $this->getAuthUser()->getEmail().'/'.$this->name;
             $userfile_extn = explode(".", strtolower($path['name']));
             do{
@@ -55,7 +58,7 @@ class BrandController extends ImageutilController {
             }while(file_exists($fullPath));
             @rename ($path['name'],$new_name);
             move_uploaded_file ($path['tmp_name'],$fullPath);
-            $item->setLogo($this->fullPath);
+            $item->setLogo($fullPath);
         }
         try {
             $service->save($item);

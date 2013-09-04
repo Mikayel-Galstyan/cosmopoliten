@@ -16,7 +16,7 @@
 </script>
     <div class="nav">
     <?php 
-        if(!$this->isPublisher){
+        if(!$this->isPublisher && !$this->isAdmin){
         ?>
         <div>
 			<a href="objects"><?php echo $this->translate('objects')?></a>
@@ -25,7 +25,7 @@
 			<a href="objecttype"><?php echo $this->translate('objecttype')?></a>
 		</div>
 		<div>
-			<a href="publisher"><?php echo $this->translate('publisher')?></a>
+			<a href="brand"><?php echo $this->translate('brand')?></a>
 		</div>
 		<div>
 			<a href="shoplist"><?php echo $this->translate('shoplist')?></a>
@@ -33,7 +33,7 @@
         <div>
             <a href="lovelist" class="navDivlastChildA"><?php echo $this->translate('lovelist')?></a>
         </div>        
-    <?php } else if(!$this->isAdmin){
+    <?php } else if(!$this->isAdmin){ 
         ?>
         <div>
             <a href="publisher<?php echo ($this->publisherId)?'/'.$this->publisherId:'';?>/edit"><?php echo $this->translate('my.company')?></a>
@@ -48,18 +48,21 @@
             <a href="user/<?php echo $this->userId; ?>/edit" class="navDivlastChildA"><?php echo $this->translate('user.edit')?></a>
         </div>
 
-    <?php }else{ ?>
+    <?php }else{  ?>
         <div>
-            <a href="material/add"><?php echo $this->translate('my.company')?></a>
+            <a href="material"><?php echo $this->translate('materials')?></a>
         </div>
         <div>
-            <a href="objectType/add"><?php echo $this->translate('my.shops')?></a>
+            <a href="objecttype"><?php echo $this->translate('objectType')?></a>
+        </div>
+		<div>
+            <a href="brand"><?php echo $this->translate('brands')?></a>
         </div>
     <?php
         }
     ?>
     <div id="loginInfo">  
-        <?php if(!$this->isPublisher && (!$this->isUser)){ 
+        <?php if(!$this->isPublisher && (!$this->isUser) && (!$this->isAdmin)){ 
         ?>
             <div>
                 <a href="user/add" class="button w50 fr mt10 mr10" ><?php echo $this->translate('sign.up')?></a>

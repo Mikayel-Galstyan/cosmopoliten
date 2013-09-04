@@ -1,7 +1,7 @@
 <?php
 require_once ('SecureController.php');
 
-class MaterialController extends ImageutilController {
+class MaterialController extends SecureController {
     
     private $id = null;
     private $name = null;

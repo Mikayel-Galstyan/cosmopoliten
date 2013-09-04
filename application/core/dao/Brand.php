@@ -8,7 +8,7 @@ class Dao_Brand extends Miqo_Dao_Base {
 			'logo' => 'logo'
 			);
     
-    protected $entityClass = 'Brand';
+    protected $entityClass = 'Domain_Brand';
 
     public function __construct() {
         $this->dbTable = new Dao_DbTable_Brand();

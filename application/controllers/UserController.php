@@ -86,7 +86,7 @@ class UserController extends SecureController {
             $authantiticate = false;
         }else{
             $item = new Domain_User();
-			$item->setStatus($this->status);
+			$item->setStatus(($this->status)?$this->status:'2');
             $authantiticate = false;
         }
         
@@ -158,7 +158,7 @@ class UserController extends SecureController {
             //$this->printJsonSuccessRedirect($this->translate('success.save'),($this->status==1)?'publisher'.$urlId .'/edit':'index');
         } catch ( Miqo_Util_Exception_Validation $vex ) {
             $errors = $this->translateValidationErrors($vex->getValidationErrors());
-            $this->printJsonError($errors, $this->translate('validation.error'));
+            $this->view->error = "error";
         }
     }
 

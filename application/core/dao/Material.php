@@ -7,7 +7,7 @@ class Dao_Material extends Miqo_Dao_Base {
             'name' => 'name',
 			);
     
-    protected $entityClass = 'Material';
+    protected $entityClass = 'Domain_Material';
 
     public function __construct() {
         $this->dbTable = new Dao_DbTable_Material();

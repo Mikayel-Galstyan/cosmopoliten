@@ -82,9 +82,10 @@
                         <td class="middle left">
 							<div class="fl">
 								<select name="for" id="for">
-									<option value="1">male</option>
-									<option value="2">female</option>
-									
+									<option value="1"><?php echo $this->translate('man'); ?></option>
+									<option value="2"><?php echo $this->translate('woman'); ?></option>
+									<option value="3"><?php echo $this->translate(array('child','man')); ?></option>
+									<option value="4"><?php echo $this->translate(array('child','woman')); ?></option>
 								</select>
 							</div>
 						</td>

@@ -10,7 +10,7 @@
     <form action="objects/list" name="ajaxForm" id="ajaxForm">
         <div class="fl mr5">
             <select name="objectTypeId" id="objectTypeId">
-                <option value="">--Select--</option>
+                <option value="">--<?php echo $this->translate('objecttypes'); ?>--</option>
                 <?php
                     foreach($this->types as $item){
                 ?>
@@ -21,10 +21,10 @@
             </select>
         </div>
 		<div class="fl mr5">
-            <select name="publisherId" id="publisherId">
-                <option value="">--Select--</option>
+            <select name="brand" id="brand">
+                <option value="">--<?php echo $this->translate('brand'); ?>--</option>
                 <?php
-                    foreach($this->publishers as $item){
+                    foreach($this->brand as $item){
                 ?>
                     <option value="<?php echo $item->getId() ?>" <?php echo ($this->publisherId==$item->getId())?'selected="selected"':''; ?>><?php echo $this->translate($item->getName()); ?></option>
                 <?php
@@ -33,8 +33,20 @@
             </select>
         </div>
 		<div class="fl mr5">
+            <select name="material" id="material">
+                <option value="">--<?php echo $this->translate('materials'); ?>--</option>
+                <?php
+                    foreach($this->material as $item){
+                ?>
+                    <option value="<?php echo $item->getId() ?>" <?php echo ($this->objectTypeId==$item->getId())?'selected="selected"':''; ?>><?php echo $this->translate($item->getName()); ?></option>
+                <?php
+                    }
+                ?>
+            </select>
+        </div>
+		<div class="fl mr5">
             <select name="shopListId" id="shopListId">
-                <option value="">--Select--</option>
+                <option value="">--<?php echo $this->translate('shops'); ?>--</option>
                 <?php
                     foreach($this->shopList as $item){
                 ?>
@@ -46,8 +58,10 @@
         </div>
 		<div class="fl mr5">
             <select name="for" id="for">
-				<option value="1"><?php echo $this->translate('male'); ?></option>
-				<option value="2"><?php echo $this->translate('female'); ?></option>
+				<option value="1"><?php echo $this->translate('man'); ?></option>
+				<option value="2"><?php echo $this->translate('woman'); ?></option>
+				<option value="3"><?php echo $this->translate(array('child','man')); ?></option>
+				<option value="4"><?php echo $this->translate(array('child','woman')); ?></option>
             </select>
         </div>
 		<div class="fl mr5 pt8">

@@ -5,7 +5,7 @@
 ?>
 
 <?php
-    if($this->isPublisher){
+    if($this->isAdmin){
 ?>
     <form id="ajaxForm" action="objectType/save" method="post" onsubmit="Form.submit('ajaxForm'); return false;">
         <input type="hidden" name="id" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getId()):'')?>" />

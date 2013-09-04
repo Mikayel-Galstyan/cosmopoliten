@@ -35,8 +35,48 @@ class Filter_Objects {
      * @var int
      */
     protected $gender = null;
+	/**
+     *
+     * @var int
+     */
+    protected $material = null;
+	/**
+     *
+     * @var int
+     */
+    protected $color = null;
+	/**
+     *
+     * @var int
+     */
+    protected $brend = null;
     
     
+	public function getMaterial() {
+        return $this->material;
+    }
+    public function &setMaterial($val) {
+        $this->material = $val;
+        return $this;
+    }
+	
+	public function getColor() {
+        return $this->color;
+    }
+    public function &setColor($val) {
+        $this->color = $val;
+        return $this;
+    }
+	
+	
+	public function getBrend() {
+        return $this->brend;
+    }
+    public function &setBrend($val) {
+        $this->brend = $val;
+        return $this;
+    }
+	
 	public function getGender() {
         return $this->for;
     }

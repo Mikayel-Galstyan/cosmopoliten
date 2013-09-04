@@ -1,1 +1,10 @@
-WELCOME
+<?php
+	if($this->error=="error"){ ?>
+	 <input type="text" name="email" value="" placeholder="<?php echo $this->translate('email'); ?>">
+	 <br>someThing is wrong. Maby you are registrated already or mail type is wrong
+     <a class="tw button w100 mt5 ml5" onclick="Filter.submit('addUserEmail','addUserEmail')"><?php echo $this->translate('save'); ?></a>
+	
+	<?php }else{
+?>
+	WELCOME
+<?php } ?>

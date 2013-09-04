@@ -69,6 +69,15 @@ class Dao_Objects extends Miqo_Dao_Base {
         if($filter->getCostMax()){
             $select->where('cost <= ?', $filter->getCostMax());
         }
+		if($filter->getMaterial()){
+            $select->where('material_id = ?', $filter->getMaterial());
+        }
+		if($filter->getBrend()){
+            $select->where('brand_id = ?', $filter->getBrend());
+        }
+		if($filter->getColor()){
+            $select->where('color = ?', $filter->getColor());
+        }
         $select->order('population DESC');
         $result = $this->dbTable->fetchAll($select);
     	$items = &$this->getEntities($result);

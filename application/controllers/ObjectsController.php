@@ -16,11 +16,14 @@ class ObjectsController extends SecureController {
 	private $for = null;
     private $type = null;
 	private $value = null;
+	private $material = null;
+	private $color = null;
+	private $brand = null;
     
     public function indexAction() {
         $this->getStatus();
-		$servicePublisher = new Service_Publisher();
-        $this->view->publishers = $servicePublisher->getAll();
+		$servicePublisher = new Service_Brand();
+        $this->view->brand = $servicePublisher->getAll();
 		$serviceShops = new Service_ShopList();
         $this->view->shopList = $serviceShops->getAll();
 		$service = new Service_ObjectType();
@@ -29,6 +32,8 @@ class ObjectsController extends SecureController {
         $this->view->types = $service->getAll();
         $filter = new Filter_Objects();
         $type = $this->type;
+		$service = new Service_Material();
+        $this->view->material = $service->getAll();
         if($this->objectTypeId && $type == 'objectType'){
             $filter->setObjectTypeId($this->objectTypeId);
             $this->view->objectTypeId = $this->objectTypeId;
@@ -83,6 +88,8 @@ class ObjectsController extends SecureController {
         $filter->setShopListId($this->shopListId);
         $filter->setCostMin($this->costMin);
         $filter->setCostMax($this->costMax);
+		$filter->setBrend($this->brand);
+		$filter->setMaterial($this->material);
         if($this->getPublisherId()){
             $filter->setPublisherId($this->getPublisherId());
         }
@@ -259,6 +266,18 @@ class ObjectsController extends SecureController {
     }
 	public function &setValue($val) {
         $this->value = $val;
+        return $this;
+    }
+	public function &setMaterial($val) {
+        $this->material = $val;
+        return $this;
+    }
+	public function &setColor($val) {
+        $this->color = $val;
+        return $this;
+    }
+	public function &setBrand($val) {
+        $this->brand = $val;
         return $this;
     }
     
