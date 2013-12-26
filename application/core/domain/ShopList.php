@@ -51,7 +51,19 @@ class Domain_ShopList extends Miqo_Domain_AbstractEntity {
      * @var int
      */
     protected $shopsGroupId = null;
+    /**
+     *
+     * @var boolean
+     */
+	protected $active = null;
     
+    public function getActive() {
+        return $this->active;
+    }
+    public function &setActive($val) {
+        $this->active = $val;
+        return $this;
+    }
     public function getMapControl() {
         return $this->mapControl;
     }

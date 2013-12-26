@@ -5,6 +5,7 @@ class Dao_Color extends Miqo_Dao_Base {
     protected $columnAliases = array (
             'id' => 'id',
             'name' => 'name',
+            'active'        => 'active',
 			'code' => 'code'
 			);
     

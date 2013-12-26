@@ -2,13 +2,13 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-CREATE SCHEMA IF NOT EXISTS `u831287531_cos` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
-USE `u831287531_cos` ;
+CREATE SCHEMA IF NOT EXISTS `cosmopoliten` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
+USE `cosmopoliten` ;
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`users`
+-- Table `cosmopoliten`.`users`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`users` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `first_name` VARCHAR(45) NULL DEFAULT 'unkown' ,
   `last_name` VARCHAR(45) NULL DEFAULT 'unkown' ,
@@ -34,9 +34,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`publishers`
+-- Table `cosmopoliten`.`publishers`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`publishers` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`publishers` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `order` TINYINT(1)  NOT NULL ,
@@ -53,16 +53,16 @@ CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`publishers` (
   INDEX `fk_publishers_users1` (`user_id` ASC) ,
   CONSTRAINT `fk_publishers_users1`
     FOREIGN KEY (`user_id` )
-    REFERENCES `u831287531_cos`.`users` (`id` )
+    REFERENCES `cosmopoliten`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`objectType`
+-- Table `cosmopoliten`.`objectType`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`objectType` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`objectType` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `path` VARCHAR(255) NOT NULL DEFAULT 'defaultImages/objectType.png' ,
@@ -71,9 +71,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`shopList`
+-- Table `cosmopoliten`.`shopList`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`shopList` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`shopList` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `address` VARCHAR(45) NOT NULL ,
   `phone` VARCHAR(45) NOT NULL ,
@@ -89,16 +89,16 @@ CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`shopList` (
   INDEX `fk_shopList_publishers1` (`publisher_id` ASC) ,
   CONSTRAINT `fk_shopList_publishers1`
     FOREIGN KEY (`publisher_id` )
-    REFERENCES `u831287531_cos`.`publishers` (`id` )
+    REFERENCES `cosmopoliten`.`publishers` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`objects`
+-- Table `cosmopoliten`.`objects`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`objects` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`objects` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `description` TEXT NULL ,
   `path` VARCHAR(155) NOT NULL DEFAULT 'defaultImages/objects.png' ,
@@ -121,26 +121,26 @@ CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`objects` (
   INDEX `fk_objects_shopList1` (`shopList_id` ASC) ,
   CONSTRAINT `fk_objects_publishers`
     FOREIGN KEY (`publisher_id` )
-    REFERENCES `u831287531_cos`.`publishers` (`id` )
+    REFERENCES `cosmopoliten`.`publishers` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_objects_objectType1`
     FOREIGN KEY (`objectType_id` )
-    REFERENCES `u831287531_cos`.`objectType` (`id` )
+    REFERENCES `cosmopoliten`.`objectType` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_objects_shopList1`
     FOREIGN KEY (`shopList_id` )
-    REFERENCES `u831287531_cos`.`shopList` (`id` )
+    REFERENCES `cosmopoliten`.`shopList` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`loveList`
+-- Table `cosmopoliten`.`loveList`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`loveList` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`loveList` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `user_id` INT NOT NULL ,
   `object_id` INT NULL ,
@@ -151,26 +151,26 @@ CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`loveList` (
   INDEX `fk_loveList_publishers1` (`publisher_id` ASC) ,
   CONSTRAINT `fk_loveList_users1`
     FOREIGN KEY (`user_id` )
-    REFERENCES `u831287531_cos`.`users` (`id` )
+    REFERENCES `cosmopoliten`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_loveList_objects1`
     FOREIGN KEY (`object_id` )
-    REFERENCES `u831287531_cos`.`objects` (`id` )
+    REFERENCES `cosmopoliten`.`objects` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_loveList_publishers1`
     FOREIGN KEY (`publisher_id` )
-    REFERENCES `u831287531_cos`.`publishers` (`id` )
+    REFERENCES `cosmopoliten`.`publishers` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`shopImage`
+-- Table `cosmopoliten`.`shopImage`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`shopImage` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`shopImage` (
   `id` INT NOT NULL ,
   `path` VARCHAR(45) NOT NULL DEFAULT 'defaultImages/shopList.png' ,
   `shopList_id` INT NOT NULL ,
@@ -178,16 +178,16 @@ CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`shopImage` (
   INDEX `fk_shopImage_shopList1` (`shopList_id` ASC) ,
   CONSTRAINT `fk_shopImage_shopList1`
     FOREIGN KEY (`shopList_id` )
-    REFERENCES `u831287531_cos`.`shopList` (`id` )
+    REFERENCES `cosmopoliten`.`shopList` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`userImage`
+-- Table `cosmopoliten`.`userImage`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`userImage` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`userImage` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `user_id` INT NOT NULL ,
   `path` VARCHAR(155) NOT NULL ,
@@ -196,16 +196,16 @@ CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`userImage` (
   INDEX `fk_userImage_users1` (`user_id` ASC) ,
   CONSTRAINT `fk_userImage_users1`
     FOREIGN KEY (`user_id` )
-    REFERENCES `u831287531_cos`.`users` (`id` )
+    REFERENCES `cosmopoliten`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`brand`
+-- Table `cosmopoliten`.`brand`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`brand` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`brand` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `logo` VARCHAR(255) NOT NULL ,
@@ -214,9 +214,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`material`
+-- Table `cosmopoliten`.`material`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`material` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`material` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
@@ -224,9 +224,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`objectsGroup`
+-- Table `cosmopoliten`.`objectsGroup`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`objectsGroup` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`objectsGroup` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `path` VARCHAR(45) NOT NULL ,
@@ -235,9 +235,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`imagesStatus`
+-- Table `cosmopoliten`.`imagesStatus`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`imagesStatus` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`imagesStatus` (
   `id` INT NOT NULL ,
   `name` VARCHAR(45) NOT NULL ,
   `likes` INT NOT NULL DEFAULT 0 ,
@@ -247,9 +247,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`comment`
+-- Table `cosmopoliten`.`comment`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`comment` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`comment` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `table_name` VARCHAR(45) NOT NULL DEFAULT 'objects' ,
   `message` TEXT NOT NULL ,
@@ -260,9 +260,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`shopGroup`
+-- Table `cosmopoliten`.`shopGroup`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`shopGroup` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`shopGroup` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `path` VARCHAR(45) NOT NULL ,
@@ -271,9 +271,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`discount`
+-- Table `cosmopoliten`.`discount`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`discount` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`discount` (
   `id` INT NOT NULL ,
   `start_date` DATETIME NOT NULL ,
   `end_date` DATETIME NOT NULL ,
@@ -285,9 +285,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `u831287531_cos`.`color`
+-- Table `cosmopoliten`.`color`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `u831287531_cos`.`color` (
+CREATE  TABLE IF NOT EXISTS `cosmopoliten`.`color` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `code` VARCHAR(45) NOT NULL ,

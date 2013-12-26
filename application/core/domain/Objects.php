@@ -72,11 +72,25 @@ class Domain_Objects extends Miqo_Domain_AbstractEntity {
      * @var string
      */
 	protected $objectGroupId = null;
+    
     /**
      *
      * @var string
      */
 	protected $pathBack = null;
+    /**
+     *
+     * @var boolean
+     */
+	protected $active = null;
+    
+    public function getActive() {
+        return $this->active;
+    }
+    public function &setActive($val) {
+        $this->active = $val;
+        return $this;
+    }
     
     public function getPathBack() {
         return $this->pathBack;
@@ -85,6 +99,7 @@ class Domain_Objects extends Miqo_Domain_AbstractEntity {
         $this->pathBack = $val;
         return $this;
     }
+    
     public function getMaterialId() {
         return $this->materialId;
     }

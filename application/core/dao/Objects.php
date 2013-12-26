@@ -18,6 +18,7 @@ class Dao_Objects extends Miqo_Dao_Base {
             'color_id' => 'colorId',
 			'material_id' => 'materialId',
 			'brand_id'        => 'brandId',
+            'active'        => 'active',
             'path_back' => 'pathBack');
     
     protected $entityClass = 'Domain_Objects';

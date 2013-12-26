@@ -5,6 +5,7 @@ class Dao_ObjectsGroup extends Miqo_Dao_Base {
     protected $columnAliases = array (
             'id' => 'id',
             'name' => 'name',
+            'active' => 'active',
 			'path' => 'path'
 			);
     

@@ -4,6 +4,7 @@ class Dao_Material extends Miqo_Dao_Base {
     protected $primaryColumn = 'id';
     protected $columnAliases = array (
             'id' => 'id',
+            'active'        => 'active',
             'name' => 'name',
 			);
     

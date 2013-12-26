@@ -96,6 +96,7 @@ class UserController extends ImageutilController {
         $item->setLastName($this->lastName);
 		$item->setGender($this->gender);
         
+        
         if ($this->password) {
             $item->setPassword($this->password);
             $item->setPasswordConfirm($this->passwordConfirm);

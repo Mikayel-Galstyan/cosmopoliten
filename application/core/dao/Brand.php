@@ -5,6 +5,7 @@ class Dao_Brand extends Miqo_Dao_Base {
     protected $columnAliases = array (
             'id' => 'id',
             'name' => 'name',
+            'active'        => 'active',
 			'logo' => 'logo'
 			);
     
