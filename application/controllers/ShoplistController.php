@@ -10,6 +10,7 @@ class ShoplistController extends ImageutilController {
     private $description = null;
     private $publisherId = null;
 	private $site = null;
+	private $mapControl = null;
     private $order = null;
 
     public function indexAction() {
@@ -78,20 +79,25 @@ class ShoplistController extends ImageutilController {
         $item->setAddress($this->address);
         $item->setPhone($this->phone);
         $item->setDescription($this->description);
+		$item->setMapControl($this->mapControl);
         if(!is_dir ("users/".$this->getAuthUser()->getEmail().'/'.$this->name)){
 			mkdir("users/".$this->getAuthUser()->getEmail().'/'.$this->name);
 		}
-        if($_FILES['path']['name'] != ''){
+        if(isset($_FILES['path']) && $_FILES['path']['name'] != ''){
             $path = $_FILES['path'];
             $email = $this->getAuthUser()->getEmail().'/'.$this->name;
             $userfile_extn = explode(".", strtolower($path['name']));
+			$userfile_extn = $userfile_extn[count($userfile_extn)-1];
             do{
-                $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[1];
-                $fullPath = "users/".$email.'/'.$new_name;
+                $new_name = md5(rand ( -100000 , 100000 ));
+                $fullPath = "users/".$email.'/'.$new_name.'.'.$userfile_extn;
             }while(file_exists($fullPath));
-            @rename ($path['name'],$new_name);
+            @rename ($path['name'],$new_name.'.'.$userfile_extn);
             move_uploaded_file ($path['tmp_name'],$fullPath);
-            $item->setPath($fullPath);
+			$new_name = $new_name.'.png';
+            $item->setPath($this->resize_image($fullPath,200,200,false,0.0000000001,"users/".$email.'/'.$new_name));
+			$this->resize_image($fullPath,100,100,false,0.0000000001,"users/".$email.'/100x100_'.$new_name);
+			$this->resize_image($fullPath,500,500,false,0.0000000001,"users/".$email.'/500x500_'.$new_name);
         }
         try {
             $service->save($item);
@@ -112,7 +118,7 @@ class ShoplistController extends ImageutilController {
 			$item = $service->getById($id);
 			$this->view->item = $item;
 			$servicePublisher =  new Service_Publisher();
-			$this->view->publisher = $servicePublisher->getById($item->getId());
+			$this->view->publisher = $servicePublisher->getById($item->getPublisherId());
 		}else{
 			
 		}
@@ -148,6 +154,11 @@ class ShoplistController extends ImageutilController {
     }
     public function &setOrder($val) {
         $this->order = $val;
+        return $this;
+    }
+	
+	public function &setMapControl($val) {
+        $this->mapControl = $val;
         return $this;
     }
 }

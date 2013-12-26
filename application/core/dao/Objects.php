@@ -15,9 +15,9 @@ class Dao_Objects extends Miqo_Dao_Base {
 			'valuta' => 'valuta',
 			'gender'        => 'gender',
             'object_group_id' => 'objectGroupId',
-            'color' => 'color',
-			'material_id' => 'material_id',
-			'brand_id'        => 'brand_id',
+            'color_id' => 'colorId',
+			'material_id' => 'materialId',
+			'brand_id'        => 'brandId',
             'path_back' => 'pathBack');
     
     protected $entityClass = 'Domain_Objects';
@@ -49,7 +49,11 @@ class Dao_Objects extends Miqo_Dao_Base {
         'objectType_id AS objectTypeId',
         'shopList_id AS shopListId',
 		'gender AS gender',
-		'valuta AS valuta'
+		'color_id AS colorId',
+		'material_id AS materialId',
+		'object_group_id AS objectGroupId',
+		'brand_id AS brandId',
+		'path_back AS pathBack'
         ));
         if($filter->getShopListId()){
             $select->where('shopList_id = ?', $filter->getShopListId());
@@ -69,14 +73,14 @@ class Dao_Objects extends Miqo_Dao_Base {
         if($filter->getCostMax()){
             $select->where('cost <= ?', $filter->getCostMax());
         }
-		if($filter->getMaterial()){
-            $select->where('material_id = ?', $filter->getMaterial());
+		if($filter->getMaterialId()){
+            $select->where('material_id = ?', $filter->getMaterialId());
         }
-		if($filter->getBrend()){
-            $select->where('brand_id = ?', $filter->getBrend());
+		if($filter->getBrandId()){
+            $select->where('brand_id = ?', $filter->getBrandId());
         }
-		if($filter->getColor()){
-            $select->where('color = ?', $filter->getColor());
+		if($filter->getColorId()){
+            $select->where('color_id = ?', $filter->getColorId());
         }
         $select->order('population DESC');
         $result = $this->dbTable->fetchAll($select);

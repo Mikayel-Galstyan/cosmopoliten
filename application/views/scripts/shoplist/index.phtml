@@ -1,9 +1,14 @@
 <?php 
-    $this->setPageTitle('Shop List'); 
+    $this->setPageTitle('shops'); 
     $formatting = $this->getHelper('DataFormatting');
 ?>
 
+<script>
+$(function(){
+	Menu.acitvate('shoplist');
+});
 
+</script>
 <div class="table_wrapper ml20 mt20">
     <?php if($this->isPublisher){ ?>
         <a href="shoplist/add" class="button w50">

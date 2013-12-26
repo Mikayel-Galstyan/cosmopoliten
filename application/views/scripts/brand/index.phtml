@@ -1,5 +1,5 @@
 <?php 
-    $this->setPageTitle('objectype'); 
+    $this->setPageTitle('brands'); 
     $formatting = $this->getHelper('DataFormatting');
 ?>
 <script>
@@ -8,11 +8,17 @@ $(function(){
 });
 
 </script>
+<script>
+$(function(){
+	Menu.acitvate('brand');
+});
+
+</script>
 <div id="deleteFormDiv">
 
 </div>
 <?php if($this->isAdmin){ ?>
-    <a class="link" href="brand/add" >add</a>
+    <a class="button fl mt5 ml20 mr20" href="brand/add" ><?php echo $this->translate('add') ?></a>
 <?php } ?>
 <?php echo $this->action('list', 'brand');?></td>
     

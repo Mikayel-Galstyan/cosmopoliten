@@ -39,41 +39,41 @@ class Filter_Objects {
      *
      * @var int
      */
-    protected $material = null;
+    protected $materialId = null;
 	/**
      *
      * @var int
      */
-    protected $color = null;
+    protected $colorId = null;
 	/**
      *
      * @var int
      */
-    protected $brend = null;
+    protected $brandId = null;
     
     
-	public function getMaterial() {
-        return $this->material;
+	public function getMaterialId() {
+        return $this->materialId;
     }
-    public function &setMaterial($val) {
-        $this->material = $val;
+    public function &setMaterialId($val) {
+        $this->materialId = $val;
         return $this;
     }
 	
-	public function getColor() {
-        return $this->color;
+	public function getColorId() {
+        return $this->colorId;
     }
-    public function &setColor($val) {
-        $this->color = $val;
+    public function &setColorId($val) {
+        $this->colorId = $val;
         return $this;
     }
 	
 	
-	public function getBrend() {
-        return $this->brend;
+	public function getBrandId() {
+        return $this->brandId;
     }
-    public function &setBrend($val) {
-        $this->brend = $val;
+    public function &setBrandId($val) {
+        $this->brandId = $val;
         return $this;
     }
 	

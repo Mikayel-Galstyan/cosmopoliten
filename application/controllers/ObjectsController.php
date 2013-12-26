@@ -1,7 +1,7 @@
 <?php
-require_once ('SecureController.php');
+require_once ('ImageutilController.php');
 
-class ObjectsController extends SecureController {
+class ObjectsController extends ImageutilController {
     private $id = null;
     private $name = null;
     private $description = null;
@@ -17,7 +17,7 @@ class ObjectsController extends SecureController {
     private $type = null;
 	private $value = null;
 	private $material = null;
-	private $color = null;
+	private $colorId = null;
 	private $brand = null;
     
     public function indexAction() {
@@ -46,13 +46,13 @@ class ObjectsController extends SecureController {
                 $service->addClick($this->objectTypeId);
             }
         }
-        if($this->objectTypeId && $type == 'publisher'){
-            $filter->setPublisherId($this->objectTypeId);
-            $this->view->publisherId = $this->objectTypeId;
-            if(!$this->getPublisherId()){
-               $service = new Service_Publisher();
-               $service->addClick($this->objectTypeId);
-            }
+        if($this->objectTypeId && $type == 'brand'){
+            $filter->setBrandId($this->objectTypeId);
+            $this->view->brandId = $this->objectTypeId;
+            /*if(!$this->getBrandId()){
+               $service = new Service_Brand();
+               //$service->addClick($this->objectTypeId);
+            }*/
         }
 		if($this->getAuthUser() && !$this->for && $this->getAuthUser()->getStatus() != 1){
 			$this->for = $this->getAuthUser()->getGender();
@@ -88,8 +88,8 @@ class ObjectsController extends SecureController {
         $filter->setShopListId($this->shopListId);
         $filter->setCostMin($this->costMin);
         $filter->setCostMax($this->costMax);
-		$filter->setBrend($this->brand);
-		$filter->setMaterial($this->material);
+		$filter->setBrandId($this->brand);
+		$filter->setMaterialId($this->material);
         if($this->getPublisherId()){
             $filter->setPublisherId($this->getPublisherId());
         }
@@ -109,6 +109,13 @@ class ObjectsController extends SecureController {
             $this->view->isPublisher = true;
             $service = new Service_ObjectType();
             $this->view->types = $service->getAll();
+			$service = new Service_Color();
+            $this->view->colors = $service->getAll();
+			$service = new Service_Material();
+            $this->view->materials = $service->getAll();
+			$service = new Service_Brand();
+            $this->view->brands = $service->getAll();
+			
             $filterPublisher = new Filter_Publisher();
             $filterShop = new Filter_ShopList();
             $sevicePublisher = new Service_Publisher();
@@ -178,13 +185,16 @@ class ObjectsController extends SecureController {
         }   
         $item->setName($this->name);
         $item->setPublisherId($this->publisherId);
+		$item->setMaterialId($this->material);
+		$item->setColorId($this->colorId);
+		$item->setBrandId($this->brand);
         $item->setValuta($this->value);
 		$item->setCost($this->cost);
         $item->setObjectTypeId($this->objectTypeId);
 		$item->setDescription($this->description);
         $item->setShopListId($this->shopListId);
         $item->setGender($this->for);
-        if($_FILES['path']){
+        if(isset($_FILES['path']) && $_FILES['path']){
             $path = $_FILES['path'];
             $email = $this->getAuthUser()->getEmail();
             $type = $item->getObjectTypeId();
@@ -192,13 +202,17 @@ class ObjectsController extends SecureController {
                 mkdir("users/".$email.'/'.$type);
             }
             $userfile_extn = explode(".", strtolower($path['name']));
+			$userfile_extn = $userfile_extn[count($userfile_extn)-1];
             do{
-                $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[1];
-                $fullPath = "users/".$email.'/'.$type."/".$new_name;
+                $new_name = md5(rand ( -100000 , 100000 ));
+                $fullPath = "users/".$email.'/'.$type."/".$new_name.'.'.$userfile_extn;
             }while(file_exists($fullPath));
-            @rename ($path['name'],$new_name);
+            @rename ($path['name'],$new_name.'.'.$userfile_extn);
             move_uploaded_file ($path['tmp_name'],$fullPath);
-            $item->setPath($fullPath);
+			$new_name = $new_name.'.png';
+            $item->setPath($this->resize_image($fullPath,200,200,0.0000000001,false,"users/".$email.'/'.$type.'/'.$new_name));
+			$this->resize_image($fullPath,100,100,0.0000000001,false,"users/".$email.'/'.$type.'/100x100_'.$new_name);
+			$this->resize_image($fullPath,500,500,0.0000000001,false,"users/".$email.'/'.$type.'/500x500_'.$new_name);
         }
         try {
             $service->save($item);
@@ -272,8 +286,8 @@ class ObjectsController extends SecureController {
         $this->material = $val;
         return $this;
     }
-	public function &setColor($val) {
-        $this->color = $val;
+	public function &setColorId($val) {
+        $this->colorId = $val;
         return $this;
     }
 	public function &setBrand($val) {

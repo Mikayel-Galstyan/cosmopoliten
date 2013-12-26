@@ -1,12 +1,50 @@
 <div class="w350 center editBorders">
 <?php
-    $this->setPageTitle('user.management');
+    $this->setPageTitle('shops.management');
     $formatting = $this->getHelper('DataFormatting');
 ?>
 <script type="text/javascript">
     $(function(){
-    	Menu.acitvate('user');        
+    	Menu.acitvate('shoplist');
+		initialize();
     });
+		
+		marker = null;
+		function initialize() {
+			positions = eval("("+<?php echo (($this->item && $this->item->getMapControl()) ? $this->htmlEscape($this->item->getMapControl()):'"{lat:15,long:15}"')?>+")");
+			position = new google.maps.LatLng(positions.lat,positions.long);
+		    var mapOptions = {
+			    zoom: 8,
+				center: position,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById('map-canvas'),
+				mapOptions);
+			
+			console.log(position);
+			if(position){console.log('mtav');
+				marker = new google.maps.Marker({
+					position: position,
+					map: map,
+					center: position
+				});
+			}
+			google.maps.event.addListener(map, 'click', function(e) {
+				placeMarker(e.latLng, map);
+			});
+		}
+		
+		function placeMarker(position, map) {
+		    if(!marker){
+				marker = new google.maps.Marker({
+					position: position,
+					map: map
+				});
+		    }else{
+				marker.setPosition(position);
+			}console.log(position);
+			$('#mapControl').val("'{lat:"+position.ob+',long:'+position.pb+"}'");
+		}
 </script>
 <?php
     if($this->isPublisher){
@@ -21,11 +59,20 @@
                     <tr>
                         <td class="middle left w180"><label for="name"><?php echo $this->translate('name')?> *</label></td>
                         <td class="middle left"><input type="text" name="name" id="name" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getName()):'')?>"/></td>                    
-                    </tr>    
+                    </tr>				
                     <tr>
                         <td class="middle left w150"><label for="address"><?php echo $this->translate('address')?></label></td>
-                        <td class="middle left"><input type="text" name="address" id="address" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getAddress()):'')?>"/></td>
+                        <td class="middle left">
+							<input type="hidden" name="mapControl" id="mapControl" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getMapControl()):'')?>"/>
+							<input type="text" name="address" id="address" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getAddress()):'')?>"/>
+							
+						</td>
                     </tr>
+					<tr>
+						<td colspan="2">
+							<div id="map-canvas" style="width:300px;height:150px;"></div>
+						</td>
+					</tr>	
                     <tr>
                         <td class="middle left"><label for="phone"><?php echo $this->translate('phone')?></label></td>
                         <td class="middle left"><input type="text" name="phone" id="phone" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getPhone()):'')?>"/></td>
@@ -54,7 +101,8 @@
                     ?>
 					<tr>
                         <td class="middle left"><label for="site"><?php echo $this->translate('site')?></label></td>
-                        <td class="middle left"><input type="text" name="site" id="site" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getSite()):'')?>"/></td>
+                        <td class="middle left"><input type="text" name="site" id="site" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getSite()):'')?>"/>
+					</td>
                     </tr> 
                     <tr>
                         <td class="middle left"></td>
@@ -67,6 +115,7 @@
             </table>
         </div> 
     </form>
+	
     <?php }else{ ?>
         <div>
             <?php echo $this->translate('this.action.only.for.publishers');?>

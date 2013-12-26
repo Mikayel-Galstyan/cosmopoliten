@@ -1,12 +1,106 @@
+<?php 
+    $this->setPageTitle('shops.overview'); 
+    $formatting = $this->getHelper('DataFormatting');
+?>
+<script>
+$(function(){
+	Menu.acitvate('shoplist');
+	initialize();
+});
+		my_position=null;
+ 
+		function initialize() {
+			positions = eval("("+<?php echo (($this->item && $this->item->getMapControl()) ? $this->htmlEscape($this->item->getMapControl()):'"{lat:15,long:15}"')?>+")");
+			position = new google.maps.LatLng(positions.lat,positions.long);
+		    var mapOptions = {
+			    zoom: 18,
+				center: position,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById('divForMap'),
+				mapOptions);
+			if(position){
+				/*if(navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(position) {
+					var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+							map.setCenter(pos);
+							marker = new google.maps.Marker({
+								position: pos,
+								map: map,
+								center: pos
+							});
+					}, function() {
+						
+					});
+				} else {
+					
+				}*/
+				marker = new google.maps.Marker({
+					position: position,
+					map: map,
+					center: position
+				});
+				
+			}
+		}
+</script>
+	<div id="fb-root"></div>
+	<script>
+	  window.fbAsyncInit = function() {
+		// init the FB JS SDK
+		FB.init({
+		  appId      : '1408093126081266',                        // App ID from the app dashboard
+		  channelUrl : 'http://localhost/cosmo/public/', // Channel file for x-domain comms
+		  status     : true,                                 // Check Facebook Login status
+		  xfbml      : true                                  // Look for social plugins on the page
+		});
 
+		// Additional initialization code such as adding Event Listeners goes here
+	  };
+
+	  // Load the SDK asynchronously
+	  (function(d, s, id){
+		 var js, fjs = d.getElementsByTagName(s)[0];
+		 if (d.getElementById(id)) {return;}
+		 js = d.createElement(s); js.id = id;
+		 js.src = "//connect.facebook.net/en_US/all.js";
+		 fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	   (function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=1408093126081266";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
 <div class="overviewDiv">
 	<div class="overviewImageDiv">
 		<div><?php  echo $this->item->getName(); ?></div>
-		<br>
-		<img src="<?php  echo $this->item->getPath(); ?>">
-		<br>
-		<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Freference%2Fplugins%2Flike&amp;width=200&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false&amp;appId=1408093126081266" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:21px;" allowTransparency="true"></iframe>
-	</div>
+				<br>
+				<img src="<?php  echo $this->item->getPath(); ?>">
+				<br>
+		<div id="ok_shareWidget" class="fl">
+		</div>
+		<div class="fb-like" data-href="http://cosmopoliten.p.ht/shoplist/<?php  echo $this->item->getId(); ?>/overview" data-width="100" data-layout="box_count" data-show-faces="false" data-send="false"></div>
+		<script>
+			!function (d, id, did, st) {
+			  var js = d.createElement("script");
+			  js.src = "http://connect.ok.ru/connect.js";
+			  js.onload = js.onreadystatechange = function () {
+			  if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+				if (!this.executed) {
+				  this.executed = true;
+				  setTimeout(function () {
+					OK.CONNECT.insertShareWidget(id,did,st);
+				  }, 0);
+				}
+			  }};
+			  d.documentElement.appendChild(js);
+			}(document,"ok_shareWidget","http://cosmopoliten.p.ht/shoplist/"+<?php  echo $this->item->getId(); ?>+"/overview","{width:70,height:50,st:'straight',sz:12,ck:1,vt:'1'}");
+		</script>
+
+		</div>
 	<div  class="overviewInfoDiv">
 		<table>
 			<tr>
@@ -65,7 +159,9 @@
 		</table>
 	</div>
 	<div style="" class="divForDescription" >
-		<div id="divForMap">map</div>
+		<div id="divForMap">
+			
+		</div>
 		<?php  echo $this->item->getDescription(); ?>
 	</div>
 </div>

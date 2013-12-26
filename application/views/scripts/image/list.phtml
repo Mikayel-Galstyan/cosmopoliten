@@ -1,12 +1,16 @@
 <div id="imageeditdiv">
-    <div class="" style="text-align:center;font-size:15;color:white;">
-        <?php echo $this->translate('new.image'); ?>
+    <div class="mt10 ml10 mr10" style="text-align:center;font-size:15;color:white;float:right;">
+        <?php echo $this->translate('last.image'); ?>
+		<br>
+		<img src="<?php echo $this->imgSrcFrom; ?>" style="float:left;width:335px;max-height:495px;">
     </div>
-    <br>
-	<img src="<?php echo $this->imgSrc; ?>" style="float:left;width:335px;max-height:495px;">
+    <div class="mt10 ml10 mr10" style="text-align:center;font-size:15;color:white;float:left;">
+        <?php echo $this->translate('new.image'); ?>
+		<img src="<?php echo $this->imgSrc; ?>" style="float:left;width:335px;max-height:495px;">
+    </div>
 	<form action="image/save" id="imageTemplateSave" method="POST">
 		<input type="hidden" name="path" value="<?php echo $this->imgSrc; ?>">
-        <a class="button w100 fl mt5" onclick="Filter.submit('imageTemplateSave')"><?php echo $this->translate('save.image'); ?></a>
-        <a class="button w100 fl mt5" onclick="$('#result').slideUp(1000,function(){$('#imageeditdiv').remove();});"><?php echo $this->translate('no'); ?></a>
+        <a class="button w100 fl mt50 ml54" onclick="Filter.submit('imageTemplateSave')"><?php echo $this->translate('save.image'); ?></a>
+        <a class="button w100 fl mt50 ml54" onclick="Form.changeAction('imageTemplateSave','image/no');Filter.submit('imageTemplateSave','imageTemplateSave');$('#result').slideUp(1000,function(){$('#imageeditdiv').remove();});"><?php echo $this->translate('no'); ?></a>
 	</form>
 </div>

@@ -1,6 +1,4 @@
-
-	
-	<?php
+<?php
 require_once ('SecureController.php');
 
 class ImageutilController extends SecureController {
@@ -24,14 +22,18 @@ class ImageutilController extends SecureController {
     }
     
     
-	protected function resize_image($file, $w, $h, $crop=FALSE,$degrees = 0.00001) {
+	protected function resize_image($file, $w, $h, $crop=FALSE,$degrees = 0.0000000001,$newPath=null) {
         $src = $this->imagecreatefromfile($file);
          /*rotate*/
             $src = imagerotate($src, $degrees, imageColorAllocateAlpha($src, 0, 0, 0, 127));
             imagealphablending($src, false);
             imagesavealpha($src, false);
-            $file = 'users/'.$this->getAuthUser()->getEmail().'/templateImg1.png';
-            imagepng($src, $file);
+			if($newPath){
+				$file = $newPath;
+			}else{
+				$file = 'users/'.$this->getAuthUser()->getEmail().'/templateImg1.png';
+			}
+			imagepng($src, $file);
         /**/
 		list($width, $height) = getimagesize($file);
 		$r = $width / $height;
@@ -59,41 +61,42 @@ class ImageutilController extends SecureController {
 		imagepng($dst, $file);
         $width = $newwidth;
         $height = $newheight;
-        //$this->imageCreateTransparent($dst,$width,$height);
-		return $dst;
-	}
-	
-	
-	protected function replaceBlackToTransparent($stype){
-		
+		return $file;
 	}
 	
 	protected function imageToPng($srcFile) {
 		$array =  $userfile_extn = explode(".", strtolower($srcFile));
 		$type = $array[count($array)-1];
-		$filePath = '';
-		for($i=0;$i<count($array)-1;$i++){
-			$filePath = $filePath.$array[$i];
+		if($type != "png"){
+			$type = $array[count($array)-1];
+			$filePath = $array[0];
+			for($i=1;$i<count($array)-1;$i++){
+				$filePath = $filePath.'.'.$array[$i];
+			}
+			$filePath = $filePath.'.png';
+			switch ($type) 
+			{
+				case 'gif': 
+					$image = imagecreatefromgif($srcFile); 
+					break;   
+				case 'jpg':  
+					$image = imagecreatefromjpeg($srcFile);
+					break;
+				case 'jpeg':  
+					$image = imagecreatefromjpeg($srcFile); 
+					break;   				
+				case 'png':  
+					$image = imagecreatefrompng($srcFile);
+					break; 
+				default:
+					throw new Exception('Unrecognized image type ' . $type);
+			}
+			
+			imagePng($image,$filePath);
+			return $filePath;
+		}else{
+			return $srcFile;
 		}
-		switch ($type) 
-		{
-			case 'gif': 
-				$image = imagecreatefromgif($srcFile); 
-				break;   
-			case 'jpg':  
-				$image = imagecreatefromjpeg($srcFile); 
-				break;
-			case 'jpeg':  
-				$image = imagecreatefromjpeg($srcFile); 
-				break;   				
-			case 'png':  
-				$image = imagecreatefrompng($srcFile);
-				break; 
-			default:
-				throw new Exception('Unrecognized image type ' . $type);
-		}
-
-		imagegif($image,$filePath);
 		//throw new Exception('Image conversion failed.');
 	}
 	

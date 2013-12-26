@@ -35,7 +35,7 @@ class Dao_LoveList extends Miqo_Dao_Base {
         'objects.publisher_id as publisherId', 
         'objects.objectType_id as objectTypeId', 
         'objects.shopList_id as shopListId'))
-        ->joinLeft(Dao_DbTable_List::OBJECTTYPE, 'objecttype.id=objects.objectType_id',array( 'objecttype.name as object_type_name'));
+        ->joinLeft(Dao_DbTable_List::OBJECTTYPE, 'objectType.id=objects.objectType_id',array( 'objectType.name as object_type_name'));
         $select->where('user_id =?',$id);
 		$result = $this->dbAdapter->fetchAll($select);
         $result = $this->getEntities($result);

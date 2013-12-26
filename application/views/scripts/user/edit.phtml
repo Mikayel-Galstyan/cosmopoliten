@@ -1,3 +1,8 @@
+<script>
+	$(function(){
+		Menu.acitvate('user/add');
+	});
+</script>
 <div class="w350 center editBorders">
 
 	<?php
@@ -5,10 +10,11 @@
 		$formatting = $this->getHelper('DataFormatting');
 	?>
 	<form id="ajaxForm" action="user/save" method="post" onsubmit="Filter.submit('ajaxForm','tempForReload'); return false;">
-		<div id="tempForReload"></div>
+		
 		<input type="hidden" name="id" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getId()):'')?>" />
 		<div class="fixed_head">
 			<span class="tableTitle"><?php echo $this->translate('users'). ' // ' . ($this->item ? $this->translate('edit').' // ' . $this->htmlEscape($this->item->getEmail()) : $this->translate('add')); ?></span>        
+			<div id="tempForReload"></div>
 			<table class="editTable">                    
 				<tbody>                    
 					<tr>

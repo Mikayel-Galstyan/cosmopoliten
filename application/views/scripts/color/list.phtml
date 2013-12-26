@@ -1,14 +1,8 @@
-<script>
-$(function(){
-	Menu.acitvate('objecttype');
-});
-
-</script>
 <div>
 	<?php 
 		foreach($this->items as $item){
 	?>
-        <a href="objects/<?php echo $item->getId() ?>/objectType/index">
+        <a href="objects/<?php echo $item->getId() ?>/color/index">
             <div data-id="object_<?php echo $item->getId();?>" class="objectContentDiv fl">
                 <div class="objectHeader">
                     <div>
@@ -16,7 +10,7 @@ $(function(){
                     </div>
                 </div>
                 <div class="objectDiv">
-                    <img src="<?php echo $item->getPath(); ?>">
+                    <img src="<?php echo $item->getLogo(); ?>">
                 </div>   
                 <div class="actionDiv">
                     

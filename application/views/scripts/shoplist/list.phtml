@@ -1,4 +1,13 @@
+<script>
+$(function(){
+	Menu.acitvate('shoplist');
+});
 
+</script>
+<?php
+    $this->setPageTitle('shops');
+    $formatting = $this->getHelper('DataFormatting');
+?>
 <div>
 	<?php 
 		foreach($this->items as $item){

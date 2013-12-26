@@ -29,8 +29,13 @@
 <script>
 $(function(){
 	Cosmo_object.init();
+	Menu.acitvate('lovelist');
 });
 </script>
+<?php
+    $this->setPageTitle('try.it');
+    $formatting = $this->getHelper('DataFormatting');
+?>
 
 <div>
     <form id="addForm" name="addForm" action="lovelist/delete">

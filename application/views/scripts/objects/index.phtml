@@ -5,6 +5,7 @@
 			Filter.submit('ajaxForm');
 		});
 	});
+	Menu.acitvate('objects');
 </script>
 <div>
     <form action="objects/list" name="ajaxForm" id="ajaxForm">
@@ -26,7 +27,7 @@
                 <?php
                     foreach($this->brand as $item){
                 ?>
-                    <option value="<?php echo $item->getId() ?>" <?php echo ($this->publisherId==$item->getId())?'selected="selected"':''; ?>><?php echo $this->translate($item->getName()); ?></option>
+                    <option value="<?php echo $item->getId() ?>" <?php echo ($this->brandId==$item->getId())?'selected="selected"':''; ?>><?php echo $this->translate($item->getName()); ?></option>
                 <?php
                     }
                 ?>

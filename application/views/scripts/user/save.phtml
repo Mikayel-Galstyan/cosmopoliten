@@ -4,7 +4,9 @@
 	 <br>someThing is wrong. Maby you are registrated already or mail type is wrong
      <a class="tw button w100 mt5 ml5" onclick="Filter.submit('addUserEmail','addUserEmail')"><?php echo $this->translate('save'); ?></a>
 	
-	<?php }else{
+	<?php }else if($this->error=="regError"){
 ?>
-	WELCOME
+	some validation errors
+<?php }else{ ?>
+	Welcome
 <?php } ?>

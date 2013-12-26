@@ -27,6 +27,10 @@
     }
     
 </script>
+<?php
+    $this->setPageTitle('try.it');
+    $formatting = $this->getHelper('DataFormatting');
+?>
 <script>
 $(function(){
     ImageObject.init();
@@ -36,7 +40,8 @@ $(function(){
         $('#manHeight').attr('value',parseInt($('#mainImage').height()));
         $('#manWidth').attr('value',parseInt($('#mainImage').width()));
     },1000)
-    
+	Menu.acitvate('lovelist');
+
 });
 </script>
 <?php if($this->items || $this->isAuth){ ?>

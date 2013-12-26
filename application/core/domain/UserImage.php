@@ -11,6 +11,11 @@ class Domain_UserImage extends Miqo_Domain_AbstractEntity {
      * @var string
      */
     protected $path = null;
+	/**
+     *
+     * @var string
+     */
+    protected $parentId = null;
     
     
     
@@ -19,6 +24,14 @@ class Domain_UserImage extends Miqo_Domain_AbstractEntity {
     }
     public function &setPath($val) {
         $this->path = $val;
+        return $this;
+    }
+	
+	public function getParentId() {
+        return $this->parentId;
+    }
+    public function &setParentId($val) {
+        $this->parentId = $val;
         return $this;
     }
 	

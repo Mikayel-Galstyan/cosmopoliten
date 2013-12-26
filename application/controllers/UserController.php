@@ -1,7 +1,7 @@
 <?php
-require_once ('SecureController.php');
+require_once ('ImageutilController.php');
 
-class UserController extends SecureController {
+class UserController extends ImageutilController {
     
     const CONTROLLER_NAME = 'user';
     const DEFAULT_ORDER = 'id';
@@ -78,6 +78,7 @@ class UserController extends SecureController {
         $this->view->id = $this->id;
     }
     
+	
     public function saveAction() {
         $id = $this->id;
         $service = new Service_User();
@@ -117,28 +118,32 @@ class UserController extends SecureController {
             $path = $_FILES['path'];
             $email = $this->email;
             $userfile_extn = explode(".", strtolower($path['name']));
+			$userfile_extn = $userfile_extn[count($userfile_extn)-1];
             do{
-                $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[1];
-                $fullPath = "users/".$email.'/'.$new_name;
+                $new_name = md5(rand ( -100000 , 100000 ));
+                $fullPath = "users/".$email.'/'.$new_name.'.'.$userfile_extn;
             }while(file_exists($fullPath));
-            @rename ($path['name'],$new_name);
+            @rename ($path['name'],$new_name.'.'.$userfile_extn);
             move_uploaded_file ($path['tmp_name'],$fullPath);
-            $item->setPath($fullPath);
         }else{
             $email = $this->email;
             do{
-                $new_name = md5(rand ( -100000 , 100000 )).'.jpg';//.$userfile_extn[1];
-                $fullPath = "users/".$email.'/'.$new_name;
+                $new_name = md5(rand ( -100000 , 100000 ));//.$userfile_extn[1];
+                $fullPath = "users/".$email.'/'.$new_name.'.jpg';
             }while(file_exists($fullPath));
             if(isset($this->gender) && $this->gender==2){
                 copy ('defaultImages/women.jpg' , $fullPath);
             }else{
                 copy ('defaultImages/man.jpg' , $fullPath);
             }
-            $item->setPath($fullPath);
-        }//echo $this->type;exit;
+        }
+		$new_name = $new_name.'.png';
+		$mainImg = $this->resize_image($fullPath,200,200,false,0.0000000001,"users/".$email.'/'.$new_name);
+		$item->setPath($mainImg);
+		$this->resize_image($fullPath,100,100,false,0.0000000001,"users/".$email.'/100x100_'.$new_name);
+		$this->resize_image($fullPath,500,500,false,0.0000000001,"users/".$email.'/500x500_'.$new_name);
         if(!$id){
-            $item->setUsedLastImage($fullPath);
+            $item->setUsedLastImage($mainImg);
         }
         try {
             if(isset($authantiticate) && !$authantiticate){
@@ -158,7 +163,11 @@ class UserController extends SecureController {
             //$this->printJsonSuccessRedirect($this->translate('success.save'),($this->status==1)?'publisher'.$urlId .'/edit':'index');
         } catch ( Miqo_Util_Exception_Validation $vex ) {
             $errors = $this->translateValidationErrors($vex->getValidationErrors());
-            $this->view->error = "error";
+			if($this->type=='byMail'){
+				$this->view->error = "error";
+			}else{
+				$this->view->error = "regError";
+			}
         }
     }
 

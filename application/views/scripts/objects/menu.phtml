@@ -18,9 +18,6 @@
     <?php 
         if(!$this->isPublisher && !$this->isAdmin){
         ?>
-        <div>
-			<a href="objects"><?php echo $this->translate('objects')?></a>
-		</div>
 		<div>
 			<a href="objecttype"><?php echo $this->translate('objecttype')?></a>
 		</div>
@@ -31,8 +28,8 @@
 			<a href="shoplist"><?php echo $this->translate('shoplist')?></a>
 		</div>	
         <div>
-            <a href="lovelist" class="navDivlastChildA"><?php echo $this->translate('lovelist')?></a>
-        </div>        
+            <a href="lovelist" class="navDivlastChildA"><?php echo $this->translate('try.it')?></a>
+        </div>
     <?php } else if(!$this->isAdmin){ 
         ?>
         <div>
@@ -58,6 +55,9 @@
 		<div>
             <a href="brand"><?php echo $this->translate('brands')?></a>
         </div>
+		<div>
+            <a href="color"  class="navDivlastChildA"><?php echo $this->translate('color')?></a>
+        </div>
     <?php
         }
     ?>
@@ -73,7 +73,7 @@
         ?>
             <form action="auth/logout" method="POST" id="loginForm" name="loginForm">
                 <div><a class="button fr mt5 ml20 mr20" onclick = 'Filter.submit("loginForm","loginInfo");' ><?php echo $this->translate('log.out') ?></a></div>
-                <img class="fr ml20 mt5 mr20" style="height:25px;width:25px;" src="<?php echo $this->img; ?>">
+                <img class="fr ml20 mt5 mr20" style="height:25px;width:25px;" src="<?php echo $this->path; ?>">
                 <div class="fr textW pt8 ml20"><?php echo $this->translate('hi').'  '.$this->name; ?></div>
             </form>
         <?php 

@@ -5,7 +5,8 @@ class Dao_UserImage extends Miqo_Dao_Base {
     protected $columnAliases = array (
             'id' => 'id',
             'user_id' => 'userId',
-			'path' => 'path');
+			'path' => 'path',
+			'parent_id' => 'parentId');
     
     protected $entityClass = 'Domain_UserImage';
 

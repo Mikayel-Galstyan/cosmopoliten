@@ -52,14 +52,19 @@ class ImageController extends ImageutilController {
                 }
             }
 			$dest = $this->resize_image($this->src, $this->width,  $this->height,true);
+			$dest =  imagecreatefrompng($dest);
 			for($i = 0;$i<count($this->widths);$i++){ 
-				$img = $this->resize_image($this->srcs[$i], $this->widths[$i],  $this->heights[$i],true, ($this->rotates[$i])?(-$this->rotates[$i]):0.1);
+				$img = $this->resize_image($this->srcs[$i], $this->widths[$i],  $this->heights[$i],true, ($this->rotates[$i])?(-$this->rotates[$i]):0.00000001);
+				$img =  imagecreatefrompng($img);
 				imagesavealpha($dest, true);
 				imagealphablending($dest, true);
 				@imagecopy($dest, $img, $this->lefts[$i], $this->tops[$i], 0, 0, $this->widths[$i], $this->heights[$i]);
 				imagedestroy($img);
 			}
-			$url = 'users/'.$this->getAuthUser()->getEmail().'/templateImg.png';
+			do{
+				$new_name = md5(rand ( -100000 , 100000 )).'.png';
+				$url = 'users/'.$this->getAuthUser()->getEmail().'/'.$new_name;
+			}while(file_exists($url));
 			$black = imagecolorallocate($dest, 0, 0, 0);
 			imagecolortransparent($dest, $black);
 			imagesavealpha($dest, true);
@@ -67,22 +72,17 @@ class ImageController extends ImageutilController {
 			imagedestroy($dest);
 			$width = $this->width;
 			$height = $this->height;
+			$this->view->imgSrcFrom = $this->getAuthUser()->getUsedLastImage();
 			$this->view->imgSrc = $url;
     }
 	
 	public function saveAction(){
         $path = $this->path;
-        $userDomain = $this->getAuthUser();
-        $userfile_extn = explode(".", strtolower($path));
-        do{
-            $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[count($userfile_extn)-1];
-            $url = 'users/'.$userDomain->getEmail().'/'.$new_name;
-        }while(file_exists($url));
-        $result  = @rename ($path,$url);
         $service = new Service_UserImage();
         $domain = new Domain_UserImage();
-        $domain->setUserId($userDomain->getId());
-        $domain->setPath($url);
+        $domain->setUserId($this->getAuthUser()->getId());
+		$domain->setParentId($this->getAuthUser()->getUsedLastImage());
+        $domain->setPath($path);
         try {
             $service->save($domain);
             $this->javascript()->redirect('lovelist');
@@ -93,7 +93,11 @@ class ImageController extends ImageutilController {
         
 	}
     
-    
+    public function noAction(){
+		$path = $this->path;
+		unlink($path);
+	}
+	
     public function uploadimageAction(){
          $email = $this->getAuthUser()->getEmail();
         if(!is_dir ("users/".$email)){
@@ -105,21 +109,27 @@ class ImageController extends ImageutilController {
             $item = new Domain_UserImage();
             $path = $_FILES['path'];
             $userfile_extn = explode(".", strtolower($path['name']));
+			$userfile_extn = $userfile_extn[count($userfile_extn)-1];
             do{
-                $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[1];
-                $fullPath = "users/".$email.'/'.$new_name;
+                $new_name = md5(rand ( -100000 , 100000 ));
+                $fullPath = "users/".$email.'/'.$new_name.'.'.$userfile_extn;
             }while(file_exists($fullPath));
-            @rename ($path['name'],$new_name);
+            @rename ($path['name'],$new_name.'.'.$userfile_extn);
             move_uploaded_file ($path['tmp_name'],$fullPath);
-            $item->setPath($fullPath);
+			$new_name = $new_name.'png';
+			$filePath  = $this->resize_image($fullPath,200,200,false,0.0000000001,"users/".$email.'/'.$new_name);
+			$this->resize_image($fullPath,100,100,false,0.0000000001,"users/".$email.'/100x100_'.$new_name);
+			$this->resize_image($fullPath,500,500,false,0.0000000001,"users/".$email.'/500x500_'.$new_name);
+			
+            $item->setPath($filePath);
             $item->setUserId($userId);
-            $this->view->imagePath = $fullPath;
+            $this->view->imagePath = $filePath;
             $serviceUser = new Service_User();
             try {
                 $item = $service->save($item);
-                $serviceUser->updateImagePath($fullPath,$userId);
+                $serviceUser->updateImagePath($filePath,$userId);
                 $item = $this->getAuthuser();
-                $item->setUsedLastImage($fullPath);
+                $item->setUsedLastImage($filePath);
                 if (!$this->userSession) {
                     $this->userSession = new Miqo_Session_Base();
                 }
@@ -132,7 +142,12 @@ class ImageController extends ImageutilController {
         }
     }
 	
-    
+    public function myalbomAction(){
+		$service = new Service_UserImages();
+		
+	}
+	
+	
 	public function &setWidths($val) {
        $this->widths = $val;
        return $this;

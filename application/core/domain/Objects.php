@@ -66,7 +66,7 @@ class Domain_Objects extends Miqo_Domain_AbstractEntity {
      *
      * @var string
      */
-    protected $color = null;
+    protected $colorId = null;
     /**
      *
      * @var string
@@ -88,7 +88,7 @@ class Domain_Objects extends Miqo_Domain_AbstractEntity {
     public function getMaterialId() {
         return $this->materialId;
     }
-    public function &setmMaterialId($val) {
+    public function &setMaterialId($val) {
         $this->materialId = $val;
         return $this;
     }
@@ -99,11 +99,11 @@ class Domain_Objects extends Miqo_Domain_AbstractEntity {
         $this->brandId = $val;
         return $this;
     }
-    public function getColor() {
-        return $this->color;
+    public function getColorId() {
+        return $this->colorId;
     }
-    public function &setColor($val) {
-        $this->color = $val;
+    public function &setColorId($val) {
+        $this->colorId = $val;
         return $this;
     }
     public function getObjectGroupId() {

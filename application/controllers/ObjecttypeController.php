@@ -44,13 +44,16 @@ class ObjectTypeController extends ImageutilController {
             $path = $_FILES['path'];
             $email = $this->name;
             $userfile_extn = explode(".", strtolower($path['name']));
+			$userfile_extn = $userfile_extn[count($userfile_extn)-1];
             do{
-                $new_name = md5(rand ( -100000 , 100000 )).'.'.$userfile_extn[1];
-                $fullPath = "users/".$email.'/'.$new_name;
+                $new_name = md5(rand ( -100000 , 100000 ));
+                $fullPath = "users/".$email.'/'.$new_name.'.'.$userfile_extn;
             }while(file_exists($fullPath));
-            @rename ($path['name'],$new_name);
+            @rename ($path['name'],$new_name.'.'.$userfile_extn);
             move_uploaded_file ($path['tmp_name'],$fullPath);
-            $item->setPath($fullPath);
+            $item->setPath($this->resize_image($fullPath,200,200,false,0.0000000001,"users/".$email.'/'.$new_name.'.png'));
+			$this->resize_image($fullPath,100,100,false,0.0000000001,"users/".$email.'/100x100_'.$new_name.'.png');
+			$this->resize_image($fullPath,500,500,false,0.0000000001,"users/".$email.'/500x500_'.$new_name.'.png');
         }
         try {
             $service->save($item);

@@ -25,6 +25,7 @@ ImageObject = {
     init: function(){
         //ImageObject.selectedObject = $('#mainImage');
 		ImageObject.mainImage = $('#mainImage');
+		ImageObject.mainImage.css({'left':'0px','top':'0px'});
         ImageObject.zIndex = 0;
         ImageObject.shotchik = 0;
         ImageObject.currentId = 0;
@@ -36,7 +37,7 @@ ImageObject = {
             var top =  (parseInt($('#templateDress_'+ImageObject.currentId).css('top')))?parseInt($('#templateDress_'+ImageObject.currentId).css('top')):0;
             var src = $('#templateDress_'+ImageObject.currentId).attr('src');
             var zIndex =  $('#templateDress_'+ImageObject.currentId).css('z-index');
-            var left =  (parseInt($('#templateDress_'+ImageObject.currentId).css('left')))?parseInt($('#templateDress_'+ImageObject.currentId).css('left')):0;
+            var left =  (parseInt($('#templateDress_'+ImageObject.currentId).css('left')))?parseInt($('#templateDress_'+ImageObject.currentId).css('left')):0;console.log(left);
             var html = '<input type="hidden" value="" name="tops[]" id="putinTop_'+ImageObject.currentId+'" value="0">'+
             '<input type="hidden" name="lefts[]" id="putinLeft_'+ImageObject.currentId+'" value="0">'+
             '<input type="hidden" name="widths[]" id="putinWidth_'+ImageObject.currentId+'" value="'+width+'">'+
@@ -46,7 +47,7 @@ ImageObject = {
             '<input type="hidden" name="zIndexes[]" id="putinZIndex_'+ImageObject.currentId+'" value="'+ImageObject.zIndex+'">';
             $('#imgGenerate').append(html);
             ImageObject.selectedObject = $('#templateDress_'+ImageObject.currentId);
-            ImageObject.selectedObject.css('position','absolute');
+            ImageObject.selectedObject.css({'position':'absolute','top':'0px','left':'0px'});
 			ImageObject.addResizePoints(ImageObject.selectedObject);
             $(ImageObject.selectedObject ).draggable({ containment: "#imgDiv", scroll: false, 
 				start: function() {

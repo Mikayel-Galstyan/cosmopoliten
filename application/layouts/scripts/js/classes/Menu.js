@@ -14,7 +14,7 @@ function Menu() {
      */
     this.showSubMenu = function(){
         //Show SubMenu        
-        $('#nav_menu>li>a.active').siblings().show();
+        $('.nav>li>a.active').siblings().show();
     };
     /**
      * Activate
@@ -22,22 +22,9 @@ function Menu() {
      * Activate Sub 
      */
     this.acitvate = function(href){
-    	elem = $('#nav_menu a[href="'+ href +'"]');        
-        if (elem.length){
-            $('#nav_menu ul').hide();
-            navParentElem = $('#nav_menu>li>a'); 
-            navParentElem.removeClass('active');
-            navChildElem = $('#nav_menu>li>ul>li>a');
-            navChildElem.removeClass('active');        
-            elemSibilings = $(elem).closest('ul').siblings();
-            elemSibilings.addClass('active');        	
-            elem.parents('ul').show();            
-            elem.addClass('active');
-        } else {
-            navMenu = $('#nav_menu');
-            navMenu.find('a').removeClass('active'); 
-            navMenu.find('ul').hide();
-        }
+    	elem = $('.nav a[href="'+ href +'"]');        
+        $('.nav a').removeClass('selectedMenu');
+		elem.addClass('selectedMenu')
     };
 };
 $(function(){  

@@ -1,5 +1,5 @@
 <?php 
-    $this->setPageTitle('material'); 
+    $this->setPageTitle('objectype'); 
     $formatting = $this->getHelper('DataFormatting');
 ?>
 <script>
@@ -12,9 +12,9 @@ $(function(){
 
 </div>
 <?php if($this->isAdmin){ ?>
-    <a class="button fl mt5 ml20 mr20" href="material/add" ><?php echo $this->translate('add') ?></a>
+    <a class="button fl mt5 ml20 mr20" href="color/add" ><?php echo $this->translate('add') ?></a>
 <?php } ?>
-<?php echo $this->action('list', 'material');?></td>
+<?php echo $this->action('list', 'color');?></td>
     
 
 

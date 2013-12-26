@@ -285,8 +285,6 @@ abstract class ControllerActionSupport extends Zend_Controller_Action {
         }
         return ($dateStr) ? new Miqo_Util_Date($dateStr, $this->dateFormat) : '';
     }
-
-    
     /**
      * Generates a unique filename
      *

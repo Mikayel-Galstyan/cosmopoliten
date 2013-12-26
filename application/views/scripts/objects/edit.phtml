@@ -1,11 +1,11 @@
 <div class="w350 center editBorders">
 <?php
-    $this->setPageTitle('user.management');
+    $this->setPageTitle('objects.management');
     $formatting = $this->getHelper('DataFormatting');
 ?>
 <script type="text/javascript">
     $(function(){
-    	Menu.acitvate('user');        
+    	Menu.acitvate('objects');        
     });
 </script>
 <?php
@@ -60,7 +60,58 @@
 								</select>
 							</div>
                        </td>
-                    </tr> 
+                    </tr>
+					
+					
+					
+                    <tr>
+                       <td class="middle left"><label for="colorId"><?php echo $this->translate('select.color')?> </label></td>
+                       <td class="middle left">
+                           <div class="fl  mt5">
+								<select name="colorId" id="colorId">
+									<?php
+										foreach($this->colors as $item){
+									?>
+										<option value="<?php echo $item->getId() ?>" <?php echo ($this->item && $this->item->getObjectTypeId()==$item->getId())?'selected="selected"':'' ?>><?php echo $this->translate($item->getName()); ?></option>
+									<?php
+										}
+									?>
+								</select>
+							</div>
+                       </td>
+                    </tr>
+                    <tr>
+                       <td class="middle left"><label for="brand"><?php echo $this->translate('select.brand')?> </label></td>
+                       <td class="middle left">
+                           <div class="fl  mt5">
+								<select name="brand" id="brand">
+									<?php
+										foreach($this->brands as $item){
+									?>
+										<option value="<?php echo $item->getId() ?>" <?php echo ($this->item && $this->item->getObjectTypeId()==$item->getId())?'selected="selected"':'' ?>><?php echo $this->translate($item->getName()); ?></option>
+									<?php
+										}
+									?>
+								</select>
+							</div>
+                       </td>
+                    </tr>
+                    <tr>
+                       <td class="middle left"><label for="material"><?php echo $this->translate('select.material')?> </label></td>
+                       <td class="middle left">
+                           <div class="fl  mt5">
+								<select name="material" id="material">
+									<?php
+										foreach($this->materials as $item){
+									?>
+										<option value="<?php echo $item->getId() ?>" <?php echo ($this->item && $this->item->getObjectTypeId()==$item->getId())?'selected="selected"':'' ?>><?php echo $this->translate($item->getName()); ?></option>
+									<?php
+										}
+									?>
+								</select>
+							</div>
+                       </td>
+                    </tr>
                     <tr>
                         <td class="middle left"><label for="shopListId"><?php echo $this->translate('select.shop')?></label></td>
                         <td class="middle left">

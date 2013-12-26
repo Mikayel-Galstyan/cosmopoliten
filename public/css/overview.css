@@ -14,10 +14,10 @@
 	height:300px;
 }
 .overviewInfoDiv>table tr td:first-child{
-	width  : 100px;
+	width  : 200px;
 }
 .overviewInfoDiv>table tr td:last-child{
-	width  : 600px;
+	width  : 400px;
 	height: 40px;
 }
 .overviewInfoDiv>table tr td label{
@@ -38,4 +38,7 @@
 	width:400px;
 	height:400px; 
 	float:right;
+}
+.overviewImageDiv img{
+	width:200px;
 }
