@@ -19,11 +19,16 @@ class ObjectsgroupController extends ImageutilController {
         $id = $this->id;
         $user = $this->getAuthUser();
         if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::ADMIN_ROLE){
+            $service = new Service_Objects();
+            $objects = $service->getObjectsForGrouping();
+            $this->view->objects = $objects;
             $this->view->isAdmin = true;
             if($id){
                 $service = new Service_ObjectsGroup();
-                $material = $service->getById($id);
-                $this->view->item = $material;
+                $group = $service->getById($id);
+                $objectsInGroup = $service->getObjectsByGroupId($id);
+                $this->view->item = $group;
+                $this->view->objectsInGroup = $objectsInGroup;
             }
         }else{
             $this->view->isAdmin = false;

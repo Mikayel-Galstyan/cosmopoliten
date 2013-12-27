@@ -22,7 +22,7 @@ class Zend_View_Helper_getStatus extends Zend_View_Helper_Abstract {
     public function getStatus($value) {
         
         if($value===1){
-            $return = "I have not see";
+            $return = "IHaveNotSee";
         }else if($value===0){
             $return = "deactive";
         }else{

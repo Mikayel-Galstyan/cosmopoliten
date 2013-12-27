@@ -19,6 +19,7 @@ class UserController extends ImageutilController {
     private $gender = null;
     private $oauthUid = null;
     private $path  =  null;
+    private $activate  =  null;
     private $activationKey = null;
     private $age = null;
     private $type = null;
@@ -90,11 +91,19 @@ class UserController extends ImageutilController {
 			$item->setStatus(($this->status)?$this->status:'2');
             $authantiticate = false;
         }
-        
-        $item->setEmail($this->email);
-        $item->setFirstName($this->firstName);
-        $item->setLastName($this->lastName);
-		$item->setGender($this->gender);
+        if($this->email){
+            $item->setEmail($this->email);
+        }
+        if($this->gender){
+            $item->setGender($this->gender);
+        }
+        if($this->lastName){
+            $item->setLastName($this->lastName);
+        }
+        if($this->firstName){
+            $item->setFirstName($this->firstName);
+        }
+        $item->setActivate($this->activate);
         
         
         if ($this->password) {
@@ -171,7 +180,22 @@ class UserController extends ImageutilController {
 			}
         }
     }
-
+    
+    public function editadminAction(){
+        $id = $this->id;
+        $user = $this->getAuthUser();
+        if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::ADMIN_ROLE){
+            $this->view->isAdmin = true;
+            if($id){
+                $service = new Service_User();
+                $user = $service->getById($id);
+                $this->view->item = $user;
+            }
+        }else{
+            $this->view->isAdmin = false;
+        }
+    }
+    
     public function &setId($val) {
         $this->id = $val;
         return $this;
@@ -246,6 +270,10 @@ class UserController extends ImageutilController {
     }
     public function &setType($val) {
         $this->type = $val;
+        return $this;
+    }
+    public function &setActivate($val) {
+        $this->activate = $val;
         return $this;
     }
 }

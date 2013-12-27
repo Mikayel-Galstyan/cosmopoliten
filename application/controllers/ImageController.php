@@ -144,7 +144,8 @@ class ImageController extends ImageutilController {
 	
     public function myalbomAction(){
 		$service = new Service_UserImages();
-		
+        //$serviceUser = new Service_User();
+		//$images = $service->getByUserId()
 	}
 	
 	

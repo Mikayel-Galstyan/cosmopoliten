@@ -34,6 +34,16 @@ class Service_Objects extends Miqo_Service_Base {
         }
     }
     
+    public function &getObjectsByGroupId($groupId) {
+    	$result = $this->dao->getObjectsByGroupId($groupId);
+        return $result;
+    }
+    
+    public function &getObjectsForGrouping() {
+    	$result = $this->dao->getObjectsForGrouping();
+        return $result;
+    }
+    
     public function validate(Domain_Objects $domain) {
         $validationConf = self::$VALIDATION_CONFIG;
         if ($this->validator == null) {

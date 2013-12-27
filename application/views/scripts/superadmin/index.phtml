@@ -2,416 +2,457 @@
     $statusDetect = $this->getHelper('getStatus');
 ?>
 <style>
+    .active>td{
+        background:green !important;
+    }
+    .IHaveNotSee>td{
+        background:orange !important;
+    }
+    .deactive>td{
+        background:red !important;
+    }
     .adminTablesDiv{
-        height:500px;
+        height:570px;
         width:300px;
         float:left;
         cursor:pointer;
         margin-left:5px;
         margin-right:5px;
-        overflow:auto;
+        margin-top:10px;
+        margin-bottom:10px;
     }
-    .adminTablesDiv>table{
+    .scrollable>table{
         width:280px;
         height:500px;
         overflow:auto;
     }
-    .adminTablesDiv>table>thead>tr>th{
+    .scrollable>table>thead>tr>th{
         width:70px;
-        background:silver;
-    }
-    .adminTablesDiv>table>tbody>tr>td{
-        width:80px;
         background:grey;
+        border:1px solid silver;
+    }
+    .scrollable>table>tbody>tr>td{
+        width:80px;
+        border:1px solid silver;
+    }
+    .scrollable{
+        height:500px;
+        width:300px;
+        overflow:auto;
     }
 </style>
-<div class="ml10">
+<div class="ml10 mt10">
     <div  class="adminTablesDiv">
         <div><?php echo $this->translate('objects'); ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo $this->translate('objects'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('views'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('status'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('action'); ?>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach($this->objects as $object){
-                ?>
-                <tr>
-                    <td>
-                        <?php echo ($object->getName())?$object->getName():$object->getId();?>
-                    </td>
-                    <td>
-                        <?php echo $object->getPopulation();?>
-                    </td>
-                    <td>
-                        <?php echo $statusDetect->getStatus($object->getActive());?>
-                    </td>
-                    <td>
-                        <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
-                        <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-            
-        </table>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <?php echo $this->translate('objects'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('views'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('status'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('action'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach($this->objects as $object){
+                    ?>
+                    <tr class="<?php echo $statusDetect->getStatus($object->getActive());?>">
+                        <td>
+                            <?php echo ($object->getName())?$object->getName():$object->getId();?>
+                        </td>
+                        <td>
+                            <?php echo $object->getPopulation();?>
+                        </td>
+                        <td>
+                            <?php echo $statusDetect->getStatus($object->getActive());?>
+                        </td>
+                        <td>
+                            <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
+                            <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        
     </div>
 
     <div class="adminTablesDiv">
         <div><?php echo $this->translate('publishers'); ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo $this->translate('publishers'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('views'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('status'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('action'); ?>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach($this->publishers as $publisher){
-                ?>
-                <tr>
-                    <td>
-                        <?php echo ($publisher->getName())?$publisher->getName():$publisher->getId();?>
-                    </td>
-                    <td>
-                        <?php echo $publisher->getClicks();?>
-                    </td>
-                    <td>
-                        <?php echo $statusDetect->getStatus($publisher->getStatus());?>
-                    </td>
-                    <td>
-                        <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
-                        <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-            
-        </table>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <?php echo $this->translate('publishers'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('views'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('status'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('action'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach($this->publishers as $publisher){
+                    ?>
+                    <tr class="<?php echo $statusDetect->getStatus($publisher->getStatus());?>">
+                        <td>
+                            <?php echo ($publisher->getName())?$publisher->getName():$publisher->getId();?>
+                        </td>
+                        <td>
+                            <?php echo $publisher->getClicks();?>
+                        </td>
+                        <td>
+                            <?php echo $statusDetect->getStatus($publisher->getStatus());?>
+                        </td>
+                        <td>
+                            <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
+                            <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+                
+            </table>
+        </div>
     </div>
 
     <div class="adminTablesDiv">
         <div><?php echo $this->translate('objectsGroups'); ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo $this->translate('objectsGroups'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('status'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('action'); ?>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach($this->objectsGroup as $group){
-                ?>
-                <tr>
-                    <td>
-                        <?php echo ($group->getName())?$group->getName():$group->getId();?>
-                    </td>
-                    <td>
-                        <?php echo $statusDetect->getStatus($group->getActive());?>
-                    </td>
-                    <td>
-                        <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
-                        <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <?php echo $this->translate('objectsGroups'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('status'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('action'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach($this->objectsGroup as $group){
+                    ?>
+                    <tr class="<?php echo $statusDetect->getStatus($group->getActive());?>">
+                        <td>
+                            <?php echo ($group->getName())?$group->getName():$group->getId();?>
+                        </td>
+                        <td>
+                            <?php echo $statusDetect->getStatus($group->getActive());?>
+                        </td>
+                        <td>
+                            <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
+                            <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="adminTablesDiv">
         <div><?php echo $this->translate('shops'); ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo $this->translate('shops'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('views'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('status'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('action'); ?>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                 <?php 
-                    foreach($this->shops as $shop){
-                ?>
-                <tr>
-                    <td>
-                        <?php echo ($shop->getName())?$shop->getName():$shop->getId();?>
-                    </td>
-                    <td>
-                        <?php echo $shop->getPopulation();?>
-                    </td>
-                    <td>
-                        <?php echo $statusDetect->getStatus($shop->getActive());?>
-                    </td>
-                    <td>
-                        <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
-                        <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <?php echo $this->translate('shops'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('views'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('status'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('action'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <?php 
+                        foreach($this->shops as $shop){
+                    ?>
+                    <tr class="<?php echo $statusDetect->getStatus($shop->getActive());?>">
+                        <td>
+                            <?php echo ($shop->getName())?$shop->getName():$shop->getId();?>
+                        </td>
+                        <td>
+                            <?php echo $shop->getPopulation();?>
+                        </td>
+                        <td>
+                            <?php echo $statusDetect->getStatus($shop->getActive());?>
+                        </td>
+                        <td>
+                            <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
+                            <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="adminTablesDiv">
         <div><?php echo $this->translate('users'); ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo $this->translate('users'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('status'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('action'); ?>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach($this->users as $user){
-                ?>
-                <tr>
-                    <td>
-                        <?php echo ($user->getFirstName())?$user->getFirstName():$user->getId();?>
-                    </td>
-                    <td>
-                        <?php echo $statusDetect->getStatus($user->getActivate());?>
-                    </td>
-                    <td>
-                        <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
-                        <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <?php echo $this->translate('users'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('status'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('action'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach($this->users as $user){
+                    ?>
+                    <tr class="<?php echo $statusDetect->getStatus($user->getActivate());?>">
+                        <td>
+                            <?php echo ($user->getFirstName())?$user->getFirstName():$user->getId();?>
+                        </td>
+                        <td>
+                            <?php echo $statusDetect->getStatus($user->getActivate());?>
+                        </td>
+                        <td>
+                            <a href="user/editadmin/id/<?php echo $user->getId(); ?>" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
+                            <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        
     </div>
 
     <div class="adminTablesDiv">
         <div><?php echo $this->translate('collors'); ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo $this->translate('collors'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('status'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('action'); ?>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach($this->color as $color){
-                ?>
-                <tr>
-                    <td>
-                        <a href="" style="background:<?php echo $color->getCode();?>;width:20px;height:20px;display:block;"></a>
-                    </td>
-                    <td>
-                        <?php echo $statusDetect->getStatus($color->getActive());?>
-                    </td>
-                    <td>
-                        <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
-                        <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-            
-        </table>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <?php echo $this->translate('collors'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('status'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('action'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach($this->color as $color){
+                    ?>
+                    <tr class="<?php echo $statusDetect->getStatus($color->getActive());?>">
+                        <td>
+                            <a href="" style="background:<?php echo $color->getCode();?>;width:20px;height:20px;display:block;"></a>
+                        </td>
+                        <td>
+                            <?php echo $statusDetect->getStatus($color->getActive());?>
+                        </td>
+                        <td>
+                            <a href="color/<?php echo $color->getId(); ?>/edit" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
+                            <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+                
+            </table>
+        </div>
+        <div><a href="color/edit" title="<?php echo $this->translate('add');?>"><?php echo $this->translate('add');?></a></div>
     </div>
 
     <div class="adminTablesDiv">
         <div><?php echo $this->translate('brands'); ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo $this->translate('brands'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('status'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('action'); ?>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach($this->brand as $brand){
-                ?>
-                <tr>
-                    <td>
-                        <?php echo ($brand->getName())?$brand->getName():$brand->getId();?>
-                    </td>
-                    <td>
-                        <?php echo $statusDetect->getStatus($brand->getActive());?>
-                    </td>
-                    <td>
-                        <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
-                        <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <?php echo $this->translate('brands'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('status'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('action'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach($this->brand as $brand){
+                    ?>
+                    <tr class="<?php echo $statusDetect->getStatus($brand->getActive());?>">
+                        <td>
+                            <?php echo ($brand->getName())?$brand->getName():$brand->getId();?>
+                        </td>
+                        <td>
+                            <?php echo $statusDetect->getStatus($brand->getActive());?>
+                        </td>
+                        <td>
+                            <a href="brand/<?php echo $brand->getId(); ?>/edit" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
+                            <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <div><a href="brand/edit" title="<?php echo $this->translate('add');?>"><?php echo $this->translate('add');?></a></div>
     </div>
 
     <div class="adminTablesDiv">
         <div><?php echo $this->translate('material'); ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo $this->translate('material'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('status'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('action'); ?>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach($this->matreial as $material){
-                ?>
-                <tr>
-                    <td>
-                        <?php echo ($material->getName())?$material->getName():$material->getId();?>
-                    </td>
-                    <td>
-                        <?php echo $statusDetect->getStatus($material->getActive());?>
-                    </td>
-                    <td>
-                        <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
-                        <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <?php echo $this->translate('material'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('status'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('action'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach($this->matreial as $material){
+                    ?>
+                    <tr class="<?php echo $statusDetect->getStatus($material->getActive());?>">
+                        <td>
+                            <?php echo ($material->getName())?$material->getName():$material->getId();?>
+                        </td>
+                        <td>
+                            <?php echo $statusDetect->getStatus($material->getActive());?>
+                        </td>
+                        <td>
+                            <a href="material/<?php echo $material->getId(); ?>/edit" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
+                            <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <div><a href="material/edit" title="<?php echo $this->translate('add');?>"><?php echo $this->translate('add');?></a></div>
     </div>
     <div class="adminTablesDiv">
         <div><?php echo $this->translate('objects.type'); ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo $this->translate('type.name'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('status'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('action'); ?>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach($this->type as $type){
-                ?>
-                <tr>
-                    <td>
-                        <?php echo ($type->getName())?$type->getName():$type->getId();?>
-                    </td>
-                    <td>
-                        <?php echo $statusDetect->getStatus($type->getActive());?>
-                    </td>
-                    <td>
-                        <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
-                        <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <?php echo $this->translate('type.name'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('status'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('action'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach($this->type as $type){
+                    ?>
+                    <tr class="<?php echo $statusDetect->getStatus($type->getActive());?>">
+                        <td>
+                            <?php echo ($type->getName())?$type->getName():$type->getId();?>
+                        </td>
+                        <td>
+                            <?php echo $statusDetect->getStatus($type->getActive());?>
+                        </td>
+                        <td>
+                            <a href="objecttype/<?php echo $material->getId(); ?>/edit" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
+                            <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <div><a href="material/edit" title="<?php echo $this->translate('add');?>"><?php echo $this->translate('add');?></a></div>
     </div>
     <div class="adminTablesDiv">
         <div><?php echo $this->translate('shops.group'); ?></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo $this->translate('group.name'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('status'); ?>
-                    </th>
-                    <th>
-                        <?php echo $this->translate('action'); ?>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach($this->shopsGroup as $shopGroup){
-                ?>
-                <tr>
-                    <td>
-                        <?php echo ($shopGroup->getName())?$shopGroup->getName():$shopGroup->getId();?>
-                    </td>
-                    <td>
-                        <?php echo $statusDetect->getStatus($shopGroup->getActive());?>
-                    </td>
-                    <td>
-                        <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
-                        <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
-                    </td>
-                </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <div class="scrollable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <?php echo $this->translate('group.name'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('status'); ?>
+                        </th>
+                        <th>
+                            <?php echo $this->translate('action'); ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach($this->shopsGroup as $shopGroup){
+                    ?>
+                    <tr class="<?php echo $statusDetect->getStatus($shopGroup->getActive());?>">
+                        <td>
+                            <?php echo ($shopGroup->getName())?$shopGroup->getName():$shopGroup->getId();?>
+                        </td>
+                        <td>
+                            <?php echo $statusDetect->getStatus($shopGroup->getActive());?>
+                        </td>
+                        <td>
+                            <a href="" title="<?php echo $this->translate('edit');?>"><?php echo $this->translate('edit');?></a>
+                            <a href="" title="<?php echo $this->translate('overview');?>"><?php echo $this->translate('overview');?></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

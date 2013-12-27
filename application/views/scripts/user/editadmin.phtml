@@ -1,0 +1,123 @@
+<div>
+    <?php
+        if($this->isPublisher){
+        $user = $this->item;
+        $statusDetect = $this->getHelper('getStatus');
+    ?>
+    <form action="user/save" id="ajaxForm" name="ajaxForm">
+        <table>
+            <tr>
+                <td>
+                    <?php echo $this->translate('first.name'); ?>
+                </td>
+                <td>
+                    <?php echo $user->getFirstName(); ?>
+                    <input type="hidden"  value="<?php echo $user->getFirstName(); ?>" name="id"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('last.name'); ?>
+                </td>
+                <td>
+                    <?php echo $user->getLastName(); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('lgon'); ?>
+                </td>
+                <td>
+                    <?php echo $user->getLogin(); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('email'); ?>
+                </td>
+                <td>
+                    <?php echo $user->getEmail(); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('gender'); ?>
+                </td>
+                <td>
+                    <?php echo ($user->getGender()==1)?"male":"female"; ?>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <?php echo $this->translate('regDate'); ?>
+                </td>
+                <td>
+                    <?php echo $user->getDate(); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('loginByFacebook'); ?>
+                </td>
+                <td>
+                    <?php echo ($user->getOauthUid())?'yes':'no'; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('loginByTwitter'); ?>
+                </td>
+                <td>
+                    <?php echo ($user->getTwitterOauthToken())?'yes':'no'; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('username'); ?>
+                </td>
+                <td>
+                    <?php echo $user->getUsername(); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('discountMailStatus'); ?>
+                </td>
+                <td>
+                    <?php echo ($user->getSendDiscountMaileStatus()===0)?'no':'yes'; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('active'); ?>
+                </td>
+                <td>
+                    <input type="radio" name="activate" value="2">
+                </td>
+                <td>
+                    <?php echo $this->translate('IHaveNotSeen'); ?>
+                </td>
+                <td>
+                    <input type="radio" name="activate" value="1">
+                </td>
+                <td>
+                    <?php echo $this->translate('deactive'); ?>
+                </td>
+                <td>
+                    <input type="radio" name="activate" value="0">
+                </td>
+            </tr>
+            <tr>
+                <td class="middle left"></td>
+                <td class="middle left"><input type="button" onclick="Form.submit('ajaxForm')" value="save"/></td>
+            </tr>      
+        </table>
+    </form>
+    
+    <?php }else{ ?>
+        <div>
+            <?php echo $this->translate('this.action.only.for.publishers');?>
+        </div>
+    <?php } ?>
+	</div>

@@ -62,6 +62,8 @@ class AuthController extends SecureController {
             }else{
                 $url = 'publisher/add';
             }
+        }else if($user->getStatus()==2){
+            $url = 'superadmin';
         }
         $this->LOG->info('Success login with Username -> "' . $user->getEmail() . '"'); 
         $this->javascript()->redirect($url);

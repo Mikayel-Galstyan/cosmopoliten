@@ -100,6 +100,22 @@ class Dao_Objects extends Miqo_Dao_Base {
     	$items = &$this->getEntities($result);
     	return $items;
     }
+    
+    public function &getObjectsByGroupId($groupId) {
+    	$select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::OBJECTS))->where('object_group_id = ?',$groupId)
+        ->where('active != ?',0);
+    	$result = $this->dbTable->fetchAll($select);
+    	$items = &$this->getEntities($result);
+    	return $items;
+    }
+    
+    public function &getObjectsForGrouping() {
+    	$select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::OBJECTS))->where('object_group_id = ?',0)
+        ->where('active != ?',0);
+    	$result = $this->dbTable->fetchAll($select);
+    	$items = &$this->getEntities($result);
+    	return $items;
+    }
 }
 
 ?>
