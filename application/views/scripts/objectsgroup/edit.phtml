@@ -1,6 +1,33 @@
-<div class="w350 center editBorders">
+<style>
+	.scroll{
+		max-height:500px;
+		width:500px;
+		margin:5px;
+		padding:5px;
+		overflow:auto;
+		float:left;
+	}
+	.scroll>table>thead>tr>td{
+		color:white;
+		background:rgb(152, 160, 255);
+		font-size:18px;
+		border:1px solid white;
+		padding:5px;
+		text-align:center;
+	}
+	.scroll>table>tbody>tr>td{
+		color:white;
+		background:rgb(194, 194, 194);
+		font-size:15px;
+		border:1px solid white;
+		padding:5px;
+		text-align:center;
+	}
+</style>
+
+<div class="w450 center editBorders">
 <?php
-    $this->setPageTitle('user.management');
+    $this->setPageTitle('admin.management');
     $formatting = $this->getHelper('DataFormatting');
 ?>
 <script type="text/javascript">
@@ -9,90 +36,50 @@
     });
 </script>
 <?php
-    if($this->isPublisher){
+    if($this->isAdmin){
 ?>
-    <form id="ajaxForm" action="objects/save" method="post" onsubmit="Form.submit('ajaxForm'); return false;">
+    <form id="ajaxForm" action="objectsgroup/save" method="post" onsubmit="Form.submit('ajaxForm'); return false;">
         <input type="hidden" name="id" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getId()):'')?>" />
-        <input type="hidden" name="publisherId" value="<?php echo ($this->publisherId ? $this->htmlEscape($this->publisherId):'')?>" />
         <div class="fixed_head">
-            <span class="tableTitle"><?php echo $this->translate('object'). ' // ' . ($this->item ? $this->translate('edit'): $this->translate('add')); ?></span>        
+            <span class="tableTitle"><?php echo $this->translate('shop'). ' // ' . ($this->item ? $this->translate('edit'): $this->translate('add')); ?></span>        
             <table class="editTable">                    
                 <tbody>                    
                     <tr>
-                        <td class="middle left w180"><label for="name"><?php echo $this->translate('name')?> *</label></td>
-                        <td class="middle left"><input type="text" name="name" id="name" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getName()):$this->translate('default.name.object'))?>"/></td>                    
-                    </tr>
-                    <?php if($this->item){ ?>
-                        <tr>
-                            <td class="middle left w180"><label for="name"><?php echo $this->translate('clicks')?> *</label></td>
-                            <td class="middle left"><?php echo ($this->item ? $this->htmlEscape($this->item->getPopulation()):'')?></td>                    
-                        </tr> 
-                     <?php 
-                        }
-                     ?>
-                    <tr>
-                        <td class="middle left w150"><label for="description"><?php echo $this->translate('description')?></label></td>
-                        <td class="middle left"><input type="text" name="description" id="description" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getDescription()):$this->translate('default.description'))?>"/></td>
+                        <td class="middle left w180"><label for="name"><?php echo $this->translate('group.name')?> *</label></td>
+                        <td class="middle left"><input type="text" name="name" id="name" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getName()):$this->translate('group.name'))?>"/></td>                    
                     </tr>
                     <tr>
-                        <td class="middle left"><label for="cost"><?php echo $this->translate('cost')?></label></td>
-                        <td class="middle left">
-								<input type="text" name="cost" id="cost" class="w69" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getCost()):'30')?>"/>
-								<select name="value" id="value" class="w69">
-									<option value="1" <?php echo ($this->item && $this->item->getShopListId()=='1')?'selected="selected"':'' ?> ><?php echo $this->translate('dram')?></option>
-									<option value="2"<?php echo ($this->item && $this->item->getShopListId()=='2')?'selected="selected"':'' ?> ><?php echo $this->translate('dolar')?></option>
-									<option value="3" <?php echo ($this->item && $this->item->getShopListId()=='3')?'selected="selected"':'' ?> ><?php echo $this->translate('euro')?></option>
-								</select>
-						</td>
-                    </tr>
-                    <tr>
-                       <td class="middle left"><label for="objectTypeId"><?php echo $this->translate('select.types')?> </label></td>
-                       <td class="middle left">
-                           <div class="fl  mt5">
-								<select name="objectTypeId" id="objectTypeId">
-									<?php
-										foreach($this->types as $item){
-									?>
-										<option value="<?php echo $item->getId() ?>" <?php echo ($this->item && $this->item->getObjectTypeId()==$item->getId())?'selected="selected"':'' ?>><?php echo $this->translate($item->getName()); ?></option>
-									<?php
-										}
-									?>
-								</select>
-							</div>
-                       </td>
-                    </tr> 
-                    <tr>
-                        <td class="middle left"><label for="shopListId"><?php echo $this->translate('select.shop')?></label></td>
-                        <td class="middle left">
-							<div class="fl">
-								<select name="shopListId" id="shopListId">
-									<?php
-										foreach($this->shopList as $item){
-									?>
-										<option value="<?php echo $item->getId() ?>" <?php echo ($this->item && $this->item->getShopListId()==$item->getId())?'selected="selected"':'' ?> ><?php echo $this->translate($item->getName()); ?></option>
-									<?php
-										}
-									?>
-								</select>
-							</div>
-						</td>
-                    </tr>
-					<tr>
-                        <td class="middle left"><label for="shopListId"><?php echo $this->translate('select.gender')?></label></td>
-                        <td class="middle left">
-							<div class="fl">
-								<select name="for" id="for">
-									<option value="1">male</option>
-									<option value="2">female</option>
-									
-								</select>
-							</div>
-						</td>
-                    </tr>
-                    <tr>
-                        <td class="middle left"><label for="path"><?php echo $this->translate('object.image')?></label></td>
+                        <td class="middle left"><label for="path"><?php echo $this->translate('main.img')?></label></td>
                         <td class="middle left"><input type="file" name="path" id="path" value=""/><?php echo ($this->item ? '<img src="'.$this->htmlEscape($this->item->getPath()).'" style="width:100px;">':'')?></td>
-                    </tr> 
+                    </tr>
+					<?php if(count($this->shops)>0){ ?>
+					<tr>
+						<td colspan="2">
+							<div class="scroll center">
+								<table>
+									<thead>
+										<tr>
+											<td><?php echo $this->translate('name'); ?></td>
+											<td><?php echo $this->translate('action'); ?></td>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach ($this->shops as $shop){?>
+										<tr>
+											<td>
+												<?php echo $shop->getName(); ?>
+											</td>
+											<td>
+												<input type="checkbox" name="ids[]" value="<?php echo $shop->getId(); ?>" <?php echo (isset($this->item) && $this->item->getId()==$shop->getObjectGroupId())?'checked':''; ?> >
+											</td>
+										</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
+						</td>
+					</tr>
+					<?php } ?>
                     <tr>
                         <td class="middle left"></td>
                         <td class="middle left">
@@ -108,7 +95,7 @@
     </form>
     <?php }else{ ?>
         <div>
-            <?php echo $this->translate('this.action.only.for.publishers');?>
+            <?php echo $this->translate('this.action.only.for.admin');?>
         </div>
     <?php } ?>
 	</div>

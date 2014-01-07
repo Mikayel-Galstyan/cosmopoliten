@@ -15,8 +15,8 @@ class Service_Objects extends Miqo_Service_Base {
         $this->dao = new Dao_Objects();
     }
     
-    public function getByParams(Filter_Objects $filter){
-        $items = $this->dao->getByParams($filter);
+    public function getByParams(Filter_Objects $filter, $foruser = 1){
+        $items = $this->dao->getByParams($filter,$foruser);
         return $items;
     }
     

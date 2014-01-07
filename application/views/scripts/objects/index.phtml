@@ -82,7 +82,10 @@
         </div>
         <?php if($this->isPublisher){ ?>
         <div class="fl mr5">
-            <a href="objects/add" class="button w50"><?php echo $this->translate('add'); ?></a>
+            <a href="objects/add" class="button w100 fl"><?php echo $this->translate('add.object'); ?></a>
+			<a href="objectsgroup/add" class="button w100 fl">
+				<?php echo $this->translate('add.group'); ?>
+			</a>
         </div>
          <?php } ?>
     </form>
@@ -104,48 +107,52 @@
             </tr>
     		<tr class='panel'>
     			<td>
-                    <script>
-                        $(function(){
-                            LoveListObject.init();
-                        });
-                    </script>
-                    <div id="objectList" style="width:100%;">
-                        <?php
-                            foreach($this->objects as $item){
-                        ?>	
-                            <div data-id="object_<?php echo $item->getId();?>" class="objectContentDiv fl">
-                                <div class="objectHeader">
-                                    <div>
-                                        <?php echo ($item->getName())?$item->getName():'no description';?>
-                                    </div>
-                                </div>
-                                <div class="objectDiv">
-                                    <img src="<?php echo $item->getPath();?>">
-                                </div>
-                                <div class="favourDiv">
-                                    <a data-img="oneStar.png" data-evaluation="1"></a>
-                                    <a data-img="twoStars.png" data-evaluation="2"></a>
-                                    <a data-img="threeStars.png" data-evaluation="3"></a>
-                                    <a data-img="fourStars.png" data-evaluation="4"></a>
-                                    <a data-img="fiveStars.png" data-evaluation="5"></a>
-                                </div>    
-                                <div class="actionDiv">
-                                    <div>
-                                        <?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
-                                    </div>
-                                    
-									<?php if($this->isUser) { ?>
-										<a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
-									<?php }else if($this->isPublisher){ ?>
-										<a href="objects/<?php echo $item->getId();?>/edit" class="link fr editIco" >edit</a>
-									<?php }?>
-                                    <a href="objects/<?php echo $item->getId();?>/overview" class="link fl overview" ></a>
-                                </div>
-                            </div>
-                        <?php
-                            }
-                        ?>
-                    </div>
+					<?php if(!$this->isPublisher){ ?>
+						<script>
+							$(function(){
+								LoveListObject.init();
+							});
+						</script>
+						<div id="objectList" style="width:100%;">
+							<?php
+								foreach($this->objects as $item){
+							?>	
+								<div data-id="object_<?php echo $item->getId();?>" class="objectContentDiv fl">
+									<div class="objectHeader">
+										<div>
+											<?php echo ($item->getName())?$item->getName():'no description';?>
+										</div>
+									</div>
+									<div class="objectDiv">
+										<img src="<?php echo $item->getPath();?>">
+									</div>
+									<div class="favourDiv">
+										<a data-img="oneStar.png" data-evaluation="1"></a>
+										<a data-img="twoStars.png" data-evaluation="2"></a>
+										<a data-img="threeStars.png" data-evaluation="3"></a>
+										<a data-img="fourStars.png" data-evaluation="4"></a>
+										<a data-img="fiveStars.png" data-evaluation="5"></a>
+									</div>    
+									<div class="actionDiv">
+										<div>
+											<?php echo ($item->getCost())?$item->getCost():'0';?> <?php echo $this->getValuta($item->getValuta()); ?>
+										</div>
+										
+										<?php if($this->isUser) { ?>
+											<a class="unSelectedLoveList" id="add_<?php echo $item->getId();?>" onclick="LoveListObject.detectOption('add_<?php echo $item->getId();?>')"></a>
+										<?php }else if($this->isPublisher){ ?>
+											<a href="objects/<?php echo $item->getId();?>/edit" class="link fr editIco" >edit</a>
+										<?php }?>
+										<a href="objects/<?php echo $item->getId();?>/overview" class="link fl overview" ></a>
+									</div>
+								</div>
+							<?php
+								}
+							?>
+						</div>
+						<?php }else{ ?>
+								<?php echo $this->action("list", "objects"); ?>
+						<?php } ?>
                 </td>
     		</tr>
     	</tbody>

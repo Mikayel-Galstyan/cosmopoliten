@@ -13,6 +13,7 @@ class Dao_ShopList extends Miqo_Dao_Base {
 			'site' => 'site',
             'path' => 'path',
             'active'        => 'active',
+			'shops_group_id'        => 'shopsGroupId',
 			'mapControl' => 'mapControl');
     
     protected $entityClass = 'Domain_ShopList';
@@ -37,20 +38,25 @@ class Dao_ShopList extends Miqo_Dao_Base {
         if($filter->getPublisherId()){
             $select->where('publisher_id = ?', $filter->getPublisherId());
         }
-       /* if($filter->getObjectTypeId()){
-            $select->where('objectType_id = ?', $filter->getObjectTypeId());
-        }
-        if($filter->getCostMin()){
-            $select->where('cost >=', $filter->getCostMin());
-        }
-        if($filter->getCostMax()){
-            $select->where('cost <=', $filter->getCostMax());
-        }*/
+		if($filter->getGroupId()){
+			$select->where('shops_group_id = ?', $filter->getGroupId());
+		}else{
+			//$select->group('shops_group_id');
+		}
+        
         $result = $this->dbTable->fetchAll($select);
     	$items = &$this->getEntities($result);
     	return $items;
     }
     
+	public function &getShopsByGroupId($groupId) {
+    	$select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::SHOPLIST))->where('shops_group_id = ?',$groupId)
+        ->where('active != ?',0);
+    	$result = $this->dbTable->fetchAll($select);
+    	$items = &$this->getEntities($result);
+    	return $items;
+    }
+	
     public function &getOrderedList(Filter_Object $filter = null) {
     	$select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::SHOPLIST), array('id AS id', 'name AS name'));
     	if($filter) {

@@ -3,7 +3,7 @@
 class Service_Publisher extends Miqo_Service_Base {
     private $validator = null;
     private static $VALIDATION_CONFIG = array (
-            'name' => array (Miqo_Validation_Base::NOT_EMPTY, Miqo_Validation_Base::DB_NO_RECORD_EXISTS => array('table'=>Dao_DbTable_List::PUBLISHER, 'field' => 'name')),
+            'name' => array (Miqo_Validation_Base::NOT_EMPTY),
     );
     
     public function __construct() {

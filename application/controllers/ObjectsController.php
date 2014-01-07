@@ -18,6 +18,7 @@ class ObjectsController extends ImageutilController {
 	private $value = null;
 	private $material = null;
 	private $colorId = null;
+	private $active = null;
 	private $brand = null;
     
     public function indexAction() {
@@ -60,9 +61,15 @@ class ObjectsController extends ImageutilController {
 		$filter->setGender($this->for);
         if($this->getPublisherId()){
             $filter->setPublisherId($this->getPublisherId());
+			$this->view->isPublisher = true;
         }
         $service = new Service_Objects();
-        $objects = $service->getByParams($filter);
+		if($this->getAuthUser()){
+			$status = $this->getAuthUser()->getStatus();
+		}else{
+			$status = 2;
+		}
+        $objects = $service->getByParams($filter,$status);
         $this->view->objects = $objects;
     }
     
@@ -98,8 +105,21 @@ class ObjectsController extends ImageutilController {
 		}
 		$filter->setGender($this->for);
         $service = new Service_Objects();
-        $items = $service->getByParams($filter);
+		if($this->getAuthUser()){
+			$status = $this->getAuthUser()->getStatus();
+		}else{
+			$status = 1;
+		}
+        $items = $service->getByParams($filter,$status);
         $this->view->items = $items;
+		if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::PUBLISHER_ROLE){
+			$this->view->isPublisher = true;
+			$serviceGroup = new Service_ObjectsGroup();
+			$groups = $serviceGroup->getByPublisherId($this->getPublisherId());
+			$this->view->objectsGroup = $groups;
+		}else{
+			$this->view->isPublisher = false;
+		}
         $this->getStatus();
     }
     
@@ -164,7 +184,12 @@ class ObjectsController extends ImageutilController {
                 $service->addClick($id);
             }
 			$item = $service->getById($id);
+			$objectsInGroup = null;
+			if($item->getObjectGroupId()){
+				$objectsInGroup = $service->getObjectsByGroupId($item->getObjectGroupId());
+			}
 			$this->view->item = $item;
+			$this->view->objectsInGroup = $objectsInGroup;
 			$publisherService = new Service_Publisher();
 			$shopService = new Service_ShopList();
 			$this->view->shopList = $shopService->getById($item->getShopListId());
@@ -222,6 +247,43 @@ class ObjectsController extends ImageutilController {
             $this->printJsonError($errors, $this->translate('validation.error'));
         }
     }
+	
+	public function editadminAction(){
+        $id = $this->id;
+        $user = $this->getAuthUser();
+        if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::ADMIN_ROLE){
+            $this->view->isAdmin = true;
+            if($id){
+                $service = new Service_Objects();
+                $user = $service->getById($id);
+                $this->view->item = $user;
+            }
+        }else{
+            $this->view->isAdmin = false;
+        }
+    }
+    
+	public function saveadminAction(){
+        $this->setNoRender();
+		$id = $this->id;
+        $service = new Service_Objects();
+        if ($id != null) {
+            $item = $service->getById($id);
+			$item->setActive($this->active);
+			try {
+				$item = $service->save($item);
+				$this->printJsonSuccessRedirect($this->translate('success.save'),'superadmin');
+			} catch ( Miqo_Util_Exception_Validation $vex ) {
+				$errors = $this->translateValidationErrors($vex->getValidationErrors());
+				
+			}
+        }else{
+			$this->redirect('index');
+		}
+	}
+	
+	
+	
     
     public function &setId($val) {
         $this->id = $val;
@@ -292,6 +354,10 @@ class ObjectsController extends ImageutilController {
     }
 	public function &setBrand($val) {
         $this->brand = $val;
+        return $this;
+    }
+	public function &setActive($val) {
+        $this->active = $val;
         return $this;
     }
     

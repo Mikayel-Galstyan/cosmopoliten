@@ -1,18 +1,18 @@
 <div>
     <?php
-        if($this->isPublisher){
+        if($this->isAdmin){
         $user = $this->item;
         $statusDetect = $this->getHelper('getStatus');
     ?>
-    <form action="user/save" id="ajaxForm" name="ajaxForm">
+    <form action="user/saveadmin" id="ajaxForm" name="ajaxForm">
         <table>
             <tr>
                 <td>
                     <?php echo $this->translate('first.name'); ?>
                 </td>
                 <td>
-                    <?php echo $user->getFirstName(); ?>
-                    <input type="hidden"  value="<?php echo $user->getFirstName(); ?>" name="id"/>
+                    <?php echo $user->getId(); ?>
+                    <input type="hidden"  value="<?php echo $user->getId(); ?>" name="id"/>
                 </td>
             </tr>
             <tr>
@@ -48,14 +48,7 @@
                 </td>
             </tr>
             
-            <tr>
-                <td>
-                    <?php echo $this->translate('regDate'); ?>
-                </td>
-                <td>
-                    <?php echo $user->getDate(); ?>
-                </td>
-            </tr>
+            
             <tr>
                 <td>
                     <?php echo $this->translate('loginByFacebook'); ?>

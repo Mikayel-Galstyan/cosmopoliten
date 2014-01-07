@@ -11,6 +11,11 @@ class Domain_ShopGroup extends Miqo_Domain_AbstractEntity {
      * @var string
      */
     protected $path = null;
+	/**
+     *
+     * @var string
+     */
+    protected $publisherId = null;
    /**
      *
      * @var boolean
@@ -22,6 +27,13 @@ class Domain_ShopGroup extends Miqo_Domain_AbstractEntity {
     }
     public function &setActive($val) {
         $this->active = $val;
+        return $this;
+    }
+	public function getPublisherId() {
+        return $this->publisherId;
+    }
+    public function &setPublisherId($val) {
+        $this->publisherId = $val;
         return $this;
     }
     public function getName() {

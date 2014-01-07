@@ -21,6 +21,11 @@ class Service_ShopList extends Miqo_Service_Base {
         $items = $this->dao->getByParams($filter);
         return $items;
     }
+	
+	public function &getObjectsByGroupId($groupId) {
+    	$result = $this->dao->getObjectsByGroupId($groupId);
+        return $result;
+    }
 
 }
 ?>

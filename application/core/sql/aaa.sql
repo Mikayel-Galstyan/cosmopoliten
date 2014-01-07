@@ -1,6 +1,6 @@
 /*
 SQLyog Professional v10.42 
-MySQL - 5.5.16 : Database - cosmopoliten
+MySQL - 5.5.16 : Database - 737934
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 5.5.16 : Database - cosmopoliten
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`cosmopoliten` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`737934` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `cosmopoliten`;
+USE `737934`;
 
 /*Table structure for table `brand` */
 
@@ -161,7 +161,7 @@ DROP TABLE IF EXISTS `objects`;
 CREATE TABLE `objects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` text,
-  `path` varchar(155) NOT NULL DEFAULT 'defaultImages/objects.png',
+  `path` varchar(255) NOT NULL DEFAULT 'defaultImages/objects.png',
   `name` varchar(45) DEFAULT NULL,
   `cost` float DEFAULT NULL,
   `publisher_id` int(11) NOT NULL,
@@ -200,7 +200,7 @@ DROP TABLE IF EXISTS `objectsgroup`;
 CREATE TABLE `objectsgroup` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `path` varchar(45) NOT NULL,
+  `path` varchar(255) NOT NULL,
   `active` int(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -268,7 +268,7 @@ DROP TABLE IF EXISTS `shopgroup`;
 CREATE TABLE `shopgroup` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `path` varchar(45) NOT NULL,
+  `path` varchar(255) NOT NULL,
   `active` int(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -285,7 +285,7 @@ DROP TABLE IF EXISTS `shopimage`;
 
 CREATE TABLE `shopimage` (
   `id` int(11) NOT NULL,
-  `path` varchar(45) NOT NULL DEFAULT 'defaultImages/shopList.png',
+  `path` varchar(255) NOT NULL DEFAULT 'defaultImages/shopList.png',
   `shopList_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_shopImage_shopList1` (`shopList_id`),
@@ -335,7 +335,7 @@ DROP TABLE IF EXISTS `userimage`;
 CREATE TABLE `userimage` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `path` varchar(155) NOT NULL,
+  `path` varchar(255) NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_userImage_users1` (`user_id`),
@@ -368,7 +368,7 @@ CREATE TABLE `users` (
   `twitter_oauth_token` varchar(200) DEFAULT NULL,
   `twitter_oauth_token_secret` varchar(200) DEFAULT NULL,
   `username` varchar(200) DEFAULT NULL,
-  `path` varchar(200) DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
   `activate` int(2) DEFAULT '0',
   `send_discount_maile_status` varchar(45) DEFAULT '0',
   `activation_key` varchar(200) DEFAULT NULL,

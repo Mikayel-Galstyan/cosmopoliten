@@ -52,9 +52,9 @@ class UserController extends ImageutilController {
         $id = $this->id;
         if ($id) {
             $service = new Service_User();
-			$seviceImg = new Service_UserImage();
+			$seviceImg = new Service_UserImage();echo $id;
             $user = $service->getById($id);
-			$img = $seviceImg->getByUserId($id);
+			//$img = $seviceImg->getByUserId($id);
             $this->view->item = $user;
         } else {
             //$this->LOG->info($this->getUserName().' : '.self::CONTROLLER_NAME.' Controller : add Action');
@@ -196,6 +196,27 @@ class UserController extends ImageutilController {
         }
     }
     
+	public function saveadminAction(){
+        $this->setNoRender();
+		$id = $this->id;
+        $service = new Service_User();
+        if ($id != null) {
+            $item = $service->getById($id);
+			$item->setActivate($this->activate);
+			$item->setPassword(null);
+			try {
+				$item = $service->save($item);
+				$this->printJsonSuccessRedirect($this->translate('success.save'),'superadmin');
+			} catch ( Miqo_Util_Exception_Validation $vex ) {
+				$errors = $this->translateValidationErrors($vex->getValidationErrors());
+				
+			}
+        }else{
+			$this->redirect('superadmin');
+		}
+        
+	}
+	
     public function &setId($val) {
         $this->id = $val;
         return $this;

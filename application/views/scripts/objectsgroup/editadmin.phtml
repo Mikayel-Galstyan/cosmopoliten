@@ -1,0 +1,42 @@
+<div>
+    <?php
+        if($this->isAdmin){
+        $publisher = $this->item;
+        $statusDetect = $this->getHelper('getStatus');
+    ?>
+    <form action="objectsgroup/saveadmin" id="ajaxForm" name="ajaxForm">
+        <table>
+            <tr>
+                <td>
+                    <?php echo $this->translate('active'); ?>
+                </td>
+                <td>
+					<input type="hidden" name="id" value="<?php echo $publisher->getId(); ?>">
+                    <input type="radio" name="active" value="2" <?php ($publisher->getActive()==2)?'checked':''?>>
+                </td>
+                <td>
+                    <?php echo $this->translate('IHaveNotSeen'); ?>
+                </td>
+                <td>
+                    <input type="radio" name="active" value="1" <?php ($publisher->getActive()==1)?'checked':''?>>
+                </td>
+                <td>
+                    <?php echo $this->translate('deactive'); ?>
+                </td>
+                <td>
+                    <input type="radio" name="active" value="0" <?php ($publisher->getActive()===0)?'checked':''?>>
+                </td>
+            </tr>
+            <tr>
+                <td class="middle left"></td>
+                <td class="middle left"><input type="button" onclick="Form.submit('ajaxForm')" value="save"/></td>
+            </tr>      
+        </table>
+    </form>
+    
+    <?php }else{ ?>
+        <div>
+            <?php echo $this->translate('this.action.only.for.publishers');?>
+        </div>
+    <?php } ?>
+	</div>

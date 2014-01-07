@@ -8,7 +8,8 @@ class SuperadminController extends SecureController {
     public function indexAction() {
        $user = $this->getAuthUser();
        if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::ADMIN_ROLE){
-            $this->view->isAdmin = true;
+			
+           $this->view->isAdmin = true;
            $serviceUser = new Service_User();
            $servicePublisher = new Service_Publisher();
            $serviceShopList = new Service_ShopList();
@@ -30,7 +31,9 @@ class SuperadminController extends SecureController {
            $this->view->color = $serviceColor->getAll();
            $this->view->publishers = $servicePublisher->getAll();
            $this->view->matreial = $serviceMaterial->getAll();
-        }
+        }else{
+			$this->redirect('index');
+		}
     }
     
     public function listAction() {

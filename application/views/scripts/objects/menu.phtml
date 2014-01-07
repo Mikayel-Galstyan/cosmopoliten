@@ -30,6 +30,11 @@
         <div>
             <a href="lovelist" class="navDivlastChildA"><?php echo $this->translate('try.it')?></a>
         </div>
+		<?php if($this->isUser){ ?>
+			<div>
+				<a href="user/<?php echo $this->userId; ?>/edit" class="navDivlastChildA"><?php echo $this->translate('user.edit')?></a>
+			</div>
+		<?php } ?>
     <?php } else if(!$this->isAdmin){ 
         ?>
         <div>

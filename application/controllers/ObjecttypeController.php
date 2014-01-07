@@ -15,6 +15,7 @@ class ObjectTypeController extends ImageutilController {
     
     public function editAction(){
 		if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::ADMIN_ROLE){
+			$this->view->isAdmin = true;
 			if($this->id){
 				$service = new Service_ObjectType();
 				$this->view->item = $service->getById($this->id);
@@ -22,7 +23,6 @@ class ObjectTypeController extends ImageutilController {
 				$this->view->item = null;
 			}
 		}
-		$this->getStatus();
     }
     
     

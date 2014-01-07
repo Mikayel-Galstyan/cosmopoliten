@@ -12,6 +12,7 @@ class PublisherController extends ImageutilController {
     private $userId = null;
     private $order = null;
 	private $status = null;
+	
 
     public function indexAction() {
         if (!isset($userSession)) {
@@ -107,6 +108,41 @@ class PublisherController extends ImageutilController {
 		}
 	}
 	
+	public function editadminAction(){
+        $id = $this->id;
+        $user = $this->getAuthUser();
+        if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::ADMIN_ROLE){
+            $this->view->isAdmin = true;
+            if($id){
+                $service = new Service_Publisher();
+                $user = $service->getById($id);
+                $this->view->item = $user;
+            }
+        }else{
+            $this->view->isAdmin = false;
+        }
+    }
+    
+	public function saveadminAction(){
+        $this->setNoRender();
+		$id = $this->id;
+        $service = new Service_Publisher();
+        if ($id != null) {
+            $item = $service->getById($id);
+			$item->setStatus($this->status);
+			try {
+				$item = $service->save($item);
+				$this->printJsonSuccessRedirect($this->translate('success.save'),'superadmin');
+			} catch ( Miqo_Util_Exception_Validation $vex ) {echo "<pre>";var_dump($vex);echo "</pre>";
+				$errors = $this->translateValidationErrors($vex->getValidationErrors());
+				
+			}
+        }else{
+			$this->redirect('index');
+		}
+	}
+	
+	
     public function &setId($val) {
         $this->id = $val;
         return $this;
@@ -140,7 +176,7 @@ class PublisherController extends ImageutilController {
         return $this;
     }
 	public function &setStatus($val) {
-        $this->order = $val;
+        $this->status = $val;
         return $this;
     }
     

@@ -22,7 +22,7 @@ class Zend_View_Helper_getStatus extends Zend_View_Helper_Abstract {
     public function getStatus($value) {
         
         if($value===1){
-            $return = "IHaveNotSee";
+            $return = "inProccess";
         }else if($value===0){
             $return = "deactive";
         }else{

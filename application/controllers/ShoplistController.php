@@ -12,6 +12,7 @@ class ShoplistController extends ImageutilController {
 	private $site = null;
 	private $mapControl = null;
     private $order = null;
+	private $active = null;
 
     public function indexAction() {
         $publisherService = new Service_Publisher();
@@ -26,18 +27,20 @@ class ShoplistController extends ImageutilController {
     
     public function listAction() {
         $this->getStatus();
-        if(!$this->getAuthUser() || !$this->getAuthUser()->getStatus()== Service_User::PUBLISHER_ROLE){
+        if(!$this->getAuthUser()){
             $servie=new Service_ShopList();
             $filter = new Filter_ShopList();
             $filter->setPublisherId($this->publisherId);
             $items = $servie->getByParams($filter);
             $this->view->items = $items;
-        }else{
+        }else if($this->getAuthUser()->getStatus()== Service_User::PUBLISHER_ROLE){
+			$servieGroup = new Service_ShopGroup();
             $servie=new Service_ShopList();
             $filter = new Filter_ShopList();
             $filter->setPublisherId($this->getPublisherId());
             $items = $servie->getByParams($filter);
             $this->view->items = $items;
+			$this->view->shopGroups = $servieGroup->getByPublisherId($this->getPublisherId());
         }
     }
     
@@ -80,6 +83,7 @@ class ShoplistController extends ImageutilController {
         $item->setPhone($this->phone);
         $item->setDescription($this->description);
 		$item->setMapControl($this->mapControl);
+		$item->setActive($this->active);
         if(!is_dir ("users/".$this->getAuthUser()->getEmail().'/'.$this->name)){
 			mkdir("users/".$this->getAuthUser()->getEmail().'/'.$this->name);
 		}
@@ -124,6 +128,40 @@ class ShoplistController extends ImageutilController {
 		}
 	}
 	
+	public function editadminAction(){
+        $id = $this->id;
+        $user = $this->getAuthUser();
+        if($this->getAuthUser() && $this->getAuthUser()->getStatus()== Service_User::ADMIN_ROLE){
+            $this->view->isAdmin = true;
+            if($id){
+                $service = new Service_ShopList();
+                $user = $service->getById($id);
+                $this->view->item = $user;
+            }
+        }else{
+            $this->view->isAdmin = false;
+        }
+    }
+    
+	public function saveadminAction(){
+        $this->setNoRender();
+		$id = $this->id;
+        $service = new Service_ShopList();
+        if ($id != null) {
+            $item = $service->getById($id);
+			$item->setActive($this->active);
+			try {
+				$item = $service->save($item);
+				$this->printJsonSuccessRedirect($this->translate('success.save'),'superadmin');
+			} catch ( Miqo_Util_Exception_Validation $vex ) {
+				$errors = $this->translateValidationErrors($vex->getValidationErrors());
+				
+			}
+        }else{
+			$this->redirect('index');
+		}
+	}
+	
     public function &setId($val) {
         $this->id = $val;
         return $this;
@@ -154,6 +192,11 @@ class ShoplistController extends ImageutilController {
     }
     public function &setOrder($val) {
         $this->order = $val;
+        return $this;
+    }
+	
+	public function &setActive($val) {
+        $this->active = $val;
         return $this;
     }
 	

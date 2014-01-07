@@ -50,7 +50,21 @@ class Filter_Objects {
      * @var int
      */
     protected $brandId = null;
+
+	/**
+     *
+     * @var int
+     */
+    protected $groupId = null;
     
+	
+	public function getGroupId() {
+        return $this->groupId;
+    }
+    public function &setGroupId($val) {
+        $this->groupId = $val;
+        return $this;
+    }
     
 	public function getMaterialId() {
         return $this->materialId;
@@ -78,10 +92,10 @@ class Filter_Objects {
     }
 	
 	public function getGender() {
-        return $this->for;
+        return $this->gender;
     }
     public function &setGender($val) {
-        $this->for = $val;
+        $this->gender = $val;
         return $this;
     }
 	

@@ -16,7 +16,19 @@ class Domain_ObjectsGroup extends Miqo_Domain_AbstractEntity {
      * @var boolean
      */
 	protected $active = null;
+	/**
+     *
+     * @var boolean
+     */
+	protected $publisherId = null;
     
+	public function getPublisherId() {
+        return $this->publisherId;
+    }
+    public function &setPublisherId($val) {
+        $this->publisherId = $val;
+        return $this;
+    }
     public function getActive() {
         return $this->active;
     }

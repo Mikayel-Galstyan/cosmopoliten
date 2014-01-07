@@ -4,12 +4,50 @@ $(function(){
 });
 
 </script>
+<style>
+	.active>td{
+        background:green !important;
+    }
+    .inProccess>td{
+        background:orange !important;
+    }
+    .deactive>td{
+        background:red !important;
+    }
+	.scroll{
+		max-height:500px;
+		width:500px;
+		margin:5px;
+		padding:5px;
+		overflow:auto;
+		float:left;
+	}
+	.scroll>table>thead>tr>td{
+		color:white;
+		background:rgb(152, 160, 255);
+		font-size:18px;
+		border:1px solid white;
+		padding:5px;
+		text-align:center;
+	}
+	.scroll>table>tbody>tr>td{
+		color:white;
+		background:rgb(194, 194, 194);
+		font-size:15px;
+		border:1px solid white;
+		padding:5px;
+		text-align:center;
+	}
+</style>
+
+
 <?php
     $this->setPageTitle('shops');
     $formatting = $this->getHelper('DataFormatting');
 ?>
 <div>
-	<?php 
+	<?php
+	if(!$this->isPublisher){
 		foreach($this->items as $item){
 	?>
 		<div data-id="object_<?php echo $item->getId();?>" class="objectContentDiv fl">
@@ -31,16 +69,88 @@ $(function(){
             <div class="actionDiv">
                 <a href="objects/<?php echo $item->getId() ?>/shoplist/index" class="link fl textw pt8 ml10"><?php echo $this->translate('go.to.company.products');?></a>
                 <a href="shoplist/<?php echo $item->getId() ?>/overview" class="link fl overview" ></a>
-                <?php
-                    if($this->isPublisher){
-                ?>
-                    <a class="link textw fl pt8" href="shoplist/<?php echo $item->getId() ?>/edit">edit shop</a>
-                <?php 
-                    }
-                ?>
+                
             </div>
         </div>
 	<?php
 		}
+	}else{
+		$statusDetect = $this->getHelper('getStatus');
+		
 	?>
+		<div class="scroll">
+			<table>
+				<thead>
+					<tr>
+						<td>
+							<?php echo $this->translate('shop.name'); ?>
+						</td>
+						<td>
+							<?php echo $this->translate('views'); ?>
+						</td>
+						<td>
+							<?php echo $this->translate('group.name'); ?>
+						</td>
+						<td>
+							<?php echo $this->translate('activated'); ?>
+						</td>
+						<td>
+							<?php echo $this->translate('action'); ?>
+						</td>
+					</tr>	
+				<thead>
+				<tbody>
+					<?php foreach($this->items as $item){ ?>
+						<tr class="<?php echo $statusDetect->getStatus($item->getActive());?>">
+							<td>
+								<?php echo $item->getName(); ?>
+							</td>
+							<td>
+								<?php echo $item->getPopulation(); ?>
+							</td>
+							<td>
+								<?php echo $item->getShopsGroupId(); ?>
+							</td>
+							<td>
+								<?php echo $statusDetect->getStatus($item->getActive()); ?>
+							</td>
+							<td>
+								<a href="shopsgroup<?php echo (!$item->getShopsGroupId())?'':'/'.$item->getShopsGroupId(); ?>/edit" class="ml5 mr5 mt5"><?php echo $this->translate('edit.group');?></a>
+								<a href="shoplist/<?php echo $item->getId(); ?>/edit"  class="ml5 mr5 mt5"><?php echo $this->translate('edit');?></a>
+							</td>
+						</tr>
+					<?php } ?>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="scroll">
+			<table>
+				<thead>
+					<tr>
+						<td>
+							<?php echo $this->translate('group.name'); ?>
+						</td>
+						<td>
+							<?php echo $this->translate('action'); ?>
+						</td>
+					</tr>	
+				<thead>
+				<tbody>
+					<?php 
+						if($this->shopGroups){
+						foreach($this->shopGroups as $item){ ?>
+						<tr>
+							<td>
+								<?php echo $item->getName(); ?>
+							</td>
+							<td>
+								<a href="shopsgroup/<?php echo $item->getId(); ?>/edit"  class="ml5 mr5 mt5"><?php echo $this->translate('edit');?></a>
+							</td>
+						</tr>
+					<?php }} ?>
+				</tbody>
+			</table>
+		</div>
+	<?php } ?>
 </div>

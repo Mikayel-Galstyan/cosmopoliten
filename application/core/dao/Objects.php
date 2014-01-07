@@ -39,23 +39,11 @@ class Dao_Objects extends Miqo_Dao_Base {
         $this->dbAdapter->query($query);
     }
     
-    public function &getByParams(Filter_Objects $filter){
-        $select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::OBJECTS),array(
-        'id AS id', 
-        'name AS name',
-        'path AS path',
-        'description AS description',
-        'cost AS cost',
-        'publisher_id AS publisherId',
-        'objectType_id AS objectTypeId',
-        'shopList_id AS shopListId',
-		'gender AS gender',
-		'color_id AS colorId',
-		'material_id AS materialId',
-		'object_group_id AS objectGroupId',
-		'brand_id AS brandId',
-		'path_back AS pathBack'
-        ));
+    public function &getByParams(Filter_Objects $filter,$forUser = 1){
+        $select = $this->dbTable->select()->from(array('c' => Dao_DbTable_List::OBJECTS));
+		if($forUser==2){
+			$select->where('active = ?', 2);
+		}
         if($filter->getShopListId()){
             $select->where('shopList_id = ?', $filter->getShopListId());
         }
@@ -83,7 +71,13 @@ class Dao_Objects extends Miqo_Dao_Base {
 		if($filter->getColorId()){
             $select->where('color_id = ?', $filter->getColorId());
         }
+		if($filter->getGroupId()){
+            $select->where('object_group_id = ?', $filter->getGroupId());
+        }else{
+			//$select->group('object_group_id');
+		}
         $select->order('population DESC');
+		
         $result = $this->dbTable->fetchAll($select);
     	$items = &$this->getEntities($result);
     	return $items;

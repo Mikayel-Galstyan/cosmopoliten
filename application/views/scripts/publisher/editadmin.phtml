@@ -1,0 +1,67 @@
+<div>
+    <?php
+        if($this->isAdmin){
+        $publisher = $this->item;
+        $statusDetect = $this->getHelper('getStatus');
+    ?>
+    <form action="publisher/saveadmin" id="ajaxForm" name="ajaxForm">
+        <table>
+            <tr>
+                <td>
+                    <?php echo $this->translate('company.name'); ?>
+                </td>
+                <td>
+                    <?php echo $publisher->getId(); ?>
+                    <input type="hidden"  value="<?php echo $publisher->getId(); ?>" name="id"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('company.address'); ?>
+                </td>
+                <td>
+                    <?php echo $publisher->getAddress(); ?>
+                    <input type="hidden"  value="<?php echo $publisher->getAddress(); ?>" name="address"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('views'); ?>
+                </td>
+                <td>
+                    <?php echo $publisher->getPopulation(); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $this->translate('active'); ?>
+                </td>
+                <td>
+                    <input type="radio" name="status" value="2" <?php ($publisher->getStatus()==2)?'checked':''?>>
+                </td>
+                <td>
+                    <?php echo $this->translate('IHaveNotSeen'); ?>
+                </td>
+                <td>
+                    <input type="radio" name="status" value="1" <?php ($publisher->getStatus()==1)?'checked':''?>>
+                </td>
+                <td>
+                    <?php echo $this->translate('deactive'); ?>
+                </td>
+                <td>
+                    <input type="radio" name="status" value="0" <?php ($publisher->getStatus()===0)?'checked':''?>>
+                </td>
+            </tr>
+            <tr>
+                <td class="middle left"></td>
+                <td class="middle left"><input type="button" onclick="Form.submit('ajaxForm')" value="save"/></td>
+            </tr>      
+        </table>
+    </form>
+    
+    <?php }else{ ?>
+        <div>
+            <?php echo $this->translate('this.action.only.for.publishers');?>
+        </div>
+    <?php } ?>
+	</div>

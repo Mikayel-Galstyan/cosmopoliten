@@ -1,4 +1,31 @@
-<div class="w350 center editBorders">
+<style>
+	.scroll{
+		max-height:500px;
+		width:500px;
+		margin:5px;
+		padding:5px;
+		overflow:auto;
+		float:left;
+	}
+	.scroll>table>thead>tr>td{
+		color:white;
+		background:rgb(152, 160, 255);
+		font-size:18px;
+		border:1px solid white;
+		padding:5px;
+		text-align:center;
+	}
+	.scroll>table>tbody>tr>td{
+		color:white;
+		background:rgb(194, 194, 194);
+		font-size:15px;
+		border:1px solid white;
+		padding:5px;
+		text-align:center;
+	}
+</style>
+
+<div class="w450 center editBorders">
 <?php
     $this->setPageTitle('admin.management');
     $formatting = $this->getHelper('DataFormatting');
@@ -14,17 +41,49 @@
     <form id="ajaxForm" action="shopsgroup/save" method="post" onsubmit="Form.submit('ajaxForm'); return false;">
         <input type="hidden" name="id" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getId()):'')?>" />
         <div class="fixed_head">
-            <span class="tableTitle"><?php echo $this->translate('brand'). ' // ' . ($this->item ? $this->translate('edit'): $this->translate('add')); ?></span>        
+            <span class="tableTitle"><?php echo $this->translate('shop'). ' // ' . ($this->item ? $this->translate('edit'): $this->translate('add')); ?></span>        
             <table class="editTable">                    
                 <tbody>                    
                     <tr>
-                        <td class="middle left w180"><label for="name"><?php echo $this->translate('name')?> *</label></td>
-                        <td class="middle left"><input type="text" name="name" id="name" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getName()):$this->translate('brand.name'))?>"/></td>                    
+                        <td class="middle left w180"><label for="name"><?php echo $this->translate('group.name')?> *</label></td>
+                        <td class="middle left"><input type="text" name="name" id="name" value="<?php echo ($this->item ? $this->htmlEscape($this->item->getName()):$this->translate('group.name'))?>"/></td>                    
                     </tr>
                     <tr>
-                        <td class="middle left"><label for="path"><?php echo $this->translate('brand.logo')?></label></td>
+                        <td class="middle left"><label for="path"><?php echo $this->translate('main.img')?></label></td>
                         <td class="middle left"><input type="file" name="path" id="path" value=""/><?php echo ($this->item ? '<img src="'.$this->htmlEscape($this->item->getPath()).'" style="width:100px;">':'')?></td>
-                    </tr> 
+                    </tr>
+					<?php if(count($this->shops)>0){ ?>
+					<tr>
+						<td colspan="2">
+							<div class="scroll center">
+								<table>
+									<thead>
+										<tr>
+											<td><?php echo $this->translate('name'); ?></td>
+											<td><?php echo $this->translate('address'); ?></td>
+											<td><?php echo $this->translate('action'); ?></td>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach ($this->shops as $shop){?>
+										<tr>
+											<td>
+												<?php echo $shop->getName(); ?>
+											</td>
+											<td>
+												<?php echo $shop->getAddress(); ?>
+											</td>
+											<td>
+												<input type="checkbox" name="ids[]" value="<?php echo $shop->getId(); ?>" <?php echo (isset($this->item) && $this->item->getId()==$shop->getShopsGroupId())?'checked':''; ?> >
+											</td>
+										</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
+						</td>
+					</tr>
+					<?php } ?>
                     <tr>
                         <td class="middle left"></td>
                         <td class="middle left">

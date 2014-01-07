@@ -11,9 +11,15 @@ $(function(){
 </script>
 <div class="table_wrapper ml20 mt20">
     <?php if($this->isPublisher){ ?>
-        <a href="shoplist/add" class="button w50">
-			<?php echo $this->translate('add'); ?>
-		</a>
+		<div>
+			<a href="shoplist/add" class="button w100 fl">
+				<?php echo $this->translate('add.shop'); ?>
+			</a>
+			<a href="shopsgroup/add" class="button w100 fl">
+				<?php echo $this->translate('add.group'); ?>
+			</a>
+		</div>
+		<br>
     <?php } else{ ?>    
 	<form action="shoplist/list" name="ajaxForm" id="ajaxForm">
 		<div class="mr5 fl mt-5">
