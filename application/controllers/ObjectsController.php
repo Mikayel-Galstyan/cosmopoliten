@@ -73,8 +73,22 @@ class ObjectsController extends ImageutilController {
         $this->view->objects = $objects;
     }
     
+	public function langAction(){
+		$langSession = new Miqo_Session_Base();
+		$lang = $langSession->get('lang');
+		if(!$lang){
+			$lang = "en";
+			$langSession->set('lang','en');
+		}
+		$this->view->lang = $lang;
+	}
+	
 	public function menuAction(){
         $this->getStatus();
+		$service = new Service_Visitors();
+		$domain = new Domain_Visitors();
+		$domain->setCount(1);
+		$service->save($domain);
 		if($this->getAuthUser()){
 			$this->view->publisherId = $this->getPublisherId();
 			$this->view->userId = $this->getAuthUser()->getId();
@@ -82,6 +96,7 @@ class ObjectsController extends ImageutilController {
             $this->view->path = $this->getAuthUser()->getPath();
 		}
 	}
+	
 	
     public function listAction() {
         $filter = new Filter_Objects();

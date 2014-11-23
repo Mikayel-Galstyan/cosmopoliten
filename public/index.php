@@ -2,14 +2,14 @@
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(dirname(__FILE__) . '/library'),
+    realpath(dirname(__FILE__) . '/../library'),
     get_include_path(),
 )));
 // Define application public path
 defined('PUBLIC_PATH') || define('PUBLIC_PATH', realpath(dirname(__FILE__)));
 
 // Define path to application directory
-defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/application'));
+defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
 // Define application environment
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
@@ -24,5 +24,6 @@ $application = new Zend_Application(
 );
 
 $application->bootstrap()->run();
+
 
 ?>

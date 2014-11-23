@@ -57,31 +57,31 @@
                 ?>
             </select>
         </div>
-		<div class="fl mr5">
+		<div class="fl mr5 mt5">
             <select name="for" id="for">
 				<option value="1"><?php echo $this->translate('man'); ?></option>
 				<option value="2"><?php echo $this->translate('woman'); ?></option>
-				<option value="3"><?php echo $this->translate(array('child','man')); ?></option>
-				<option value="4"><?php echo $this->translate(array('child','woman')); ?></option>
+				<option value="3"><?php echo $this->translate(array('child man')); ?></option>
+				<option value="4"><?php echo $this->translate(array('child woman')); ?></option>
             </select>
         </div>
-		<div class="fl mr5 pt8">
-			cost from
+		<div class="fl mr5 pt8 mt5">
+			<?php echo $this->translate('cost from'); ?>
 		</div>
-		<div class="fl mr5">
-			<input type="text" class="w50 textField mt0" placeholder="min" name="costMin"/>
+		<div class="fl mr5 mt5">
+			<input type="text" class="w50 textField mt0" placeholder="<?php echo $this->translate('min'); ?>" name="costMin"/>
 		</div>
-		<div class="fl mr5 pt8">
-			to
+		<div class="fl mr5 pt8 mt5">
+			<?php echo $this->translate('to'); ?>
 		</div>
-		<div class="fl mr5">
-			<input type="text" class="w50 textField mt0" placeholder="max" name="costMax"/>
+		<div class="fl mr5 mt5">
+			<input type="text" class="w50 textField mt0" placeholder="<?php echo $this->translate('max'); ?>" name="costMax"/>
 		</div>
-        <div class="fl mr5">
-            <a class="button w50"  onclick="Filter.submit('ajaxForm');return false;"><?php echo $this->translate('filter'); ?></a>
+        <div class="fl mr5 mt5">
+            <a class="button "  onclick="Filter.submit('ajaxForm');return false;"><?php echo $this->translate('filter'); ?></a>
         </div>
         <?php if($this->isPublisher){ ?>
-        <div class="fl mr5">
+        <div class="fl mr5 mt5">
             <a href="objects/add" class="button w100 fl"><?php echo $this->translate('add.object'); ?></a>
 			<a href="objectsgroup/add" class="button w100 fl">
 				<?php echo $this->translate('add.group'); ?>
@@ -90,16 +90,16 @@
          <?php } ?>
     </form>
 	<?php if(!$this->isPublisher){ ?>
-		<div class="fl mr5">
+		<div class="fl mr5 mt5">
 			<form id="addForm" name="addForm" action="<?php echo ($this->isUser)?'lovelist/save':'objects/delete' ?>">
 			</form>
-			<a onclick="Form.submit('addForm')" class="button w50" id="addToLoveList" style="display:none;"><?php echo $this->translate('add'); ?></a>
+			<a onclick="Form.submit('addForm')" class="button " id="addToLoveList" style="display:none;"><?php echo $this->translate('add'); ?></a>
 		</div>
 	<?php } ?>
     <br/>
    
     <br/>
-    <table class="mt20">
+    <table class="mt50">
     	<tbody>
     		<tr class="head">
                 <td>

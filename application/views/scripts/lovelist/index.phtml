@@ -140,7 +140,7 @@ $(function(){
                 <div><a href="user/<?php echo $this->id ?>/edit" class="button w100 fl mt5 ml48"><?php echo $this->translate(array('edit','user')); ?></a></div>
                 <form action="image/uploadimage" method="POST" enctype="multipart/form-data" id="imageUpload">
                     <div style="width:100px;height:40px; float:right;position:relative;margin:5px;margin-right:40px;">
-                        <a  class="button tw" style="position:absolute;top:0px;left:0px;width:100px;">upload file</a>
+                        <a  class="button tw" style="position:absolute;top:0px;left:0px;width:100px;"><?php echo $this->translate(array('upload file')); ?></a>
                         <input type="file" name="path" style="opacity:0;position:absolute;top:0px;left:0px;width:100%;height:40px;cursour:pointer;" onchange="Filter.submit('imageUpload','imgDiv')">
                     </div>
                 </form>
@@ -155,13 +155,12 @@ $(function(){
     </table>
 <?php }else{ ?>
     <div style="margin-left:auto;margin-right:auto;width:500px;">
-        <span> <?php echo $this->translate('requirement'); ?> For Using This Program Please InserYour email </span>
+        <span> <?php echo $this->translate('requirement For Using This Program Please InserYour email'); ?></span>
         <form action="user/save/type/byMail" method="POST" id="addUserEmail">
             <input type="text" name="email" value="" placeholder="<?php echo $this->translate('email'); ?>">
             <a class="tw button w100 mt5 ml5" onclick="Filter.submit('addUserEmail','addUserEmail')"><?php echo $this->translate('save'); ?></a>
         </form><br>
-        <?php echo $this->translate('show'); ?> This video show you how it work :<br><br><br>
-        <embed width="420" height="345" src="http://www.youtube.com/v/XGSy3_Czz8k" type="application/x-shockwave-flash"> </embed>
+       
     </div>
     
 <?php } ?>

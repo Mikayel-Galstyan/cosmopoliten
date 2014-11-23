@@ -10,12 +10,6 @@ abstract class SecureController extends ControllerActionSupport {
         parent::preDispatch();
         $userSession = new Miqo_Session_Base();
         $this->userSession = $userSession;
-        if (!$userSession->get('authUser')){
-            //return $this->_redirect('/auth/logout');
-        }
-		if($userSession->get('authUser') && $userSession->get('authUser')->getStatus() == 1 && !$userSession->get('publisherId') && $this->getRequest()->getControllerName()!='/publisher/add'){
-			//$this->_redirect('/publisher/add');
-		}
         if($this->isXmlHttpRequest()) {
             $this->disableLayout();
         }

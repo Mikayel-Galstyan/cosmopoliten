@@ -16,5 +16,6 @@ class Dao_DbTable_List {
 	const MATERIAL     = 'material';
 	const BRAND        = 'brand';
 	const SHOPGROUP    = 'shopGroup';	
-	const COLOR        = 'color';	
+	const COLOR        = 'color';
+	const VISITORS     = 'visitors';	
 }

@@ -115,8 +115,8 @@
 								<?php echo $statusDetect->getStatus($item->getActive()); ?>
 							</td>
 							<td>
-								<a href="shopsgroup<?php echo (!$item->getObjectGroupId())?'':'/'.$item->getObjectGroupId(); ?>/edit" class="ml5 mr5 mt5"><?php echo $this->translate('edit.group');?></a>
-								<a href="shoplist/<?php echo $item->getId(); ?>/edit"  class="ml5 mr5 mt5"><?php echo $this->translate('edit');?></a>
+								<a href="objectsgroup<?php echo (!$item->getObjectGroupId())?'':'/'.$item->getObjectGroupId(); ?>/edit" class="ml5 mr5 mt5"><?php echo $this->translate('edit.group');?></a>
+								<a href="objects/<?php echo $item->getId(); ?>/edit"  class="ml5 mr5 mt5"><?php echo $this->translate('edit');?></a>
 							</td>
 						</tr>
 					<?php } ?>

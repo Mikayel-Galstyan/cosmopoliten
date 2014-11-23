@@ -40,6 +40,7 @@ class Miqo_Dao_Base {
      * Merges defined data columns and column aliases with the traceables.
      */
     public function __construct() {
+		mysql_query("SET NAMES utf8");
         if (get_parent_class($this->entityClass) == 'Miqo_Domain_AbstractTraceableEntity') {
             $this->dateColumns = array_merge($this->dateColumns, Miqo_Domain_AbstractTraceableEntity::getTraceableDateColumns());
             $this->columnAliases = array_merge($this->columnAliases, Miqo_Domain_AbstractTraceableEntity::getTraceableColumnAliases());        

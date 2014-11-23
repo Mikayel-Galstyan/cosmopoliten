@@ -4,10 +4,15 @@
     <?php 
         $jsHelper = $this->getHelper('js');
         $jsHelper->urlChecker();
-        echo $this->headMeta();        
+        echo $this->headMeta();
+		mb_internal_encoding("UTF-8");
+		echo header( "Content-Type: text/html;charset=UTF-8", true );
+
     ?>
     <title><?php echo $this->translate('project.name')?></title>
     <base href="<?php echo $this->baseUrl(); ?>" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	
     <link rel="stylesheet" type="text/css" href="css/style.css" />  
 	<link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" media="screen" />
@@ -28,21 +33,24 @@
     ->appendFile('js/plugins/history.js', 'text/javascript')
     ->appendFile('js/plugins/jquery.mousewheel.js', 'text/javascript')
     ->appendFile('js/plugins/custom.form.elements.js', 'text/javascript')
-    ->appendFile('js/plugins/jquery.jqtransform.js', 'text/javascript');        
+    ->appendFile('js/plugins/jquery.jqtransform.js', 'text/javascript');
+	$langSession = new Miqo_Session_Base();
+	$lang = $langSession->get('lang');
     ?>
     <?php echo $this->action("index", "Jsmin"); ?>
     </head>
-<body>
-	
-	
+<body lang="<?php echo ($lang)?$lang:"en"; ?>">
+	<div style="margin-top:5px;font-size:20px;color:red;float:left;margin-left:100px;">DE</div>
+	<div style="margin-top:5px;font-size:20px;color:blue;float:left">MO</div>
+	<div style="margin-top:5px;font-size:20px;color:green;float:left">&nbsp SITE FOR FUN</div><br>
+	<?php echo $this->action("lang", "objects"); ?>
     <div class="page_wrapper">
 		<?php echo $this->action("menu", "objects"); ?>
 	</div>
 	<div class="content_wrapper">
 		<div class="content_container">
-			
-			<div class="panel fl">
-					 <?php echo $this->layout()->content; ?>
+			<div class="panel">
+				<?php echo $this->layout()->content; ?>
 			</div>
 		</div>
 		<div class="cl"></div>

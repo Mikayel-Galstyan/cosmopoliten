@@ -14,6 +14,10 @@
 	});
 
 </script>
+<?php 
+	mb_internal_encoding("UTF-8");
+	echo header( "Content-Type: text/html;charset=UTF-8", true );
+?>	
     <div class="nav">
     <?php 
         if(!$this->isPublisher && !$this->isAdmin){
@@ -47,6 +51,9 @@
             <a href="objects"><?php echo $this->translate('my.objects')?></a>
         </div>
 		<div>
+            <a href="discounts"><?php echo $this->translate('discount')?></a>
+        </div>
+		<div>
             <a href="user/<?php echo $this->userId; ?>/edit" class="navDivlastChildA"><?php echo $this->translate('user.edit')?></a>
         </div>
 
@@ -70,7 +77,7 @@
         }
     ?>
     <div id="loginInfo">  
-        <?php if(!$this->isPublisher && (!$this->isUser) && (!$this->isAdmin)){ 
+        <?php if(!$this->isPublisher && (!$this->isUser) && (!$this->isAdmin)){
         ?>
             <div>
                 <a href="user/add" class="button w50 fr mt10 mr10" ><?php echo $this->translate('sign.up')?></a>
@@ -88,4 +95,5 @@
             }
         ?>
     </div>
+	
 </div>

@@ -11,6 +11,7 @@
 @import url("menu.css");
 @import url("formElementStyles.css");
 @import url("overview.css");
+@import url("langbar.css");
 @import url("loveList.css");
 /* Header
 ---------------------------------------------------------------------------------------------------*/
@@ -39,17 +40,19 @@ form td label{
 	font-size:10px;
 }
 .panel{
-    position: relative;
 	margin-top: 10px;
 	border-radius:5;
-    width:100%;
+    width:785px;
+	padding:5px;
+	margin-left:auto;
+	margin-right:auto;
 }
 tr[name=FillRateZoneClick] td
 {
     cursor:pointer; 
 }
 body{
-	background : rgb(243, 243, 243);
+	background : rgb(206, 206, 206);
 }
 .lefthead{
 	margin-top: 10px;

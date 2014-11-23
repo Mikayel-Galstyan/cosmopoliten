@@ -6,7 +6,7 @@
             <div data-id="object_<?php echo $item->getId();?>" class="objectContentDiv fl">
                 <div class="objectHeader">
                     <div>
-                        <?php echo ($item->getName())?$item->getName():'no description';?>
+                        <?php echo $this->translate(($item->getName())?$item->getName():'no description');?>
                     </div>
                 </div>
                 <div class="objectDiv">

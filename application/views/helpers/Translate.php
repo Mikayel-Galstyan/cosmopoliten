@@ -1,4 +1,6 @@
 <?php
+	mb_internal_encoding("UTF-8");
+	header( "Content-Type: text/html;charset=UTF-8", true );
 /**
  * @package application_views_helpers
  */

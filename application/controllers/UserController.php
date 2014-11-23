@@ -52,7 +52,7 @@ class UserController extends ImageutilController {
         $id = $this->id;
         if ($id) {
             $service = new Service_User();
-			$seviceImg = new Service_UserImage();echo $id;
+			$seviceImg = new Service_UserImage();
             $user = $service->getById($id);
 			//$img = $seviceImg->getByUserId($id);
             $this->view->item = $user;
